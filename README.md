@@ -1,2 +1,3 @@
-# kb
-MTulio's Knowledge Base
+# Knowledge Base
+
+## MTulio's Knowledge Base project is a repo to share projects and scripts
