@@ -1,0 +1,333 @@
+    1  startx 
+    2  startx
+    3  ls -la
+    4  startx
+    5  sudo apt-cache search hostapd
+    6  £apt-get install hostapd
+    7  sudo vim.tiny /etc/dhcpcd.conf 
+    8  sudo raspi-config 
+    9  apt-get install hostapd
+   10  sudo apt-get install hostapd
+   11  sudo apt-get install ssmtp
+   12  sudo apt-get install mpack
+   13  sudo vim.tiny /etc/networks 
+   14  sudo vim.tiny /etc/network/interfaces
+   15  ip ad s
+   16  sudo vim.tiny /etc/network/interfaces
+   17  ip ad s
+   18  sudo vim.tiny /etc/network/interfaces
+   19  sudo vim.tiny /etc/hostapd/hostapd.conf
+   20  lspci
+   21  sudo lspci
+   22  ps aux |grep wpa
+   23  ps aux |grep wlan
+   24  sudo vim.tiny /etc/hostapd/hostapd.conf
+   25  sudo vim.tiny /etc/default/hostapd 
+   26  wpa_gui 
+   27  sudo wpa_gui 
+   28  ip ad s
+   29  sudo wpa_gui 
+   30  sudo wpa_gui wlan0
+   31  wpa_gui 
+   32  sudo wpa_gui 
+   33  vim.tiny pi_ledOn.py 
+   34  sudo apt-get install smtp
+   35  sudo apt-get install mailutils
+   36  sudo apt-get install ssmtp
+   37  sudo apt-get install mailutils
+   38  sudo apt-get update
+   39  startx 
+   40  vim iptables_route.sh
+   41  vim.tiny iptables_route.sh
+   42  sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
+   43  sudo /etc/init.d/hostapd restart
+   44  sudo apt-cache search dhcpd
+   45  sudo apt-get install isc-dhcp-server
+   46  sudo vim.tiny /etc/dhcp/dhcpd.conf 
+   47  ip ad s
+   48  sudo ifconfig wlan0 192.168.100.1/24
+   49  ls -la
+   50  sudo chmod +x iptables_route.sh 
+   51  sudo ./iptables_route.sh 
+   52  python
+   53  sudo python
+   54  ip ad s
+   55  reboot
+   56  sudo reboot
+   57  startx
+   58  sudo vim.tiny /etc/ssmtp/ssmtp.conf
+   59  sudo vim.tiny ~/mail-script.py
+   60  sudo vim.tiny /etc/rc.local 
+   61   /home/pi/mail-script.py 
+   62  sudo vim.tiny /etc/rc.local 
+   63  python /home/pi/mail-script.py
+   64  sudo vim.tiny /etc/rc.local 
+   65  sudo vim.tiny ~/mail-script.py
+   66  python /home/pi/mail-script.py
+   67  sudo vim.tiny ~/mail-script.py
+   68  python /home/pi/mail-script.py
+   69  sudo vim.tiny ~/mail-script.py
+   70  python /home/pi/mail-script.py
+   71  sudo vim.tiny ~/mail-script.py
+   72  python /home/pi/mail-script.py
+   73  pwd
+   74  ls -la
+   75  mv pi.py mail-script.py 
+   76  vim mail-script.py 
+   77  vim.tiny mail-script.py 
+   78  python /home/pi/mail-script.py
+   79  vim.tiny mail-script.py 
+   80  python /home/pi/mail-script.py
+   81  vim.tiny mail-script.py 
+   82  sudo python /home/pi/mail-script.py
+   83  vim.tiny mail-script.py 
+   84  sudo python /home/pi/mail-script.py
+   85  vim.tiny/etc/ssmtp/ssmtp.conf 
+   86  sudo vim.tiny/etc/ssmtp/ssmtp.conf
+   87  sudo vim.tiny /etc/ssmtp/ssmtp.conf
+   88  sudo vim.tiny/etc/ssmtp/ssmtp.conf
+   89  vim.tiny mail-script.py 
+   90  sudo python /home/pi/mail-script.py
+   91  vim.tiny mail-script.py 
+   92  sudo python /home/pi/mail-script.py
+   93  vim /home/pi/mail-script.py
+   94  vim.tiny /home/pi/mail-script.py
+   95  vim.tiny /etc/ssmtp/ssmtp.conf 
+   96  ls -la
+   97  mkdir curso
+   98  mv iptables_route.sh curso/
+   99  ls -la
+  100  cd curso/
+  101  ls -la
+  102  vim blink_led.py
+  103  vim.tiny blink_led.py
+  104  python blink_led.py 
+  105  ls -la ../
+  106  vim ../pi_ledOn.py 
+  107  vim.tiny ../pi_ledOn.py 
+  108  cat ../pi_ledOn.py >> blink_led.py 
+  109  vim.tiny blink_led.py 
+  110  python blink_led.py 
+  111  sudo python blink_led.py 
+  112  vim.tiny blink_led.py 
+  113  sudo python blink_led.py 
+  114  vim.tiny blink_led.py 
+  115  sudo python
+  116  cayt blink_led.py 
+  117  cat blink_led.py 
+  118  sudo python
+  119  ip ad s
+  120  sudo ifconfig wlan0 192.168.100.1/24
+  121  sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
+  122  ls -la
+  123  cd curso/
+  124  ls -la
+  125  ./iptables_route.sh 
+  126  ls -la
+  127  cd mqtt/
+  128  ls -la
+  129  sudo python mqtt.py 
+  130  ip ad s
+  131  sudo python mqtt.py 
+  132  cd mqtt
+  133  ls -la
+  134  sudo python temp_mqtt.py 
+  135  cd curso/
+  136  ls -la
+  137  vim.tiny blink_led.py 
+  138  cd mqtt/
+  139  vim.tiny mqtt.py 
+  140  sudo python mqtt.py 
+  141  vim.tiny mqtt.py 
+  142  ls -la
+  143  vim.tiny mqtt.py 
+  144  ls -la
+  145  ls -la ../
+  146  vim.tiny ../read_temp.py 
+  147  vim mqtt.py 
+  148  vim.tiny mqtt.py 
+  149  vim.tiny ../read_temp.py 
+  150  vim.tiny mqtt.py 
+  151  vim.tiny ../read_temp.py 
+  152  vim.tiny mqtt.py 
+  153  ls -al
+  154  cp ../read_temp.py temp_mqtt.py
+  155  vim temp_mqtt.py 
+  156  vim.tiny temp_mqtt.py 
+  157  fg 1
+  158  fg 2
+  159  fg 1
+  160  fg 2
+  161  cd ..
+  162  ls -la
+  163  vim.tiny read_temp.py 
+  164  sudo python read_temp.py 
+  165  jobs
+  166  fg 2
+  167  sudo python mqtt/temp_mqtt.py 
+  168  vim mqtt/temp_mqtt.py 
+  169  vim.tiny mqtt/temp_mqtt.py 
+  170  sudo python mqtt/temp_mqtt.py 
+  171  vim.tiny mqtt/temp_mqtt.py 
+  172  sudo python mqtt/temp_mqtt.py 
+  173  cd mqtt/
+  174  ls -la
+  175  vim mqtt.py 
+  176  vim.tiny mqtt.py 
+  177  sudo python mqtt/temp_mqtt.py 
+  178  vim.tiny mqtt.py 
+  179  ls -la
+  180  vim.tiny temp_mqtt.py 
+  181  ls -la
+  182  cp mqtt.py mqtt2.py
+  183  vim mqtt2.py 
+  184  vim.tiny mqtt2.py 
+  185  ls -la
+  186  vim mqtt.py 
+  187  vim.tiny mqtt.py 
+  188  shutdown -h now
+  189  halt
+  190  sudo halt
+  191  vim.tiny curso/blink_led.py 
+  192  cd curso/
+  193  ls -la
+  194  git clone https://github.com/adafruit/Adafruit_Python_DHT.git
+  195  ls -la
+  196  cd Adafruit_Python_DHT/
+  197  sudo apt-get install build-essential python-dev
+  198  sudo python setup.py install
+  199  ls -la
+  200  cd ..
+  201  ls -la
+  202  vim read_temp.py
+  203  vim.tiny read_temp.py
+  204  ls -la
+  205  sudo python read_temp.py 
+  206  ls -la
+  207  vim.tiny blink_led.py 
+  208  cp blink_led.py blink_led_simple.py 
+  209  vim.tiny blink_led_simple.py 
+  210  sudo python blink_led_simple.py 
+  211  vim.tiny blink_led_simple.py 
+  212  sudo python blink_led_simple.py 
+  213  vim.tiny blink_led_simple.py 
+  214  sudo python blink_led_simple.py 
+  215  vim.tiny blink_led_simple.py 
+  216  vim.tiny blink_led.py 
+  217  sudo python blink_led.py 
+  218  vim.tiny blink_led.py 
+  219  sudo python blink_led.py 
+  220  vim.tiny blink_led.py 
+  221  sudo python blink_led.py 
+  222  vim.tiny blink_led.py 
+  223  sudo python blink_led.py 
+  224  vim.tiny blink_led.py 
+  225  sudo python blink_led.py 
+  226  vim.tiny blink_led.py 
+  227  sudo python blink_led.py 
+  228  vim.tiny blink_led.py 
+  229  sudo python blink_led.py 
+  230  ls -la
+  231  vim.tiny read_temp.py 
+  232  sudo python read_temp.py 
+  233  vim.tiny read_temp.py 
+  234  sudo python read_temp.py 
+  235  vim.tiny read_temp.py 
+  236  vim.tiny blink_led
+  237  vim.tiny blink_led.py 
+  238  sudo python blink_led.py 
+  239  ls -la
+  240  vim.tiny read_temp.py 
+  241  sudo python blink_led.py 
+  242  sudo python read_temp.py 
+  243  sudo python blink_led.py 
+  244  ls -la
+  245  mkdir mqtt
+  246  cd mt
+  247  cd mqtt/
+  248  ls -la
+  249  pip install paho-mqtt
+  250  git clone git://git.eclipse.org/gitroot/paho/org.eclipse.paho.mqtt.python.git
+  251  cd org.eclipse.paho.mqtt.python
+  252  python setup.py install
+  253  sudo python setup.py install
+  254  cd ..
+  255  ls -la
+  256  vim mqtt.py
+  257  vim.tiny mqtt.py
+  258  ip ad s
+  259  ip ad s eth0
+  260  ip add show
+  261  ip add show eth0
+  262  ip add show eth0 |head
+  263  ip add show eth0 
+  264  ip add show eth0  |head -n1
+  265  ip add show eth0  |head -n1 |awk -F'state'
+  266  ip add show eth0  |head -n1 |awk -F'state' '{print$1}'
+  267  ip add show eth0  |head -n1 |awk -F'state' '{print$2}'
+  268  ip add show eth0  |head -n1 |awk -F'state ' '{print$2}'
+  269  ip add show eth0  |head -n1 |awk -F'state ' '{print$2}' |awk '{print$1}"
+  270  ip add show eth0  |head -n1 |awk -F'state ' '{print$2}' |awk '{print$1}'
+  271  mkdir scripts
+  272  cd scripts/
+  273  ls -la
+  274  vim ethCfgDefault.sh
+  275  vim.tiny ethCfgDefault.sh
+  276  ip add show eth0  |head -n1 |awk -F'state ' '{print$2}' |awk '{print$1}'
+  277  ip add
+  278  ip add show eth0  |head |awk -F'state ' '{print$2}' |awk '{print$1}'
+  279  ip add show eth0  |head |grep inet |awk -F'state ' '{print$2}' |awk '{print$1}'
+  280  ip add show eth0  |head |grep inet 
+  281  ip add show eth0  |head |grep inet |awk '{print$2}'
+  282  ip add show eth0  |head |grep inet |head -n1 |awk '{print$2}'
+  283  ip addr show eth0  |head |grep inet |head -n1 |awk '{print$2}'
+  284  vim.tiny ethCfgDefault.sh
+  285  ls -la
+  286  chmod +x ethCfgDefault.sh 
+  287  ./ethCfgDefault.sh 
+  288  vim.tiny ethCfgDefault.sh
+  289  ./ethCfgDefault.sh 
+  290  vim.tiny ethCfgDefault.sh
+  291  ./ethCfgDefault.sh 
+  292  vim.tiny ethCfgDefault.sh
+  293  mv ethCfgDefault.sh ethCfgDefault.sh eth0CfgDefault.sh 
+  294  mv ethCfgDefault.sh eth0CfgDefault.sh 
+  295  ls -la
+  296  hostname
+  297  vim.tiny ethCfgDefault.sh
+  298  vim.tiny eth0CfgDefault.sh 
+  299  vim /etc/rc.local 
+  300  vim.tiny /etc/rc.local 
+  301  vim.tiny eth0CfgDefault.sh 
+  302  cat <<EOF |sendmail marco.tulio@mtulio.eng.br
+Subject: IP Address
+Enviando...
+EOF
+
+  303  cat <<EOF |sudo sendmail marco.tulio@mtulio.eng.br
+Subject: IP Address
+Enviando...
+EOF
+
+  304  route -n
+  305  ls -la
+  306  vim eth0CfgDefault.sh 
+  307  vim eth0CfgDefault.sheth0CfgDefault.sh 
+  308  vim.tiny eth0CfgDefault.sh 
+  309  ls -la
+  310  scp eth0CfgDefault.sh  root@192.168.200.100:/media/sdb1/Raspberry/mtulio-piOS/piOS/scripts/
+  311  ping 192.168.200.100
+  312  scp eth0CfgDefault.sh  root@192.168.200.100:/media/sdb1/Raspberry/mtulio-piOS/piOS/scripts/
+  313  ls -la
+  314  cd ..
+  315  ls -la
+  316  ls curso/
+  317  mkdir kb
+  318  mkdir kb/raspberry
+  319  cd kb/raspberry/
+  320  ls -la ../../curso/
+  321  ls -la ../../curso/mqtt/
+  322  ls -la
+  323  history 
+  324  ls -la
+  325  history > history_first_cmds
