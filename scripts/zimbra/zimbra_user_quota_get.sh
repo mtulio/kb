@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-# zimbra_user_quota_get - Get quota users - All or eacho domain 
+# zimbra_user_quota_get - Get quota users - All or each domain, to CSV file.
+# 	Output file(CSV) could be used to load in an DB
 #
 # author: Marco Tulio R Braga (https://github.com/mtulio)
 # created: 30 Jun 2015
@@ -46,6 +47,7 @@ if [ ! -x $SCRIPT_FC_LOG ] ; then echo "#% ERROR - Logger script was not found [
 #echo "SCRIPT_FC_LOG=[${SCRIPT_FC_LOG}]"
 source ${SCRIPT_FC_LOG} || (echo "#% ERROR - unable to start logger functions. 'config_logger' file exist?."; exit 5);
 logger_init $0;
+test "${FILE_LOG}"x == "x" && (echo "#% ERROR - unable to determine logger file [${FILE_LOG}]. Check 'logger_setLogFile()' in  'config_logger'."; exit 5);
 
 # Check hostname is an MAILBOX
 if [ "$HOSTNAME" != "${LDAP_USR_QT_MBOX1}" ] && [ "$HOSTNAME" != "${LDAP_USR_QT_MBOX2}" ]; then
@@ -58,6 +60,7 @@ readonly ARG1=$1
 readonly ARG2=$2
 readonly FILE_QUOTA="$(mktemp)"
 readonly FILE_QUOTA_TMP="${FILE_QUOTA}.tmp"
+
 
 #######################################
 # Get users quota from servers
@@ -131,12 +134,81 @@ quota_dump_all() {
 # Get quota from domain
 quota_domain_dump()
 {
-	echo "# TODO(mtulio) "
+	# Check domain
+	if [ -z "$(echo $DOMAIN |grep incra.gov.br)" ]
+	then
+		fc_update_log_prefix
+		echo "$PREFIX_LOG #> Invalid domain [$DOMAIN]"
+		echo "$PREFIX_LOG #> Have you type [SUBDOMAIN]incra.gov.br ?"
+		exit 1
+	fi
+
+	fc_update_log_prefix; echo "$PREFIX_LOG #> Getting users from Zimbra DB" |tee -a $FILE_LOG
+	fc_dump_users_quota;
+
+	fc_update_log_prefix; echo "$PREFIX_LOG #> Filtering per domain '$DOMAIN'" |tee -a $FILE_LOG
+	
+	echo "Usuario;Cota_Atual;Cota_utilizada" >  $FILE_TMP_ZCSQUOTA
+	cat ${FILE_QUOTA} |grep "${DOMAIN}" >> $FILE_TMP_ZCSQUOTA
+	
+	mv $FILE_TMP_ZCSQUOTA $FILE_QUOTA >/dev/null 2>&1
+
+	fc_update_log_prefix; echo "$PREFIX_LOG #> Executado com sucesso. Arquivo CSV salvo em: $FILE_QUOTA [$(wc -l $FILE_QUOTA |cut -d' ' -f1)]" |tee -a $FILE_LOG
 }
 
 quota_user()
 {
-	echo "# TODO(mtulio) "
+	# Check user name and domain
+	if [ -z ${USERNAME} ] || [ -z "$(echo $USERNAME |awk -F'@' '{print$2}' |grep incra.gov.br)" ]
+	then
+		fc_update_log_prefix
+		echo "$PREFIX_LOG #> Username or domain invalid. USERNAME['$USERNAME']"
+		echo "$PREFIX_LOG #> Have you type username@[sr.]incra.gov.br ?"
+		exit 1
+	fi
+
+	# Trying to find account in server sbsb1003
+	unset ACCOUNT_LINE
+	ACCOUNT_LINE="`/opt/zimbra/bin/zmprov gqu sbsb1003.incra.gov.br |grep ^${USERNAME}`"
+	if [ -z "${ACCOUNT_LINE}" ]
+	then
+		#fc_update_log_prefix
+		echo "${PREFIX_LOG}#> Account not found in server 'sbsb1003', trying server 'sbsb1004'" |tee -a $FILE_LOG
+		# Trying in another server
+		unset ACCOUNT_LINE
+		ACCOUNT_LINE="`/opt/zimbra/bin/zmprov gqu sbsb1004.incra.gov.br |grep ^${USERNAME}`"
+		if [ -z "${ACCOUNT_LINE}" ]
+		then
+			fc_update_log_prefix
+			echo "${PREFIX_LOG}#> Account not found in servers 'sbsb1003' nor 'sbsb1004'" |tee -a $FILE_LOG
+			echo "${PREFIX_LOG}#> No such account '${USERNAME}' on Zimbra."
+			exit 1
+		fi
+	fi
+	
+	> $FILE_QUOTA
+
+	echo "$ACCOUNT_LINE" > $FILE_TMP_ZCSQUOTA
+
+	echo "Usuario;Cota_Atual;Cota_utilizada" >  $FILE_QUOTA
+	COUNT=0
+	while read LINE
+	do
+		USERNAME="`echo $LINE |awk '{print$1}'`"
+		QUOTA="`echo $LINE |awk '{print$2}'`"
+		USAGE="`echo $LINE |awk '{print$3}'`"
+
+		echo "$USERNAME;$QUOTA;$USAGE" >> $FILE_QUOTA
+
+		let "COUNT++"
+		echo -ne "\r#> Criando arquivo CSV [$FILE_QUOTA] com as contas do domínio $DOMAIN...$COUNT" |tee -a $FILE_LOG
+	done  < $FILE_TMP_ZCSQUOTA
+	
+	# stdout
+	cat $FILE_QUOTA
+	
+	fc_update_log_prefix; echo "$PREFIX_LOG #> Executado com sucesso. Arquivo CSV salvo em: $FILE_QUOTA" |tee -a $FILE_LOG
+
 }
 
 

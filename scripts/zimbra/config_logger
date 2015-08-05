@@ -28,24 +28,24 @@
 logger_setLogFile() {
 	# Verifica se o parametro foi informado, caso contrario salva no zm_default.log
 	if [ "${1}"x == "x" ] ;then
-		local LOGFILE="zimbra_log_default"
-		LOG_FILE="${PATH_LOG}/${LOGFILE}.log"
+		local SCRIPT="zimbra_log_default"
+		FILE_LOG="${PATH_LOG_SCRIPTS}/${SCRIPT}.log"
 	else
-		local LOGFILE="$(basename $1)"
-		LOG_FILE="${PATH_LOG}/${LOGFILE}.log"
+		local SCRIPT="$(basename $1)"
+		FILE_LOG="${PATH_LOG_SCRIPTS}/${SCRIPT}.log"
 	fi
 
-	#echo "LOG_FILE=$LOG_FILE"
-	#echo "LOGFILE=$LOGFILE"
+	#echo "FILE_LOG=$FILE_LOG"
+	#echo "SCRIPT=$SCRIPT"
 	
 	# Set Globals
 	LOG_PFIX_DEF="${HOSTNAME} "
-	SCRIPT_NAME="${LOGFILE}"
+	SCRIPT_NAME="${SCRIPT}"
 }
 
 
 logger_createDir() {
-	[ -d $LOG_DIR ] || mkdir -p $LOG_DIR
+	[ -d $LOG_DIR ] || mkdir -p $LOG_DIR >/dev/null 2>&1
 }
 
 
