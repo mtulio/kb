@@ -134,81 +134,12 @@ quota_dump_all() {
 # Get quota from domain
 quota_domain_dump()
 {
-	# Check domain
-	if [ -z "$(echo $DOMAIN |grep incra.gov.br)" ]
-	then
-		fc_update_log_prefix
-		echo "$PREFIX_LOG #> Invalid domain [$DOMAIN]"
-		echo "$PREFIX_LOG #> Have you type [SUBDOMAIN]incra.gov.br ?"
-		exit 1
-	fi
-
-	fc_update_log_prefix; echo "$PREFIX_LOG #> Getting users from Zimbra DB" |tee -a $FILE_LOG
-	fc_dump_users_quota;
-
-	fc_update_log_prefix; echo "$PREFIX_LOG #> Filtering per domain '$DOMAIN'" |tee -a $FILE_LOG
-	
-	echo "Usuario;Cota_Atual;Cota_utilizada" >  $FILE_TMP_ZCSQUOTA
-	cat ${FILE_QUOTA} |grep "${DOMAIN}" >> $FILE_TMP_ZCSQUOTA
-	
-	mv $FILE_TMP_ZCSQUOTA $FILE_QUOTA >/dev/null 2>&1
-
-	fc_update_log_prefix; echo "$PREFIX_LOG #> Executado com sucesso. Arquivo CSV salvo em: $FILE_QUOTA [$(wc -l $FILE_QUOTA |cut -d' ' -f1)]" |tee -a $FILE_LOG
+  echo "# TODO(mtulio) "
 }
 
 quota_user()
 {
-	# Check user name and domain
-	if [ -z ${USERNAME} ] || [ -z "$(echo $USERNAME |awk -F'@' '{print$2}' |grep incra.gov.br)" ]
-	then
-		fc_update_log_prefix
-		echo "$PREFIX_LOG #> Username or domain invalid. USERNAME['$USERNAME']"
-		echo "$PREFIX_LOG #> Have you type username@[sr.]incra.gov.br ?"
-		exit 1
-	fi
-
-	# Trying to find account in server sbsb1003
-	unset ACCOUNT_LINE
-	ACCOUNT_LINE="`/opt/zimbra/bin/zmprov gqu sbsb1003.incra.gov.br |grep ^${USERNAME}`"
-	if [ -z "${ACCOUNT_LINE}" ]
-	then
-		#fc_update_log_prefix
-		echo "${PREFIX_LOG}#> Account not found in server 'sbsb1003', trying server 'sbsb1004'" |tee -a $FILE_LOG
-		# Trying in another server
-		unset ACCOUNT_LINE
-		ACCOUNT_LINE="`/opt/zimbra/bin/zmprov gqu sbsb1004.incra.gov.br |grep ^${USERNAME}`"
-		if [ -z "${ACCOUNT_LINE}" ]
-		then
-			fc_update_log_prefix
-			echo "${PREFIX_LOG}#> Account not found in servers 'sbsb1003' nor 'sbsb1004'" |tee -a $FILE_LOG
-			echo "${PREFIX_LOG}#> No such account '${USERNAME}' on Zimbra."
-			exit 1
-		fi
-	fi
-	
-	> $FILE_QUOTA
-
-	echo "$ACCOUNT_LINE" > $FILE_TMP_ZCSQUOTA
-
-	echo "Usuario;Cota_Atual;Cota_utilizada" >  $FILE_QUOTA
-	COUNT=0
-	while read LINE
-	do
-		USERNAME="`echo $LINE |awk '{print$1}'`"
-		QUOTA="`echo $LINE |awk '{print$2}'`"
-		USAGE="`echo $LINE |awk '{print$3}'`"
-
-		echo "$USERNAME;$QUOTA;$USAGE" >> $FILE_QUOTA
-
-		let "COUNT++"
-		echo -ne "\r#> Criando arquivo CSV [$FILE_QUOTA] com as contas do domínio $DOMAIN...$COUNT" |tee -a $FILE_LOG
-	done  < $FILE_TMP_ZCSQUOTA
-	
-	# stdout
-	cat $FILE_QUOTA
-	
-	fc_update_log_prefix; echo "$PREFIX_LOG #> Executado com sucesso. Arquivo CSV salvo em: $FILE_QUOTA" |tee -a $FILE_LOG
-
+  echo "# TODO(mtulio) "
 }
 
 
