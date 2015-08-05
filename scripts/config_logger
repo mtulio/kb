@@ -1,0 +1,90 @@
+#!/bin/bash
+#
+# config_logger - Configure envs to be used in stdout.
+#	usage: first of all, call logger_init() to configure log 
+#	file. Then, every time to use stdout or logger an script you 
+#	should call logUpdPrefix() and usage variable MSG_PFIX on 
+#	stdout message. ;)
+#	Log file will be save a
+#
+# Dependencies: Config file named 'config_scripts.cfg' 
+#
+# author: Marco Tulio R Braga (https://github.com/mtulio)
+# created: 30 Jun 2015
+# modified: 05 Aug 2015
+#
+#######################################
+
+#######################################
+# Create log file in its directory 
+#  argument (script name)
+# Globals:
+#   PATH_LOG
+# Arguments:
+#   $1 - Script Name to be logged
+# Returns:
+#   Log name defined in LOG_FILE
+#######################################
+logger_setLogFile() {
+	# Verifica se o parametro foi informado, caso contrario salva no zm_default.log
+	if [ "${1}"x == "x" ] ;then
+		local LOGFILE="zimbra_log_default"
+		LOG_FILE="${PATH_LOG}/${LOGFILE}.log"
+	else
+		local LOGFILE="$(basename $1)"
+		LOG_FILE="${PATH_LOG}/${LOGFILE}.log"
+	fi
+
+	#echo "LOG_FILE=$LOG_FILE"
+	#echo "LOGFILE=$LOGFILE"
+	
+	# Set Globals
+	LOG_PFIX_DEF="${HOSTNAME} "
+	SCRIPT_NAME="${LOGFILE}"
+}
+
+
+logger_createDir() {
+	[ -d $LOG_DIR ] || mkdir -p $LOG_DIR
+}
+
+
+#######################################
+# Init logger functions. Define log file based in 
+#  argument (script name)
+# Globals:
+#   PATH_LOG
+# Arguments:
+#   $1 - Script Name to be logged
+# Returns:
+#   Log name defined in LOG_FILE
+#######################################
+logger_init() {
+  test -z ${1} && (echo "#% ERROR - Not found script to be logged"; exit 99;)
+  test -z ${PATH_LOG} || source config_scripts.cfg >/dev/null 2>&1
+  logger_createDir;
+  logger_setLogFile $1;
+  return 0;
+}
+
+
+#######################################
+# Define string functions to aux report 
+#  in stdout in scripts
+# Globals:
+#   LOG_FILE
+#   LOG_PFIX_DEF
+# Arguments:
+#   $1 - Script Name to be logged
+# Returns:
+#   String with message prefix (MSG_PFIX)
+#######################################
+logUpdPrefix() {
+        DATE_RUNNING="$(date +%Y-%m-%d_%H:%M:%S)"
+        LOG_DATE_NOW="${DATE_RUNNING}"
+        MSG_PFIX="${LOG_PFIX_DEF}[$DATE_RUNNING]:"
+}
+
+MSG_NEW_LINE() {
+        echo  |tee -a ${LOG_FILE}
+}
