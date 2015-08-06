@@ -33,19 +33,23 @@ then
 fi
 
 #######################################
-# Reading config file
+# Globals & Parameter validation
+
 
 # IMPORTANT: See configuration file: config_scripts.cfg
-source config_scripts.cfg || (echo "#% ERROR1 - Config scripts not found."; exit 2)
-SCRIPT_CONFIG=${SCRIPT_CONFIG:=x}; 
-#echo "${SCRIPT_CONFIG}"
-#[ "${SCRIPT_CONFIG}" == "x" ] || (echo "#% ERROR - Config scripts not found."; exit 2);
+readonly SCRIPT_CONFIG="config_scripts.cfg"
+
+readonly SCRIPT_LOGGER="config_logger"
+readonly DIR_CUR_SCRIPT=$(echo $0 |awk -F"/$(basename $0)" '{print$1}'); 	#Config script might to be in the same dir that current script
+
+source ${DIR_CUR_SCRIPT}/${SCRIPT_CONFIG} || (echo "#% ERROR1 - Config scripts not found."; exit 2)
 
 # Import external log functions
-SCRIPT_FC_LOG=${SCRIPT_FC_LOG:-config_logger}
+SCRIPT_FC_LOG=${SCRIPT_FC_LOG:-${DIR_CUR_SCRIPT}/${SCRIPT_LOGGER}}
+
 if [ ! -x $SCRIPT_FC_LOG ] ; then echo "#% ERROR - Logger script was not found [${SCRIPT_CONFIG}]."; exit 3; fi
-#echo "SCRIPT_FC_LOG=[${SCRIPT_FC_LOG}]"
 source ${SCRIPT_FC_LOG} || (echo "#% ERROR - unable to start logger functions. 'config_logger' file exist?."; exit 5);
+
 logger_init $0;
 test "${FILE_LOG}"x == "x" && (echo "#% ERROR - unable to determine logger file [${FILE_LOG}]. Check 'logger_setLogFile()' in  'config_logger'."; exit 5);
 
@@ -92,14 +96,14 @@ quota_dump_all2csv() {
 
   #rm -f ${FILE_QUOTA_TMP}* >/dev/null 2>&1
 
-  logUpdPrefix; echo "${MSG_PFIX} #> Creating CSV file [${FILE_QUOTA} ($(wc -l ${FILE_QUOTA_TMP} |cut -d' ' -f1))] with header: 'mail;quote;usage' " |tee -a ${FILE_LOG}
+  logUpdPrefix; echo "${MSG_PFIX} #> Creating CSV file [${FILE_QUOTA} ($(wc -l ${FILE_QUOTA_TMP} |cut -d' ' -f1))] with header: 'mail;quota_cfg;quota_usg' " |tee -a ${FILE_LOG}
 
-  echo "mail;quote;usage" > ${FILE_QUOTA} 2>/dev/null
+  echo "mail;quota_cfg;quota_usg" > ${FILE_QUOTA} 2>/dev/null
   sed 's/ /;/g' ${FILE_QUOTA_TMP} >> ${FILE_QUOTA} 2>/dev/null
 
   if [ -f ${FILE_QUOTA} ]; then
     logUpdPrefix; 
-    local FILE_NEW="${PATH_CSV:=$PWD}/$(basename $0 |awk -F'.sh' '{print$1}')-${LOG_DATE_NOW}.csv";
+    local FILE_NEW="${PATH_CSV:=$PWD}/$(basename $0 |awk -F'.sh' '{print$1}')-$(date +%Y%m%d).csv";
     #echo "NEW_FILE=$FILE_NEW"
     mv ${FILE_QUOTA} ${FILE_NEW} 
     echo "${MSG_PFIX} #> SUCCESS. CSV file saved at ${FILE_NEW} [$(wc -l ${FILE_NEW} |cut -d ' ' -f1)]" |tee -a ${FILE_LOG}
@@ -129,17 +133,14 @@ quota_dump_all() {
 # Returns:
 #    CSV file with all users and quotas
 #######################################
-# TODO(mtulio) : everything bellow :)
-
-# Get quota from domain
 quota_domain_dump()
 {
-  echo "# TODO(mtulio) "
+	echo "# TODO(mtulio) : Dump quota users by domani"
 }
 
 quota_user()
 {
-  echo "# TODO(mtulio) "
+	echo "# TODO(mtulio) : Dump quota for an specific user "
 }
 
 
