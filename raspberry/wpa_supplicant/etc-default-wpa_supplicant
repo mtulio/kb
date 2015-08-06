@@ -1,0 +1,6 @@
+# Defaults for wpa_supplicant initscript (/etc/init.d/wpa_supplicant)
+DAEMON_CONF="/etc/wpa_supplicant/wpa_supplicant.conf"
+
+IFC_WLAN=wlan0
+DAEMON_OPTS="-i ${IFC_WLAN}"
+
