@@ -1,0 +1,162 @@
+#!/bin/bash
+#
+# wpa_supplicant - Management Wifi Network.
+#
+# author: Marco Tulio R Braga (https://github.com/mtulio/kb/scripts/wpa_supplicant)
+# created: 30 Jun 2015
+# modified: 05 Aug 2015
+#
+#######################################
+
+### BEGIN INIT INFO
+# Provides:             hostapd
+# Required-Start:       $remote_fs
+# Required-Stop:        $remote_fs
+# Should-Start:         $network
+# Should-Stop:
+# Default-Start:        2 3 4 5
+# Default-Stop:         0 1 6
+# Short-Description:    Advanced IEEE 802.11 management daemon
+# Description:          Userspace IEEE 802.11 AP and IEEE 802.1X/WPA/WPA2/EAP
+#                       Authenticator
+### END INIT INFO
+
+#######################################
+## Globals
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON_SBIN=/sbin/wpa_supplicant
+DAEMON_DEFS=/etc/default/wpa_supplicant
+DAEMON_CONF=
+NAME=wpa_supplicant
+DESC="Wireless network management"
+PIDFILE=/var/run/wpa_supplicant.pid
+
+[ -x "$DAEMON_SBIN" ] || exit 0
+[ -s "$DAEMON_DEFS" ] && . /etc/default/wpa_supplicant
+[ -n "$DAEMON_CONF" ] || exit 0
+
+DAEMON_OPTS="-B -P $PIDFILE $DAEMON_OPTS -c $DAEMON_CONF"
+
+. /lib/lsb/init-functions
+
+#######################################
+# Show usage script
+# Globals:
+#   None
+# Arguments:
+#   None
+# Returns:
+#   Help message
+#######################################
+usage() {
+  N=/etc/init.d/$NAME
+  echo "Usage: $N {start|stop|restart|force-reload|reload|status}"
+  exit 1
+}
+
+
+#######################################
+# Start/stop functions 
+# Globals:
+#   None
+# Arguments:
+#   None
+# Returns:
+#   Result of action (start|stop...)
+#######################################
+
+stop() {
+  
+  for PID in $(ps ax |grep "dhclient ${IFC_WLAN}" |grep -v grep |awk '{print$1}'); do kill -SIGTERM $PID ; done
+  sudo ip address flush dev ${IFC_WLAN} >/dev/null 2>&1
+
+#  kill -SIGTERM `cat ${PIDFILE}`
+# or:
+  log_daemon_msg "Stopping $DESC" "$NAME"
+  start-stop-daemon --stop --oknodo --quiet --exec "$DAEMON_SBIN" \
+	--pidfile "$PIDFILE"
+  log_end_msg "$?"
+}
+
+start() {
+  $0 stop >/dev/null 2>&1
+
+  [ ! -f ${DAEMON_CONF} ] && (echo "[FAIL] Config file [${DAEMON_CONF}] not found"; exit 2;)
+
+#  sudo ${DAEMON_SBIN} ${DAEMON_OPTS} 
+# or: 
+  log_daemon_msg "Starting $DESC" "$NAME"
+  start-stop-daemon --start --oknodo --quiet --exec "$DAEMON_SBIN" \
+  	--pidfile "$PIDFILE" -- $DAEMON_OPTS >/dev/null 2>&1
+  log_end_msg "$?"
+
+  dhclient ${IFC_WLAN} >/dev/null 2>&1 & 
+}
+
+
+reload() {
+  log_daemon_msg "Reloading $DESC" "$NAME"
+  start-stop-daemon --stop --signal HUP --exec "$DAEMON_SBIN" \
+	--pidfile "$PIDFILE"
+  log_end_msg "$?"
+}
+
+
+restart() {
+  $0 stop
+  sleep 8
+  $0 start
+}
+
+
+status() {
+  status_of_proc "$DAEMON_SBIN" "$NAME"
+  RET=$?
+
+  IPADDR="$(ip address show dev ${IFC_WLAN} |grep inet |awk '{print$2}')"
+  STATE="$(ip address show dev ${IFC_WLAN} |grep state |awk -F'state ' '{print$2}' |awk '{print$1}')"
+  if [ "${STATE}" == "UP" ]
+  then 
+    if [ "${IPADDR}" == "x" ]
+    then 
+      echo " '-> ${IFC_WLAN} is $STATE - waiting for IP Address";
+    else
+      echo " '-> ${IFC_WLAN} is $STATE , IP Address ${IPADDR}";
+    fi
+#  else 
+#    echo " '-> ${IFC_WLAN} is $STATE ";
+  fi
+
+  exit $RET
+}
+
+#######################################
+# Main script function - options treatment
+# Globals:
+#    NAME
+#    DAEMON_SBIN
+#    PIDFILLE
+#    DAEMON_OPTIONS
+# Arguments:
+#    $1
+# Returns:
+#   None
+#######################################
+
+main() {
+
+  test $# -ne 1 && usage;
+  
+  case "$1" in
+    start) 	start ;;
+    stop) 	stop ;;
+    reload) 	reload ;;
+    restart|force-reload) restart ;;
+    status) 	status ;;
+    *) 		usage ;;
+  esac
+}
+main $@;
+
+exit 0
+
