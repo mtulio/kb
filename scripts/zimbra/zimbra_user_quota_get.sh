@@ -33,12 +33,7 @@ then
 fi
 
 #######################################
-<<<<<<< HEAD
 # Globals & Parameter validation
-
-=======
-## Globals
->>>>>>> ddc87972eddcc927a28827e9c6829db5f28b1f4c
 
 # Reading config file
 # IMPORTANT: See configuration file: config_scripts.cfg
