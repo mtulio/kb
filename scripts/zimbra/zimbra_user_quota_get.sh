@@ -33,8 +33,9 @@ then
 fi
 
 #######################################
-# Reading config file
+## Globals
 
+# Reading config file
 # IMPORTANT: See configuration file: config_scripts.cfg
 source config_scripts.cfg || (echo "#% ERROR1 - Config scripts not found."; exit 2)
 SCRIPT_CONFIG=${SCRIPT_CONFIG:=x}; 
