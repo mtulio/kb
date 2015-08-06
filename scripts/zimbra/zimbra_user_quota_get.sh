@@ -177,7 +177,7 @@ main() {
     "domain") DOMAIN="${ARG2}" ; fc_quota_domain ;;
     "user") USERNAME="${ARG2}" ; fc_quota_user ;;
     "all") quota_dump_all ;;
-    *) echo "#% Unknown optionOpcao desconhecida [$ARG1]" |tee -a ${FILE_LOG} ; usage ;;
+    *) echo "#% Unknown option [$ARG1]" |tee -a ${FILE_LOG} ; usage ;;
   esac
 
   cleanup;
