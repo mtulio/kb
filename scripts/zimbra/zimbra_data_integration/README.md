@@ -12,10 +12,10 @@ The reports could be done with Dimensional cubes using Mondrian (Pentaho Suite).
 
 Kinds of Data that will be extracted from reports created by scripts:
 * MTA report / amount of send and receive messages
-* LDAP Users Information
-- Daily blocked users
-- Users' configuration
-- Users' quota
+* LDAP Users Information:
+-  '> Daily blocked users
+-  '> Users' configuration
+-  '> Users' quota
 * Backup Information (including per Users)
 
 
