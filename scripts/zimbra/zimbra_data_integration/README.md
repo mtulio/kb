@@ -2,15 +2,20 @@
 
 ## Data Transformation and Integration using PDI - Pentaho Data Integration (Kettle)
 
-I'm developing a way to consolidate and centralize Zimbra Report, then create
-an Dataware House with an Dimensional Modeling.
+I'm developing a way to consolidate and centralize data from Zimbra Report scripts, now are    
+decentralized (LDAP base, logs, reports). That data will be stored at an relational database.
+These amount of DATA could be transformed - using ETL, to an INFORMATION and stored in 
+an Data Warehouse then generate reports to make decision of such as: scalability,  topology upgrades,  
+security policies revision/update/upgrade, update systems, etc
 
-After all, I could extract more information of my Email Infrastructure using, for 
-example, Mondrian (Pentaho Suite)
+The reports could be done with Dimensional cubes using Mondrian (Pentaho Suite).
 
-
-Plans to do
-* Control MTA report
-* Control LDAP Base
+Kinds of Data that will be extracted from reports created by scripts:
+* MTA report / amount of send and receive messages
+* LDAP Users Information
+-> Daily blocked users
+-> Users' configuration
+-> Users' quota
+* Backup Information (including per Users)
 
 
