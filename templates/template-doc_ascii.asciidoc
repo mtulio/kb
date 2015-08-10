@@ -1,0 +1,47 @@
+= Title 1
+:author: Marco Tulio R Braga
+:email: git@mtulio.eng.br
+:toc:
+:numbered:
+
+== Title 2
+* Topic:
+[source,bash]
+----
+$ shell script command 
+----
+
+== Title 2
+[source,bash]
+----
+$ shell script command 1
+$ shell script command 2
+----
+
+== Title 3
+[source,bash]
+----
+$ sudo yum -y install VirtualBox-5.0
+----
+* Tópic 1
+[source,bash]
+----
+$ grep vboxusers /etc/group
+----
+* Tópic 2:
+[source,bash]
+----
+$ sudo gpasswd -a $USER group
+$ !-2 				# tun the 2th last command
+----
+
+== Title 4
+* Tópic 1:
+. Sub-tópic 1
+. Sub-tópic 2
+[source,bash]
+----
+$ sudo /etc/init.d/daemon start
+----
+
+
