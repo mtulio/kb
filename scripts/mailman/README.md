@@ -7,4 +7,5 @@
 ** This script is used with Backup Script, but could be changed
 ```
 
-
+OBS.:
+* All CSV file could be insert in an DB (or DW) to used in an BI/Data Mining or etc
