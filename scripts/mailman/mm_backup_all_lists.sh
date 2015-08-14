@@ -140,7 +140,7 @@ mm_backup_all() {
     echo "${DATE_BKP};${LISTNAME};${COUNT_CFG};${COUNT_ADM};${COUNT_MEM}" >> ${FILE_CSV_TMP}
 
     # Testing limit of 100: 
-    if [ $COUNT -eq 100 ];then echo "${FILE_TMP}-csv"; break; fi
+    #if [ $COUNT -eq 100 ];then echo "${FILE_TMP}-csv"; break; fi
   done
 
   logUpdPrefix; 
@@ -157,9 +157,9 @@ mm_backup_all() {
     then
       echo "${MSG_PFIX} #> Backup success - File saved in: ${PATH_MM_BKP_DIR}.tgz" |tee -a ${FILE_LOG}
       
-      logUpdPrefix; echo "${MSG_PFIX} #> Calling external script to get Memberships from each list [$(dirname $0)/mm_get_all_members.sh]" |tee -a ${FILE_LOG}
-      $(dirname $0)/mm_get_all_members.sh 2>/dev/null
-      logUpdPrefix; echo "${MSG_PFIX} #> Script ran with success." |tee -a ${FILE_LOG}
+      #logUpdPrefix; echo "${MSG_PFIX} #> Calling external script to get Memberships from each list [$(dirname $0)/mm_get_all_members.sh]" |tee -a ${FILE_LOG}
+      #$(dirname $0)/mm_get_all_members.sh 2>/dev/null
+      #logUpdPrefix; echo "${MSG_PFIX} #> Script ran with success." |tee -a ${FILE_LOG}
       
       echo "${MSG_PFIX} #> Removing Backup directory." |tee -a ${FILE_LOG}
        rm -rf ${PATH_MM_BKP_DIR}/ >/dev/null 2>&1 |tee -a ${FILE_LOG}

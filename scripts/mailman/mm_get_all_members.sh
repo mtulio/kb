@@ -62,10 +62,10 @@ FILE_TMP="$(mktemp)"
 FILE_CSV_TMP="${FILE_TMP}-csv"
 
 # Mailman
-#readonly PATH_MM_BKP_DIR="/var/backups/mailman/`date +%F`"
-readonly PATH_MM_BKP_DIR="/var/backups/mailman/2015-08-13"
-if [ ! -d ${PATH_MM_BKP_DIR} ]; then
-  echo "#% ERROR - unable to find backup directory [${PATH_MM_BKP_DIR}]. This script could be run only with Mailman Backup script."; 
+PATH_MM_BKP_DIR="/var/backups/mailman/`date +%F`.tgz"
+#readonly PATH_MM_BKP_DIR="/var/backups/mailman/2015-08-13"
+if [ ! -f ${PATH_MM_BKP_DIR} ]; then
+  echo "#% ERROR - unable to find backup directory [${PATH_MM_BKP_DIR}]. "; 
   exit 5;
 fi
 
@@ -82,9 +82,18 @@ mm_get_members_lists() {
   
   logUpdPrefix; echo "${MSG_PFIX} <> Starting function to search members and their lists. LOG=[${FILE_LOG}]" |tee -a ${FILE_LOG}
 
+  # Extract backup 
+  mkdir ${FILE_TMP}-dir >/dev/null 2>&1
+  tar xfz ${PATH_MM_BKP_DIR} -C ${FILE_TMP}-dir/ >/dev/null 2>&1
+  PATH_MM_BKP_DIR="${FILE_TMP}-dir/var/backups/mailman/*/"
+
+
   # Get all members
   cat ${PATH_MM_BKP_DIR}/*.members |sort -u > ${FILE_TMP} 2>/dev/null
   logUpdPrefix; echo "${MSG_PFIX} #> It was found [$(cat ${FILE_TMP} |wc -l)] e-mails in all lists." |tee -a ${FILE_LOG}
+  if [ "${EN_DEBUG}" != "1" ]; then
+    echo "${MSG_PFIX} #> Please wait a few minutes 'till the search of membership in each list have been done. For details see CSV temp file [${FILE_CSV_TMP}]..." |tee -a ${FILE_LOG}
+  fi
 
   COUNT=0
   echo "DATE_CHG;MAIL;MEMBER_OF_LISTS" > ${FILE_CSV_TMP}
@@ -92,7 +101,9 @@ mm_get_members_lists() {
   for MEMBER_NAME in $(cat ${FILE_TMP})
   do
 
-    logUpdPrefix; echo -n "${MSG_PFIX} #> Checking lists that email [${MEMBER_NAME}] have been ingressed..." |tee -a ${FILE_LOG}
+    if [ "${EN_DEBUG}" == "1" ]; then
+      logUpdPrefix; echo -n "${MSG_PFIX} #> Checking lists that email [${MEMBER_NAME}] have been ingressed..." |tee -a ${FILE_LOG}
+    fi
 
     grep -rw ${MEMBER_NAME} ${PATH_MM_BKP_DIR}/*.members > ${FILE_TMP}.lists 2>/dev/null
 
@@ -110,13 +121,16 @@ mm_get_members_lists() {
       let "COUNTL++"
     done
 
-    echo " Ingressed in [${COUNTL}] lists" |tee -a ${FILE_LOG}
-
+    if [ "${EN_DEBUG}" == "1" ]; then
+      echo " Ingressed in [${COUNTL}] lists" |tee -a ${FILE_LOG}
+    else 
+      echo -ne "\r[${COUNT}]"
+    fi
 
     let "COUNT++"
     echo "${DATE_CHG};${MEMBER_NAME};${LIST_NAME_VEC}" >> ${FILE_CSV_TMP}
 
-    # Testing:
+    # Testing limit of 100:
     if [ $COUNT -eq 100 ];then echo "${FILE_CSV_TMP}"; break; fi
   done
 
@@ -171,6 +185,7 @@ main() {
 
   case $1 in
     "--debug") EN_DEBUG=1;;
+    "--help") usage;;
   esac
 
   mm_get_members_lists;
