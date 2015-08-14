@@ -8,4 +8,4 @@
 ```
 
 OBS.:
-* All CSV file could be insert in an DB (or DW) to used in an BI/Data Mining or etc
+* All CSV file could be inserted in an DB (or DW) to be used in an BI/Data Mining or wherever you want
