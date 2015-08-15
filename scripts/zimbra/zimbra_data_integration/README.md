@@ -16,9 +16,9 @@ Kinds of Data that will be extracted from reports created by scripts:
 -  '> Daily blocked users
 -  '> Users' configuration
 -  '> Users' quota
+-  '> Users' audit
 * Backup Information
 -  '> General backup - all domains and users
 -  '> Specific backup - per users
-
 
 

@@ -41,7 +41,7 @@ fi
 readonly SCRIPT_CONFIG="config_scripts.cfg"
 
 readonly SCRIPT_LOGGER="config_logger"
-readonly DIR_CUR_SCRIPT=$(echo $0 |awk -F"/$(basename $0)" '{print$1}'); 	#Config script might to be in the same dir that current script
+readonly DIR_CUR_SCRIPT=$(dirname $0); 	#Config script might to be in the same dir that current script
 
 source ${DIR_CUR_SCRIPT}/${SCRIPT_CONFIG} || (echo "#% ERROR1 - Config scripts not found."; exit 2)
 
