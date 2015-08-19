@@ -25,13 +25,13 @@ LENGHT_DEFAULT="8"
 #######################################
 usage() {
   [ "$*" ] && echo " You entered        : $0 $*"
-  echo " Usage          : $0 [simple|medium|complex|default|all] [lenght] ]"
-  echo " '-> simple	: Generate simple password"
-  echo " '-> medium	: Generate a medium password"
-  echo " '-> complex	: Generate a complex password"
-  echo " '-> medium	: Generate a default (medium) password"
-  echo " '-> all	: Generate all level of password"
-  echo " '-> lenght	: Lenght of password. Minimal is 6. Default is ${LENGHT_DEFAULT}"
+  echo " Usage          : $0 [-s|--simple|-m|--medium|-c|--complex|-d|--default|-a|--all] [LENGHT]"
+  echo " '-> -s|--simple	: Generate simple password"
+  echo " '-> -m|--medium	: Generate a medium password"
+  echo " '-> -c|--complex	: Generate a complex password"
+  echo " '-> -m|--medium	: Generate a default (medium) password"
+  echo " '-> -a|--all		: Generate all level of password"
+  echo " '-> LENGHT		: Lenght of password. Minimal is 6. Default is ${LENGHT_DEFAULT}"
 
   exit 2;
 } 2>/dev/null
