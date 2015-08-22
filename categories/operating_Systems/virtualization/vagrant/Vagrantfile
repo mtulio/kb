@@ -1,0 +1,30 @@
+# -*- mode: ruby -*-
+# vim: set ft=ruby ts=2 sw=2 expandtab:
+
+# Config two virtual Machine with differents archtectures.
+Vagrant.configure(2) do |config|
+
+  # ajusta do default provider para o virtualbox
+  ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
+
+
+  # CentOS 7
+  config.vm.define "jb01" do |jb01|
+    jb01.vm.box = "chef/centos-7.0"
+    jb01.vm.hostname="jb01"
+    jb01.vm.network "private_network", ip: "172.17.1.10"
+    jb01.vm.provider "virtualbox" do |v|
+      v.memory = 1024
+    end
+  end
+
+  # CentOS 6.6
+  config.vm.define "jb02" do |jb02|
+    jb02.vm.box = "boxcutter/centos66"
+    jb02.vm.hostname="jb02"
+    jb02.vm.network "private_network", ip: "172.17.1.11"
+    jb02.vm.provider "virtualbox" do |v|
+      v.memory = 512
+    end
+  end
+end
