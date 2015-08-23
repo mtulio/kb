@@ -6,7 +6,7 @@
 #
 
 usage() {
-  echo "#% ERROR -  Usage: $0 [start|up|stop|suspend|export|list|status|global-status] VM_NAME"
+  echo "#% ERROR -  Usage: $0 [start|up|stop|halt|suspend|list|status|global-status|export] VM_NAME"
   exit 99;
 }
 
@@ -29,7 +29,6 @@ if [ ! -d ${VAGRANT_HOME} ]; then
 fi
 
 # Local envs
-
 readonly VM_CMD="$1"
 readonly VM_NAME="$2"
 
@@ -37,23 +36,39 @@ readonly VM_NAME="$2"
 ## Global functions
 # Export Envs
 EXPORT() {
-  export VAGRANT_HOME="${PWD}/vagrant.d"
+  export VAGRANT_HOME="${VAGRANT_HOME}"
 }
 
 # Start a VM
 START_ALL() {
   EXPORT;
-  ${VAGRANT_CMD} up 
+  ${VAGRANT_CMD} up --provider="virtualbox"
 }
 START() {
+  EXPORT;
+  echo "# Using VAGRANT_HOME=[${VAGRANT_HOME}]"
+  if [ "${VM_NAME}x" == "x" ]; then
+    echo "#% ERROR - VM [${VM_NAME}] not found. See available machine with 'status' option"
+    exit 99;
+  else
+    ${VAGRANT_CMD} up ${VM_NAME} --provider="virtualbox"
+  fi
+}
+
+
+STOP() {
   EXPORT;
   if [ "${VM_NAME}x" == "x" ]; then
     echo "#% ERROR - VM [${VM_NAME}] not found. See available machine with 'status' option"
     exit 99;
   else
-    ${VAGRANT_CMD} up ${VM_NAME}
+    ${VAGRANT_CMD} halt ${VM_NAME}
   fi
 }
+STOP_ALL() {
+  ${VAGRANT_CMD} halt
+}
+
 
 SUSPEND() {
   EXPORT;
@@ -64,10 +79,21 @@ SUSPEND() {
     ${VAGRANT_CMD} suspend ${VM_NAME}
   fi
 }
-
 SUSPEND_ALL() {
   ${VAGRANT_CMD} suspend 
 }
+
+
+#INIT() {
+#  EXPORT;
+#  if [ "${VM_NAME}x" == "x" ]; then
+#    echo "#% ERROR - VM [${VM_NAME}] not found. See available machine with 'status' option"
+#    exit 99;
+#  else
+#    ${VAGRANT_CMD} init ${VM_NAME}
+#  fi
+#}
+
 
 # List VMS
 STATUS() {
@@ -77,13 +103,28 @@ GLOBAL_STATUS() {
   ${VAGRANT_CMD} global-status
 }
 
+
+SSH() {
+  EXPORT;
+  if [ "${VM_NAME}x" == "x" ]; then
+    echo "#% ERROR - VM [${VM_NAME}] not found. See available machine with 'status' option"
+    exit 99;
+  else
+    ${VAGRANT_CMD} ssh ${VM_NAME}
+  fi
+}
+
+###############
 # Main function
 main() {
   case $VM_CMD in
     "start"|"up") START $VM_NAME;;
     "start-all") START_ALL;;
-    "stop"|"suspend") SUSṔEND $VM_NAME;;
-    "stop-all"|"suspend-all") SUSṔEND_ALL;;
+    "stop"|"halt") STOP $VM_NAME;;
+    "stop-all"|"halt-all") STOP_ALL;;
+    "suspend") SUSPEND $VM_NAME;;
+    "suspend-all") SUSṔEND_ALL;;
+#    "init") INIT $VM_NAME;;
     "export") EXPORT;;
     "global-status") GLOBAL_STATUS;;
     "status"|"list") STATUS;;

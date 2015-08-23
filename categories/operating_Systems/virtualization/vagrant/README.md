@@ -24,5 +24,18 @@ NOTE:
 
 Roadmap:
 * Installation 'how-to'
-* Installation 'how-to'
+* Create a box - step-by-step
+* Support libvirt - https://github.com/pradels/vagrant-libvirt
+
+
+---
+
+# [new]BOX - Creating an custom box
+* Reference:  https://blog.engineyard.com/2014/building-a-vagrant-box
+
+Softwares to install:
+* vim
+* yum update -y
+
+
 

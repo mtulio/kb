@@ -7,8 +7,11 @@ Vagrant.configure(2) do |config|
   # ajusta do default provider para o virtualbox
   ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 
+  # Set welcome message
+  config.vm.post_up_message = "Welcome to MTulio's System. Issue tracker: https://github.com/mtulio/kb/tree/master/categories/operating_Systems/virtualization/vagrant"
 
-  # CentOS 7
+
+  # CentOS 7 - JBoss 1
   config.vm.define "jb01" do |jb01|
     jb01.vm.box = "chef/centos-7.0"
     jb01.vm.hostname="jb01"
@@ -18,12 +21,22 @@ Vagrant.configure(2) do |config|
     end
   end
 
-  # CentOS 6.6
+  # CentOS 6.6 - JBoss 2
   config.vm.define "jb02" do |jb02|
     jb02.vm.box = "boxcutter/centos66"
     jb02.vm.hostname="jb02"
     jb02.vm.network "private_network", ip: "172.17.1.11"
     jb02.vm.provider "virtualbox" do |v|
+      v.memory = 512
+    end
+  end
+  
+  # CentOS 7 - Redmine
+  config.vm.define "redmine" do |redmine|
+    redmine.vm.box = "chef/centos-7.0"
+    redmine.vm.hostname="redmine"
+    redmine.vm.network "private_network", ip: "172.17.1.12"
+    redmine.vm.provider "virtualbox" do |v|
       v.memory = 512
     end
   end
