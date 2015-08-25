@@ -1,0 +1,49 @@
+#!/usr/bin/gnuplot
+
+#
+# gplot_generateFromCsv.pg - Generate gnuplot graph (TCP connections) from a CSV
+#	see script get_connection_stats.sh for generate CSV files.
+#
+# Author: Marco Tulio R Braga
+# Created at 25, Aug 2015
+# Changed at 25, Aug 2015
+#
+
+
+reset
+#set terminal png
+set terminal png truecolor
+set output "data.png"
+set datafile separator ";"
+
+set autoscale
+
+set xdata time
+set timefmt "%Y-%m-%d_%H:%M:%S"
+set format x "%H:%M"
+set xlabel "time"
+
+set ylabel "total"
+set yrange [0:100]
+
+set title "TCP Connections"
+set key reverse Left outside
+set grid
+
+#set style data linespoints
+#set style data linespoints
+#set style data lines
+set style data steps
+
+plot "data.csv" using 1:1 with lines title "established", \
+"" using 1:2 with lines title "syn-sent", \
+"" using 1:3 with lines title "syn-recv", \
+"" using 1:4 with lines title "fin-wait-1", \
+"" using 1:5 with lines title "fin-wait-2", \
+"" using 1:6 with lines title "time-wait", \
+"" using 1:7 title "closed", \
+"" using 1:8 title "close-wait", \
+"" using 1:9 title "last-ack", \
+"" using 1:10 title "listen", \
+"" using 1:11 title "closing"
+#
