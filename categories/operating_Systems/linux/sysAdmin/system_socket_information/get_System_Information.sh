@@ -1,10 +1,11 @@
 #!/bin/bash
 
 #
-# get_System_Information.sh - Get TCP and Sockets information from your Linux System, and
-#       then, if you set option -s, you can save the current data to a file
-#        See FILE_STDOUT to change filename.
+# get_System_Information.sh - Using native System tools to get TCP and Sockets 
+#	information from your Linux System. Then, if you set option -s, you can 
+#	save the current data to a file. See FILE_STDOUT environment to change filename.
 #	You'll get more if:
+#	-> run it by super user (eg.: root)
 #	-> use watch to see in real time and constantly update
 #	-> schedule, with -s option, in crontab to see logs later (Needs to finish, standarize, the log output)
 #
@@ -120,23 +121,28 @@ GET_CONNECTIONS() {
   ARRAY="${DATE_NOW};NT_ALL[${COUNT}];NT_ESTABLISHED[${FIELD01}];N_SYN-S[${FIELD02}];N_SYN-R[${FIELD03}];N_FIN-W1[${FIELD04}];N_FIN-W2[${FIELD05}];N_TIME-W[${FIELD06}];N_CLOSED[${FIELD07}];N_CLOSE-W[${FIELD08}];N_LAST-ACK[${FIELD09}];N_LISTEN[${FIELD10}];N_CLOSING[${FIELD11}];S_ProcAll[${SS_PROC_ALL}];S_SockSys[${SS_SOCK_SYS_ALL}];S_SockKern[${SS_SOCK_KERN_ALL}];S_SockTcpAll[${SS_SOCK_TCP_ALL}];S_SockRaw[${SS_SOCK_TT_RAW}];S_SockTcp[${SS_SOCK_TT_TCP}];S_SockUdp[${SS_SOCK_TT_UDP}];S_SockInet[${SS_SOCK_TT_INET}];S_SockFrag[${SS_SOCK_TT_FRAG}]"
 
   # Show betther using watch:
-  echo -e "\t\t\t .:: GET TCP and Sockets Information ::."
+  echo -e " "
+  echo -e "\t .:: GET TCP and Sockets Information ::."
+  echo -e " "
 
   if [ "$(whoami)" != "root" ]; then
-    echo -e " "
     echo "#% WARN: if you run by root, you'll get more details	"
   fi
 
+  #echo -e "Capture Date/Time: $(echo ${DATE_NOW}|awk -F'_' '{print$2}')"
+  echo -e "* Capture Date/Time: ${DATE_NOW}"
   echo -e " "
-  echo -e "\t\t\t\tTCP Connections"
-  echo -e "DATE\t\tCount:\tEstbli\tSYN-Snt\tSYN-Rcv\tFIN-W1\tFIN-W2\tTime-W\tClosed\tClose-W\tL-ACK\tLISTEN\tCLOSING"
-  echo -e "$(echo ${DATE_NOW}|awk -F'_' '{print$2}')\t${COUNT}\t${FIELD01}\t${FIELD02}\t${FIELD03}\t${FIELD04}\t${FIELD05}\t${FIELD06}\t${FIELD07}\t${FIELD08}\t${FIELD09}\t${FIELD10}\t${FIELD11}"
+  echo -e "#> \t\tTCP Connections"
+  echo -e "Count:\tEstbli\tSYN-Snt\tSYN-Rcv\tFIN-W1\tFIN-W2\tTime-W\tClosed\tClose-W\tL-ACK\tLISTEN\tCLOSING"
+  echo -e "\t${COUNT}\t${FIELD01}\t${FIELD02}\t${FIELD03}\t${FIELD04}\t${FIELD05}\t${FIELD06}\t${FIELD07}\t${FIELD08}\t${FIELD09}\t${FIELD10}\t${FIELD11}"
   echo " "
-  echo -e "\t\t\t\t Sockets Information"
-  echo -e "\t\tProcAll\tSystem\tKernel\tTcp_All\tRAW\tTCP\tUDP\tINET\tFRAG"
-  echo -e "\t\t${SS_PROC_ALL}\t${SS_SOCK_SYS_ALL}\t${SS_SOCK_KERN_ALL}\t${SS_SOCK_TCP_ALL}\t${SS_SOCK_TT_RAW}\t${SS_SOCK_TT_TCP}\t${SS_SOCK_TT_UDP}\t${SS_SOCK_TT_INET}\t${SS_SOCK_TT_FRAG}"
+  echo -e "#> \t\tSockets Information"
+  echo -e "ProcAll\tSystem\tKernel\tTcp_All\tRAW\tTCP\tUDP\tINET\tFRAG"
+  echo -e "${SS_PROC_ALL}\t${SS_SOCK_SYS_ALL}\t${SS_SOCK_KERN_ALL}\t${SS_SOCK_TCP_ALL}\t${SS_SOCK_TT_RAW}\t${SS_SOCK_TT_TCP}\t${SS_SOCK_TT_UDP}\t${SS_SOCK_TT_INET}\t${SS_SOCK_TT_FRAG}"
   echo -e " "
-  
+
+  echo -e "#> \t\tVirtual Memory information"
+  vmstat
 
 
   if [ "${FLAG_SAVE}x" != "x" ]; then
@@ -169,7 +175,8 @@ EOF
   
   echo -e " "
   echo -e "###################################"
-  echo -e "NOTE: is better using to automatically update, such as: $ watch -n1 $0 "
+  echo -e "NOTE: is better using to automatically update,"
+  echo -e "	such as: $ watch -n1 $0 "
   echo -e " -> Created by Marco Túlio. Enjoy it :) "
   echo -e " "
 }

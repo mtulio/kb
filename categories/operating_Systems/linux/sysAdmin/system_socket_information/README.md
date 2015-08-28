@@ -4,9 +4,9 @@ Get TCP and Sockets information from your Linux System, and
 then, if you set option -s, you can save the current data to a file
 See FILE_STDOUT to change filename.
 You'll get more if:
-	-> run it by super user (eg.: root)
-	-> use watch to see in real time and constantly update
-	-> schedule, with -s option, in crontab to see logs later (Needs to finish, standarize, the log output)
+* run it by super user (eg.: root)
+* use watch to see in real time and constantly update
+* schedule, with -s option, in crontab to see logs later (Needs to finish, standarize, the log output)
 
 Network References:
        - See TCP states machine: http://www.tcpipguide.com/free/t_TCPOperationalOverviewandtheTCPFiniteStateMachineF-2.htm
