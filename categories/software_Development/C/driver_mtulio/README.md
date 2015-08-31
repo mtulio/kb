@@ -18,4 +18,5 @@ Roadmap:
 - Daemon must have init script and config file
 
 
-
+Documentation:
+* HOWTO do Linux kernel development : https://github.com/torvalds/linux/blob/master/Documentation/HOWTO
