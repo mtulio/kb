@@ -6,13 +6,19 @@ CFLAGS += -I.
 CFLAGS += -lpthread
 
 OBJECTS := mtuliod_server.o
+OBJECTS += mtd_server_cmd.o
 
-all: mtuliod_server mtuliod
+all: mtd_server_cmd mtuliod_server mtuliod
 #all: build_lib_strings 
 
 ########### Building Objects
+mtd_server_cmd: mtd_server_cmd.c
+	gcc -w ${CFLAGS} -c mtd_server_cmd.c -o mtd_server_cmd.o
+	
 mtuliod_server: mtuliod_server.c
-	gcc ${CFLAGS} -c mtuliod_server.c -o mtuliod_server.o
+	gcc -w ${CFLAGS}  -c mtuliod_server.c -o mtuliod_server.o
+
+
 
 
 # Main Daemon

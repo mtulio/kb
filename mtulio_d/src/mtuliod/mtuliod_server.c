@@ -63,32 +63,35 @@ int mtd_srv_init(struct sockaddr_in *server, int *socket_desc)
     return listen(*socket_desc , 3);
 }
 
-
-
 /*
  * This will handle connection for each client
  * */
+#define MAX_BUFF_SIZE 2000
+
 void *mtd_srv_connection_handler(void *socket_data)
 {
 	//Get the socket descriptor
     int socket = *(int*)socket_data;
     int read_size;
-    char *message , client_message[2000];
+    char *message , client_message[MAX_BUFF_SIZE];
 
     //Send some messages to the client
-	message = "Greetings! I am your connection handler\n";
+	message = "[MTd] Hello! Welcome to MTd (MTulio Daemon)\n";
     write(socket, message , strlen(message));
 
-    message = "Now type something and i shall repeat what you type \n";
+    message = "[MTd] If you want to see all available commands. just type HELP and enjoy! ;D\n";
+    write(socket , message , strlen(message));
+
+    message = "[MTd]$ ";
     write(socket , message , strlen(message));
 
     //Receive a message from client
     int terminate_client = 0;
     do
     {
-		if ((read_size = recv(socket , client_message , 2000 , 0)) > 0) {
+		if ((read_size = recv(socket , client_message , MAX_BUFF_SIZE , 0)) > 0) {
 
-    		client_message[read_size] = '\0';
+    		//client_message[read_size] = '\0';
     		//printf("%s\n", client_message);
 
     		// Escape string 'QUIT'
@@ -96,16 +99,22 @@ void *mtd_srv_connection_handler(void *socket_data)
     			printf(" # [HandlerID: %x] Closing connection by command QUIT\n", socket);
     			fflush(stdout);
     			terminate_client=1;
+    			continue; // goto next loop
     		}
+
+    		mtd_srv_cmd_parseMessage(client_message/*, message_out*/);
 
     		//Send the message back to client
             write(socket, client_message , strlen(client_message));
 
     		//clear the message buffer
-    		memset(client_message, 0, 2000);
+    		memset(client_message, 0, MAX_BUFF_SIZE);
+
+    	    message = "[MTd]$ ";
+    	    write(socket , message , strlen(message));
     	}
     	else {
-    		puts("1 term received");
+    		puts(" %% Term received");
     		terminate_client=1;
     	}
     } while (!terminate_client);
@@ -114,12 +123,12 @@ void *mtd_srv_connection_handler(void *socket_data)
 
     if(read_size == 0)
     {
-        puts("1 Client disconnected");
+        puts(" %% Client disconnected");
         fflush(stdout);
     }
     else if(read_size == -1)
     {
-        perror("recv failed");
+        perror(" %% Recv failed");
     }
 
     //puts("2 Client disconnected");
