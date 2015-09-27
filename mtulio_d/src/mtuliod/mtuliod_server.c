@@ -20,15 +20,21 @@
 #include<pthread.h> //for threading , link with lpthread
 
 /* GLOBALS */
+int countConn;
+/*typedef struct {
+	int socket_fd;
+	struct sockaddr_in socket_addr;
+	unsigned int clientId;
+} mtd_srv_client_t;*/
 
-
-//the thread function
 void *mtd_srv_connection_handler(void *);
 
+/*  Init server - bind & listen */
 int mtd_srv_init(struct sockaddr_in *server, int *socket_desc)
 {
     int ret = -99;
-	//Create socket
+
+    //Create socket
     *socket_desc = socket(AF_INET , SOCK_STREAM , 0);
     if (*socket_desc == -1)
     {
@@ -57,15 +63,83 @@ int mtd_srv_init(struct sockaddr_in *server, int *socket_desc)
     return listen(*socket_desc , 3);
 }
 
-// Custom types
-int countConn;
-typedef struct {
-	int socket_fd;
-	struct sockaddr_in socket_addr;
-	unsigned int clientId;
-} mtd_srv_client_t;
 
-int mtd_srv_main()
+
+/*
+ * This will handle connection for each client
+ * */
+void *mtd_srv_connection_handler(void *socket_data)
+{
+	//Get the socket descriptor
+    int socket = *(int*)socket_data;
+    int read_size;
+    char *message , client_message[2000];
+
+    //Send some messages to the client
+	message = "Greetings! I am your connection handler\n";
+    write(socket, message , strlen(message));
+
+    message = "Now type something and i shall repeat what you type \n";
+    write(socket , message , strlen(message));
+
+    //Receive a message from client
+    int terminate_client = 0;
+    do
+    {
+		if ((read_size = recv(socket , client_message , 2000 , 0)) > 0) {
+
+    		client_message[read_size] = '\0';
+    		//printf("%s\n", client_message);
+
+    		// Escape string 'QUIT'
+    		if (strncmp(client_message, "QUIT", 4) == 0) {
+    			printf(" # [HandlerID: %x] Closing connection by command QUIT\n", socket);
+    			fflush(stdout);
+    			terminate_client=1;
+    		}
+
+    		//Send the message back to client
+            write(socket, client_message , strlen(client_message));
+
+    		//clear the message buffer
+    		memset(client_message, 0, 2000);
+    	}
+    	else {
+    		puts("1 term received");
+    		terminate_client=1;
+    	}
+    } while (!terminate_client);
+
+    //puts("1 exit rcv");
+
+    if(read_size == 0)
+    {
+        puts("1 Client disconnected");
+        fflush(stdout);
+    }
+    else if(read_size == -1)
+    {
+        perror("recv failed");
+    }
+
+    //puts("2 Client disconnected");
+    countConn--;
+
+    //pthread_exit(0);
+    // Close TCP socket for client
+    if (socket) close(socket);
+
+    /*if (socket) puts(" %% Client not disconnected.");
+    else puts(" %% Client disconnected.");*/
+    //printf(" # [HandlerID: %x] Client disconnected\n", socket);
+	fflush(stdout);
+
+    return 0;
+}
+
+
+/* Main */
+int mtd_srv_main(void)
 {
     int socket_desc , client_sock , len;
     struct sockaddr_in server , client;
@@ -89,30 +163,18 @@ int mtd_srv_main()
     //Accept and incoming connection
     puts(" # Waiting for incoming connections...");
 
-
-    //while( (client_sock = accept(socket_desc, (struct sockaddr *)&client, (socklen_t*)&c)) )
-	/*while( (mtd_srv_client.socket_fd = accept(socket_desc, (struct sockaddr *)&mtd_srv_client.socket_addr, (socklen_t*)&len)) )*/
 	while( (client_sock = accept(socket_desc, (struct sockaddr *)&client, (socklen_t*)&len)) )
     {
         countConn++;
     	printf(" # Receiving connection [%d] ... ", countConn);
-    	//mtd_srv_client.clientId = countConn;
-    	//printf("s: socket_fd[%d]", mtd_srv_client.socket_fd);
 
-        if( pthread_create( &thread_id , NULL , mtd_srv_connection_handler ,
-				/*(void*)&mtd_srv_client*/ (void*)&client_sock) < 0)
+        if( pthread_create( &thread_id , NULL , mtd_srv_connection_handler , (void*)&client_sock) < 0)
         {
             perror(" [FAIL] could not create thread");
             return 1;
         }
-        else {
-        	printf("[OK] Handler assigned [%x]\n", client_sock);
-        }
-
-        //Now join the thread , so that we dont terminate before the thread
-        //pthread_join( thread_id , NULL);
-        //puts("Handler assigned");
-        // check treads,
+        else
+        	printf("[OK] [Handler assigned: %x]\n", client_sock);
     }
 
     if (client_sock < 0)
@@ -125,86 +187,7 @@ int mtd_srv_main()
 }
 
 
-/**/
-
 int main(int argc , char *argv[])
 {
 	mtd_srv_main();
-}
-
-/*
- * This will handle connection for each client
- * */
-void *mtd_srv_connection_handler(void *socket_data)
-{
-	// Getting struct from parent
-	//mtd_srv_client_t mtd_srv_client = *(mtd_srv_client_t*)socket_data;
-
-	//Get the socket descriptor
-    int socket = *(int*)socket_data;
-	//printf("h: socket_fd[%d]", mtd_srv_client.socket_fd);
-	//int sock = mtd_srv_client.socket_fd;
-	//int clientId = mtd_srv_client.clientId;
-
-    int read_size;
-    char *message , client_message[2000];
-
-    //Send some messages to the client
-	message = "Greetings! I am your connection handler\n";
-	//sprintf(message, "Greetings Client[%d]! I am your connection handler\n", clientId);
-    //write(mtd_srv_client.socket_fd , message , strlen(message));
-    write(socket, message , strlen(message));
-
-    message = "Now type something and i shall repeat what you type \n";
-    //write(mtd_srv_client.socket_fd , message , strlen(message));
-    write(socket , message , strlen(message));
-
-    //Receive a message from client
-    int terminate_client = 0;
-    //while( (read_size = recv(sock , client_message , 2000 , 0)) > 0 )
-    do
-    {
-    	//if ((read_size = recv(mtd_srv_client.socket_fd , client_message , 2000 , 0)) > 0) {
-		if ((read_size = recv(socket , client_message , 2000 , 0)) > 0) {
-            //end of string marker
-    		client_message[read_size] = '\0';
-    		printf("%s\n", client_message);
-    		if (strncmp(client_message, "QUIT", 4) == 0) {
-    			printf("received QUIT\n");
-    			terminate_client=1;
-    		}
-
-    		//Send the message back to client
-    		//write(mtd_srv_client.socket_fd , client_message , strlen(client_message));
-            write(socket, client_message , strlen(client_message));
-
-    		//clear the message buffer
-    		memset(client_message, 0, 2000);
-    	}
-    	else {
-    		puts("1 term received");
-    		terminate_client=1;
-    	}
-    } while (!terminate_client);
-
-    puts("1 exit rcv");
-
-    if(read_size == 0)
-    {
-        puts("1 Client disconnected");
-        fflush(stdout);
-    }
-    else if(read_size == -1)
-    {
-        perror("recv failed");
-    }
-
-    puts("2 Client disconnected");
-    countConn--;
-    //pthread_exit(0);
-    // Close TCP socket for client
-    //if (mtd_srv_client.socket_fd) close(mtd_srv_client.socket_fd);
-    if (socket) close(socket);
-    //if (socket_data) free(socket_data);
-    return 0;
 }
