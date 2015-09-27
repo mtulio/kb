@@ -95,14 +95,19 @@ void *mtd_srv_connection_handler(void *socket_data)
     		//printf("%s\n", client_message);
 
     		// Escape string 'QUIT'
-    		if (strncmp(client_message, "QUIT", 4) == 0) {
+    		/*if (strncmp(client_message, "QUIT", 4) == 0) {
     			printf(" # [HandlerID: %x] Closing connection by command QUIT\n", socket);
     			fflush(stdout);
     			terminate_client=1;
     			continue; // goto next loop
-    		}
+    		}*/
 
-    		mtd_srv_cmd_parseMessage(client_message/*, message_out*/);
+    		if (mtd_srv_cmd_parseMessage(client_message/*, message_out*/) == 99 ){ // loop 'til QUIT
+    			printf(" # [HandlerID: %x] Closing connection by command QUIT\n", socket);
+				fflush(stdout);
+				terminate_client=1;
+				continue; // goto next loop
+    		}
 
     		//Send the message back to client
             write(socket, client_message , strlen(client_message));
@@ -131,7 +136,6 @@ void *mtd_srv_connection_handler(void *socket_data)
         perror(" %% Recv failed");
     }
 
-    //puts("2 Client disconnected");
     countConn--;
 
     //pthread_exit(0);

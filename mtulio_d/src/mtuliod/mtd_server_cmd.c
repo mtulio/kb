@@ -16,26 +16,31 @@ int mtd_srv_cmd_parseMessage(char *message/*, char *message_out*/)
 	mtd_srv_cmd_strTrim (message, msg_cmd);
 
 	// Check command to run
-	//printf("\nCMD=[%s]\n", msg_cmd);
-	if ((strncmp(msg_cmd, "HELP", 4) == 0) || (strncmp(msg_cmd, "help", 4) == 0)) {
-		sprintf(message, "[MTd] HELP# MTulioD HELP menu: \n"
+	if ((strncmp(msg_cmd, "HELP", 4) == 0) ||
+			(strncmp(msg_cmd, "help", 4) == 0)) {
+		sprintf(message, "[MTd]_HELP# MTulioD HELP menu: \n"
 				"\t '-> HELP	: Show this menu. \n"
 				"\t '-> HOSTNAME	: Get hostname info.\n"
 				"\t '-> QUIT	: Close connection.\n", msg_cmd);
 	}
-	else if (strncmp(msg_cmd, "QUIT", 4) == 0) {
+	else if ((strncmp(msg_cmd, "QUIT", 4) == 0) ||
+			(strncmp(msg_cmd, "quit", 4) == 0)) {
+
 		// destroy structs of this connections
-		sprintf(message, "[MTd]%s# Closing connection.\n", msg_cmd);
+		sprintf(message, "[MTd]_%s# Closing connection.\n", msg_cmd);
+		return 99;
 	}
-	else if (strncmp(msg_cmd, "HOSTNAME", 8) == 0) {
-    	sprintf(message, "[MTd]%s# Command [%s] accepted.\n", msg_cmd, msg_cmd);
-    	//mtd_server_cmd_run_HOSTNAME(msg_cmd, message);
+	else if ((strncmp(msg_cmd, "HOSTNAME", 8) == 0) ||
+			(strncmp(msg_cmd, "hostname", 8) == 0) ) {
+    	//sprintf(message, "[MTd]_%s# Command [%s] accepted.\n", msg_cmd, msg_cmd);
+
+		return mtd_server_cmd_run_HOSTNAME(msg_cmd, message);
     }
     else {
-    	sprintf(message, "[MTd]ERR%% Command [%s] NOT FOUND.\n", msg_cmd);
+    	sprintf(message, "[MTd]_ERR%% Command [%s] NOT FOUND.\n", msg_cmd);
     }
 
-	return;
+	return 0;
 }
 
 
