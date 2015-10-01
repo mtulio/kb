@@ -11,7 +11,7 @@ struct list_node {
 
 struct list_node_str {
 	char value[MAX_BUF_SIZE];
-	struct list_node *next;
+	struct list_node_str *next;
 };
 
 /* inser value [int] on new node */

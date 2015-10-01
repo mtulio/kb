@@ -6,6 +6,7 @@
 #include "permutation.h"
 
 // See Problem: https://www.hackerrank.com/contests/upe-pcs15-hard/challenges/ordered-permutations
+// TODO: Input might to has spaces
 
 /* Get permutation divisible by 8 */
 int main(void)
@@ -30,7 +31,7 @@ int main(void)
 		setPermutation_insertList_str(str_in, pos_ctrl, list_root);
 
 	// Show list elements
-	list_show_str(list_root);
+	//list_show_str(list_root);
 	list_show_str_k(list_root, k);
 
 	//check_permutation_k (list_root, k);

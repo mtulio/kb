@@ -77,7 +77,7 @@ void list_show_str_k(struct list_node_str *root, int k)
 
 	for (int n=0; n<k; n++ ) {
 		if (n==k-1)
-			printf("show_k[%d]: %s\n", k, list->value);
+			printf("%s\n", list->value);
 		list = list->next;
 	}
 }
