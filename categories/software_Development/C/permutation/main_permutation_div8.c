@@ -51,5 +51,7 @@ int main(void)
 	check_divisible_by8 (list_root);
 
 	//printf("\n\n Done. ;) \n");
+	if (list_root)
+		list_delete(list_root);
 	exit (0);
 }
