@@ -1,6 +1,7 @@
 #include <string.h>
 
 #include "list_linked.h"
+#include "permutation.h"
 
 /* Set permutation value from 's_buf' and insert to list 'list_root' */
 int setPermutation_insertList_int(char *s_buff, int pos_ctrl, struct list_node *list_root)

@@ -3,10 +3,11 @@
 #include <string.h>
 
 #include "list_linked.h"
+#include "permutation.h"
 
 #define MAX_BUF_SIZE	200
 
-/* Check each element of list is divisible by 8*/
+///* Check each element of list is divisible by 8*/
 void check_divisible_by8 (struct list_node *list_root)
 {
 	int k = 0;
@@ -26,7 +27,7 @@ void check_divisible_by8 (struct list_node *list_root)
 	}
 }
 
-/*  */
+/* Get permutation divisible by 8 */
 int main(void)
 {
 	struct list_node *list_root;
@@ -37,7 +38,7 @@ int main(void)
 	list_root = (struct list_node *)malloc(sizeof(struct list_node) );
 	memset(str_in, 0 , strlen(str_in));
 
-	// sstdin
+	// sstdin - Eg.: 12893
 	scanf("%[^\n]", &str_in);
 
 	// set permutation from stdin string
