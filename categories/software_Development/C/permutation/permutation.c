@@ -1,61 +1,55 @@
 #include <string.h>
 
-#include "list_linked.h"
 #include "permutation.h"
 
-/* Set permutation value from 's_buf' and insert to list 'list_root' */
-int setPermutation_insertList_int(char *s_buff, int pos_ctrl, struct list_node *list_root)
-{
-	char s_tmp[2] = " ";
-	char s_buff_new[strlen(s_buff)];
-
-	memcpy(s_buff_new, s_buff, sizeof(s_buff));
-
-	for (int pos=0; pos<strlen(s_buff_new); pos++) {
-		// Renew buffer
-		memcpy(s_buff_new, s_buff, sizeof(s_buff));
-
-		if (pos != pos_ctrl) {
-			//swap positions
-			s_tmp[0] = s_buff[pos_ctrl];
-			s_buff_new[pos_ctrl]=s_buff[pos];
-			s_buff_new[pos]=s_tmp[0];
-
-			// Insert value to tree/list/vector
-			//printf("([%d]:[%s]) ", pos, s_buff_new);
-			list_insert_int(list_root, atoi(s_buff_new));
-
-		}
-	}
-	return 0;
+/* Change string positions str1 to str2  */
+void swap_str ( char *str_1, char *str_2 ) {
+	char str_tmp;
+	str_tmp = *str_1;
+	*str_1 = *str_2;
+	*str_2 = str_tmp;
 }
 
-/* Set permutation value from 's_buf' and insert to list 'list_root' */
-int setPermutation_insertList_str(char *s_buff, int pos_ctrl, struct list_node_str *list_root)
-{
-	char s_tmp[2] = " ";
-	char s_buff_new[strlen(s_buff)];
+/* Permute  string  recursively */
+void permute ( char *str, int start, int end ) {
 
-	memcpy(s_buff_new, s_buff, sizeof(s_buff));
 
-	// First element is a original str
-	list_insert_str(list_root, s_buff_new);
+	/* break point (recursivity) */
+#ifdef _PERM_EN_BREAK
+    if (perm_break_point == 1)
+        return;
+#endif /* _PERM_EN_BREAK */
 
-	for (int pos=0; pos<strlen(s_buff_new); pos++) {
-		// Renew buffer
-		memcpy(s_buff_new, s_buff, sizeof(s_buff));
-
-		if (pos != pos_ctrl) {
-			//swap positions
-			s_tmp[0] = s_buff[pos_ctrl];
-			s_buff_new[pos_ctrl]=s_buff[pos];
-			s_buff_new[pos]=s_tmp[0];
-
-			// Insert value to tree/list/vector
-			//printf("([%d]:[%s]) ", pos, s_buff_new);
-			list_insert_str(list_root, s_buff_new);
-
+    if (start == end) {
+#ifdef _PERM_K		/* PERM_K */
+    	perm_counter++;
+		if (perm_counter == perm_k) {
+			printf("%s\n", str);
+    		perm_found = 1; 				/* break point */
+            perm_break_point = perm_found;
 		}
-	}
-	return 0;
+
+#else /* PERM_DIV8 */
+    	if (strlen(str) == len_orig) {
+        	if ( (atoi(str)%8 )== 0) { 			/* check divisible by 8*/
+        		perm_found = 1; 				/* break point */
+                perm_break_point = perm_found;
+        	}
+    	}
+#endif /* _PERM_DIV8 */
+    }
+    else {
+		for (int i = start; i <= end; i++) {
+
+			/* break point */
+#ifdef _PERM_EN_BREAK
+			if (perm_break_point == 1)
+				break;
+#endif /* _PERM_EN_BREAK */
+
+			swap_str ( (str+start), (str+i) );
+			permute (str, start+1, end );
+			swap_str ( (str+start), (str+i) );
+        }
+    }
 }

@@ -1,15 +1,21 @@
+#include "config.h"
 
 #ifndef _PERMUTATION_H_
 #define _PERMUTATION_H_
 
-#ifndef MAIN_PERMUTATION
-#define MAIN_PERMUTATION	1
-#endif 	/* MAIN_PERMUTATION */
+/* Globals */
+extern unsigned int perm_break_point;	/* EXTERN Permute break point */
+extern unsigned int perm_found;     		/* Permute was found */
+extern double len_orig;            		/* Original lenght of string/number */
+#ifdef _PERM_K
+	extern unsigned long long int perm_counter;
+	extern unsigned int perm_k;
+#endif /* _PERM_K */
 
-#include "list_linked.h"
+/* Change string positions str1 to str2  */
+void swap_str ( char *str_1, char *str_2 );
 
-int setPermutation_insertList_int(char *s_buff, int pos_ctrl, struct list_node *list_root);
-
+/* Permute  string  recursively */
+void permute ( char *str, int start, int end );
 
 #endif /*_PERMUTATION_H_*/
-
