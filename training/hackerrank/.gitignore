@@ -1,0 +1,8 @@
+# Removing local dirs
+tests/*
+
+# Removing eclipse files
+challegens/.metadata/
+
+# Removing bkp and tmp files
+challegens/cpp/bkp/
