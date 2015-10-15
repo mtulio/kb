@@ -1,0 +1,11 @@
+# Ignoring log dirs
+log/*
+ 
+# Ignoring config file
+domain.xml
+ 
+# Ignoring temp files/scripts
+jboss_find_xml.sh
+jboss_getDsUsage.sh
+jboss_getDsUsage.sh.tgz
+backup_jboss_getDsUsage.sh
