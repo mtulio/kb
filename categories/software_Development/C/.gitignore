@@ -1,0 +1,5 @@
+# Ignoring dev dirs
+dev_*/*
+
+# Ignoring bkps dirs
+bkp_*
