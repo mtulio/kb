@@ -1,0 +1,6 @@
+## Ignoring unfinished scripts/small projects
+
+# LDAP Script
+add_user_ldap/
+
+ 
