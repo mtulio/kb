@@ -13,3 +13,9 @@
 *.lai
 *.la
 *.a
+
+# Removing tmp projects
+tmp_*
+
+# Removing bkp files
+bkp_*
