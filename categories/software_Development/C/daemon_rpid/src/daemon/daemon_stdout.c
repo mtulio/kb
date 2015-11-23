@@ -34,7 +34,7 @@ void dm_stdout_print (char *line)
 }
 
 /* Print error message */
-void daemon_stdout_msg (int ret_code)
+void dm_stdout_msg (int ret_code)
 {
 	switch (ret_code) {
 	case RET_ERR_DM01:

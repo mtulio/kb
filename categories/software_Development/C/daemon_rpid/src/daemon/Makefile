@@ -16,13 +16,15 @@ PROG_NAME_FILE=../.prog_name.txt
 PROG_NAME=rpid
 
 ########### Building Program (NEW)
-#all:
+all: clean build
 #	echo "$(PROG_NAME)"
 
 #$(PROG_NAME): $(SRC)
-$(PROG_NAME): $(SRC)
+#$(PROG_NAME): $(SRC)
 #rpid: $(SRC)
-	gcc -o $@ $^ $(CFLAGS) $(LIBS) ${OBJECTS}
+build: $(SRC)
+	#gcc -o xxx $@ $^ $(CFLAGS) $(LIBS) ${OBJECTS}
+	gcc -o $(PROG_NAME) $^ $(CFLAGS) $(LIBS) ${OBJECTS}
 
 clean: 
 	rm -f *.o

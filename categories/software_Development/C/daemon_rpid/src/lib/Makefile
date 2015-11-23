@@ -30,4 +30,4 @@ build_app_testLib:
 
 clean: 
 	rm -f *.o
-	rm -f mtdLib_strings mtdLib_test
+	#rm -f mtdLib_strings mtdLib_test
