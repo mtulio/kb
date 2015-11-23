@@ -95,9 +95,6 @@ static struct option longopts[] =
   { "config_file", required_argument, NULL, 'f'},
   { "pid_file",    required_argument, NULL, 'i'},
   { "log_file",    required_argument, NULL, 'l'},
-  { "bind_ip",     required_argument, NULL, 'b'},
-  { "bind_port",   required_argument, NULL, 'p'},
-  { "secret",      required_argument, NULL, 's'},
   { "help",        no_argument,       NULL, 'h'},
   { "version",     no_argument,       NULL, 'v'},
   { 0 }
@@ -112,9 +109,6 @@ Daemon which manages MTuliod.\n\n\
 -f, --config_file  Set configuration file name\n\
 -i, --pid_file     Set process identifier file name\n\
 -l, --log_file     Set log file name\n\
--b, --bind_ip      Set IP address to server bind. Default is 0.0.0.0\n\
--p, --bind_port    Set TCP port to server bind. Default is 54321\n\
--s, --secret       Set secret to do admin commands\n\
 -v, --version      Print program version\n\
 -h, --help         Display this help and exit\n\
 \n\
@@ -133,14 +127,14 @@ int daemon_main (int argc , char *argv[])
 {
 
 	int arg_daemon_mode, arg_bind_port;
-	char *arg_config_file, *arg_pid_file, *arg_log_file, *arg_bind_ip, *arg_secret;
-	arg_config_file = arg_pid_file = arg_log_file = arg_bind_ip = arg_secret = NULL;
+	char *arg_config_file, *arg_pid_file, *arg_log_file;
+	arg_config_file = arg_pid_file = arg_log_file = NULL;
 	arg_bind_port = arg_daemon_mode = 0;
 
   /* Command line option parse. */
   while (1) {
     int opt;
-    opt = getopt_long (argc, argv, "df:ilbps:h:v", longopts, 0);
+    opt = getopt_long (argc, argv, "df:il:h:v", longopts, 0);
     if (opt == EOF)
     	break;
 

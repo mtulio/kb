@@ -9,13 +9,13 @@ CFLAGS += -lm
 OBJECTS := mtd_lib_daemon.o
 OBJECTS += mtd_lib_file.o
 
-#all: build_lib_strings build_lib_file build_lib_daemon
-all: build_lib_file build_lib_daemon
+all: build_lib_strings build_lib_file build_lib_daemon
+#all: build_lib_file build_lib_daemon
 #all: build_lib_strings 
 
 ########### Building Libs
-#build_lib_strings: mtd_lib_strings.c
-#	gcc ${CFLAGS} -c mtd_lib_strings.c -o mtd_lib_strings.o
+build_lib_strings: mtd_lib_strings.c
+	gcc ${CFLAGS} -c mtd_lib_strings.c -o mtd_lib_strings.o
 
 build_lib_file: mtd_lib_file.c
 	gcc ${CFLAGS} -c mtd_lib_file.c -o mtd_lib_file.o

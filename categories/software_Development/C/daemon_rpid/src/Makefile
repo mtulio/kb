@@ -17,8 +17,17 @@
 
 ## Main Makefile
 
-INC_FILE=include/config.h
-PROG_NAME=`cat $(INC_FILE) |awk '{print$2" "$3}' |egrep ^PROG_NAME |awk '{print$2}'`
+INC_FILE := include/config.h
+PROG_NAME_FILE := .prog_name.txt
+#PROG_NAME := $(shell cat ${PROG_NAME_FILE})
+
+ifneq ("$(wildcard $(INC_FILE))","")
+PROG_NAME := $(shell cat ${PROG_NAME_FILE})
+else
+#TODO: Run configure.sh
+PROG_NAME := rpid
+endif
+
 
 # Build all
 all: clean build
@@ -35,6 +44,8 @@ build_daemon: build_lib
 
 # Clean chain
 clean:
-	rm -f $(PROG_NAME)
+	#test -f $(PROG_NAME) && rm -f $(PROG_NAME)
+	#test -f $(INC_FILE) && rm -f $(INC_FILE)
+	#test -f .prog_name.txt && rm -f .prog_name.txt 
 	cd lib/; make clean
 	cd daemon/; make clean
