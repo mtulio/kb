@@ -1,0 +1,88 @@
+GIT-lab COURSE
+
+
+####################################
+#### Installation and Configuration
+
+###> Installation
+
+yum install git
+
+# Config client
+
+git config --global user.name "Marco Tulio"
+git config --global user.email "git@mtulio.eng.br"
+
+# Config check
+
+cat ~/.gitconfig 
+git config --list
+
+
+###> Configuration
+
+There are 3 types of configuration:
+* System level configuration (system configuration /etc/gitconfig)
+** git config --system system.name "Git repo server 1"
+** git config --list
+** cat /etc/gitconfig
+* Global configuration (profile escope)
+** git config --global
+** git config --global system.name "My GIT repo Server1"
+** git config --list
+** cat ~/.gitconfig
+* Local configuration (repository escope)
+
+#> Configure editor to use in GIT
+* git config --global core.editor vim
+* cat ~/.gitconfig
+
+#> Config page listing command
+* git config --global core.pager 'more'
+
+
+#> Create a git ignore global
+* vim .gitignore_global
+VIM:
+*~
+.DS_Store
+
+#> Configure git ignore global
+* git config --global core.excludesfile ~/.gitignore_global
+* git config --list
+
+###> 
+
+####################################
+#### Git Basics
+
+#> Add repository
+* mkdir gitteste
+* cd gitteste
+* git init 
+* ls -la
+
+OBS.: Sempre será criado um repositorio vazio, mesmo se existir arquivo no diretorio correte. Sempre eh preciso adicionar o add
+
+#> Repository tree
+* cd .git
+* ls -la 
+* 
+
+#> Removing repository
+* rm -rf .git
+* git status
+
+#> Commit - Add file to a repo
+* echo "Teste" test.txt
+* git add test.txt
+* git commit -m "First file to a repo" test.txt
+
+
+#> Git status
+
+#> Git delete
+
+#> Git commit
+
+
