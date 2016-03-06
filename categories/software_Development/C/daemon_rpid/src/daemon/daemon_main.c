@@ -64,11 +64,11 @@ int daemon_initConfig (void)
 	dm_stdout_print ("\t*** Starting MTULIOd Server *** \n");
 
 	/* Load configuration file  */
-//	ret = dm_config_main (daemon_cfg);
-//	if (ret != 0) {
-//		dm_stdout_print ("#% ERROR - opening config file\n");
-//		return ret;
-//	}
+	ret = dm_config_main (daemon_cfg);
+	if (ret != 0) {
+		dm_stdout_print ("#% ERROR - opening config file\n");
+		return ret;
+	}
 
 	return 0;
 }
