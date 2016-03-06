@@ -11,7 +11,7 @@ Command line:
 
 * Test using nameservers and domains
 ```
-# NAMESERVERS="8.8.8.8 8.8.4.4"
-# DOMAINS="mtulio.eng.br ict-eng.net"
-# for DOMAIN in $DOMAINS; do for NS in $NAMESERVERS; do echo $NS; ./dns_check.sh $NS $DOMAIN ; done; done
+$ NAMESERVERS="8.8.8.8 8.8.4.4"
+$ DOMAINS="mtulio.eng.br ict-eng.net"
+$ for NS in $NAMESERVERS; do for DOMAIN in $DOMAINS; do ./dns_check.sh $NS $DOMAIN ; done; done
 ```
