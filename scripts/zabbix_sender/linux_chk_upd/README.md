@@ -8,7 +8,7 @@
 
 ## Zabbix Template
 
-TODO: Zabbix Template with follow keys - [based template](https://github.com/Open-Future-Belgium/zabbix/tree/master/check-yum-updates):
+Zabbix Template with following keys - [based template](https://github.com/Open-Future-Belgium/zabbix/tree/master/check-yum-updates):
 
 * 1) repo.enhancement : UNSIGNED INTEGER 
 * 2) repo.bugfix      : UNSIGNED INTEGER 
