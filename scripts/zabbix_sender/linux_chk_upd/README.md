@@ -9,33 +9,46 @@
 ## Zabbix Template
 
 TODO: Zabbix Template with follow keys - [based template](https://github.com/Open-Future-Belgium/zabbix/tree/master/check-yum-updates):
-* 1) repo.moderate : UNSIGNED INTEGER 
-* 2) repo.important: UNSIGNED INTEGER
-* 3) repo.low      : UNSIGNED INTEGER
-* 4) repo.critical : UNSIGNED INTEGER
-* 5) repo.release  : STRING
 
-1) 'Moderate Packages' 
+* 1) repo.enhancement : UNSIGNED INTEGER 
+* 2) repo.bugfix      : UNSIGNED INTEGER 
+* 3) repo.moderate    : UNSIGNED INTEGER 
+* 4) repo.important   : UNSIGNED INTEGER
+* 5) repo.low         : UNSIGNED INTEGER
+* 6) repo.critical    : UNSIGNED INTEGER
+* 7) repo.release     : STRING
+
+1) 'Bugfix Packages'
+
+* Yum Severity    : bugfix
+* Debian Severity : N/A
+
+2) 'Enhancement Packages'
+
+* Yum Severity    : enhancement
+* Debian Severity : N/A
+
+3) 'Moderate Packages' 
 
 * Yum Severity    : Moderate
 * Debian Severity : N/A
 
-2) 'Important Packages' 
+4) 'Important Packages' 
 
 * Yum Severity    : Moderate
 * Debian Severity : All except 'security'
 
-3) 'Low Packages' 
+5) 'Low Packages' 
 
 * Yum Severity    : Low
 * Debian Severity : N/A
 
-4) 'Critical Packages' 
+6) 'Critical Packages' 
 
 * Yum Severity    : Critical
 * Debian Severity : security
 
-5) 'Critical Packages' 
+7) 'Critical Packages' 
 
 * String with "OS Name" and "Major Release"
 
