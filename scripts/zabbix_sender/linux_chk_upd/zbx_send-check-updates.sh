@@ -83,6 +83,8 @@ FC_DATA_COLLECT(){
         IMPORTANT=$((TMP_IMPORTANT - 1))
         LOW=$((TMP_LOW - 1))
         CRITICAL=$((TMP_CRITICAL - 1))
+        ENHANCEMENT=$(yum updateinfo list |grep enhancement |grep -v -e ^updateinfo -e ^Plugin |awk '{print$2}' |wc -l)
+        BUGFIX=$(yum updateinfo list |grep bugfix |grep -v -e ^updateinfo -e ^Plugin  |awk '{print$2}' |wc -l)
 
       elif [ "$OS_RELEASE" == "7" ] || [ "$OS_DISTRO" == "fedora" ]; then
         
@@ -90,6 +92,8 @@ FC_DATA_COLLECT(){
         IMPORTANT=$(yum updateinfo list --sec-severity=Important 2>/dev/null | grep Important | wc -l)
         LOW=$(yum updateinfo list --sec-severity=Low 2>/dev/null             | grep Low | wc -l)
         CRITICAL=$(yum updateinfo list --sec-severity=Critical 2>/dev/null   | grep Critical | wc -l)
+        ENHANCEMENT=$(yum updateinfo list |grep enhancement |grep -v -e ^updateinfo -e ^Plugin |awk '{print$2}' |wc -l)
+        BUGFIX=$(yum updateinfo list |grep bugfix |grep -v -e ^updateinfo -e ^Plugin  |awk '{print$2}' |wc -l)
 
       else 
 
@@ -114,11 +118,13 @@ FC_DATA_COLLECT(){
   # Save data to file
   ### Add data to file on format <HOST> <KEY> <VALUE>. See zabbix_sender -h ###
   echo -n > $ZBX_DATA
-  echo "$HOSTNAME repo.moderate $MODERATE" >> $ZBX_DATA
-  echo "$HOSTNAME repo.important $IMPORTANT" >> $ZBX_DATA
-  echo "$HOSTNAME repo.low $LOW" >> $ZBX_DATA
-  echo "$HOSTNAME repo.critical $CRITICAL" >> $ZBX_DATA
-  echo "$HOSTNAME repo.release $RELEASE" >> $ZBX_DATA
+  echo "$ZABBIX_HOST repo.enhancement $ENHANCEMENT" >> $ZBX_DATA
+  echo "$ZABBIX_HOST repo.bugfix $BUGFIX" >> $ZBX_DATA
+  echo "$ZABBIX_HOST repo.moderate $MODERATE" >> $ZBX_DATA
+  echo "$ZABBIX_HOST repo.important $IMPORTANT" >> $ZBX_DATA
+  echo "$ZABBIX_HOST repo.low $LOW" >> $ZBX_DATA
+  echo "$ZABBIX_HOST repo.critical $CRITICAL" >> $ZBX_DATA
+  echo "$ZABBIX_HOST repo.release $RELEASE" >> $ZBX_DATA
   #echo "$HOSTNAME repo.selinux $SELINUX" >> $ZBX_DATA
 
 }
