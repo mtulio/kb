@@ -65,6 +65,18 @@ chmod u+x /opt/scripts/*.py
 * Configure NGINX virtual host to allow status connections only from zabbix server
 
 ```shell
+server {
+
+  server_name nginx.mydomain.com nginx.mydomain;
+
+  location /nginx_stat {
+    stub_status on;       # Turn on nginx stats
+    access_log   off;     # We do not need logs for stats
+    allow 172.25.100.45;  # Security: Only allow access from specific source IP
+    deny all;             # Deny requests from the other of the world
+  }
+
+}
 
 ```
 
@@ -75,7 +87,6 @@ chmod u+x /opt/scripts/*.py
 ```
 
 * Add template to host that will be monitored
-
 * Schedulle the script execution
 
 
