@@ -28,11 +28,37 @@ Keys description:
 * nginx.keepalive_connections : Waiting/Keep aliving Connections
 
 
+## HELLO WORLD
+
+```shell
+[mtulio@s-177924 trapper-zbx_nginx]$ python nginx_stats.py -h
+usage: nginx_stats.py [-h] [-z SERVER] [-p PORT] [-s HOST] [-u STUSER]
+                      [-P STPASS] [-m METRIC] [-S] [-j]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -z SERVER, --server SERVER
+  -p PORT, --port PORT
+  -s HOST, --host HOST
+  -u STUSER, --stat-user STUSER
+  -P STPASS, --stat-pass STPASS
+  -m METRIC, --metric METRIC
+  -S, --https
+  -j, --json            show json output, without send to zabbix.
+
+```
+
 ## INSTALATION [DEVELOPMENT]
 
 * Download script and its dependencies to Zabbix server
 
 ```shell
+
+mkdir /opt/scripts
+cd /opt/scripts
+wget https://raw.githubusercontent.com/mtulio/kb/master/scripts/zabbix/trapper-zbx_nginx/nginx_stat.py
+wget https://raw.githubusercontent.com/mtulio/kb/master/scripts/zabbix/trapper-zbx_nginx/zabbix_lib.py
+chmod u+x /opt/scripts/*.py
 
 ```
 
