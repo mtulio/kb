@@ -3,6 +3,8 @@
 
 Return global stats from Zabbix.
 
+OBS.: The module `nginx_stats.py` depends of lib `zabbix_lib.py` to be available on the [same directory](https://raw.githubusercontent.com/mtulio/kb/master/scripts/zabbix/trapper-zbx_nginx/zabbix_lib.py) of script.
+
 ## KEYs
 
 Keys required:
@@ -25,6 +27,30 @@ Keys description:
 * nginx.active_connections    : Active Connections
 * nginx.keepalive_connections : Waiting/Keep aliving Connections
 
+
+## INSTALATION [DEVELOPMENT]
+
+* Download script and its dependencies to Zabbix server
+
+```shell
+
+```
+
+* Configure NGINX virtual host to allow status connections only from zabbix server
+
+```shell
+
+```
+
+* Configure Template on Linux Server 
+
+```shell
+
+```
+
+* Add template to host that will be monitored
+
+* Schedulle the script execution
 
 
 ## TESTING
@@ -82,3 +108,10 @@ Keys description:
 }
 
 ```
+
+
+
+
+## CONSIDERATIONS:
+
+This script was based on template [zbx_nginx_template](https://github.com/blacked/zbx_nginx_template)
