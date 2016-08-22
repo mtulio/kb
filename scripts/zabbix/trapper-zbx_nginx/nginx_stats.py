@@ -1,15 +1,7 @@
 #!/usr/bin/python
 
-import urllib2, base64, re, struct, time, socket, sys, datetime, os.path
-import argparse
-
+import sys, re, urllib2, base64, argparse
 import zabbix_lib as zblib 
-
-try:
-    import json
-except:
-    import simplejson as json
-
 
 def get(url, login, passwd):
 	req = urllib2.Request(url)
