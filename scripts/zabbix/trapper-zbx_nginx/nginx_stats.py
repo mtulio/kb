@@ -46,7 +46,7 @@ def get_stat(hostname, stat_url, stat_user, stat_pass, metric=False):
     if not metric:
         for i in data:
             #data_to_send.append(Metric(hostname, ('nginx[%s]' % i), data[i]))
-            data_to_send.append(zblib.Metric(hostname, ('nginx[%s]' % i), data[i]))
+            data_to_send.append(zblib.Metric(hostname, ('nginx.%s' % i), data[i]))
     else:
         return data[metric]
 
