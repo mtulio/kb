@@ -9,14 +9,18 @@ except:
 
 import zabbix_lib as zblib 
 
-# Nginx log file path
-nginx_log_file_path = '/var/log/nginx/web-small.log'
+import time
+start = time.time()
 
-# Temp file, with log file cursor position
-seek_file = '/tmp/nginx_log_stat'
-
-time_delta = 1              # grep interval in minutes
-hostname  = 'eu.com'
+## Keys:
+# code_2xx
+# code_3xx
+# code_3xx
+# code_4xx
+# code_5xx
+# rps - req per sec
+# rpm - req per min
+# rpd - req per day
 
 class Metric(object):
     def __init__(self, host, key, value, clock=None):
@@ -30,103 +34,74 @@ class Metric(object):
             return 'Metric(%r, %r, %r)' % (self.host, self.key, self.value)
         return 'Metric(%r, %r, %r, %r)' % (self.host, self.key, self.value, self.clock)
 
-def read_seek(file):
-    if os.path.isfile(file):
-        f = open(file, 'r')
-        try:
-            result = int(f.readline())
-            f.close()
-            return result
-        except:
-            return 0
-    else:
-        return 0
 
-def write_seek(file, value):
-    f = open(file, 'w')
-    f.write(value)
-    f.close()
+def read_log_codes(nginx_log_file_path, res_code = {}):
 
+    # Compile Regex rule (improved about 20% of time)
+    prog = re.compile(r'(.*)"\s(\d*)\s')
 
-#print '[12/Mar/2014:03:21:13 +0400]'
+    t_for_init = time.time()
 
-d = datetime.datetime.now()-datetime.timedelta(minutes=time_delta)
-minute = int(time.mktime(d.timetuple()) / 60)*60
-d = d.strftime('%d/%b/%Y:%H:%M')
-
-total_req = 0
-rps = [0]*60
-tps = [0]*60
-res_code = {}
-
-nf = open(nginx_log_file_path, 'r')
-
-new_seek = seek = read_seek(seek_file)
-
-# if new log file, don't do seek
-if os.path.getsize(nginx_log_file_path) > seek:
-    nf.seek(seek)
-
-line = nf.readline()
-while line:
-
-    new_seek = nf.tell()
-    total_req += 1
-    #sec = int(re.match('(.*):(\d+):(\d+):(\d+)\s', line).group(4))
-    code = re.match(r'(.*)"\s(\d*)\s', line).group(2)
-    #print ("sec=[%d]", sec)
-    #print ("code=["+ code +"]")
-    if code in res_code:
-        res_code[code] += 1
-    else:
-        res_code[code] = 1
-    
-    #rps[sec] += 1
-
+    total_req = 0
+    nf = open(nginx_log_file_path, 'r')
     line = nf.readline()
+    while line:
 
-#if total_rps != 0:
-#    write_seek(seek_file, str(new_seek))
+        new_seek = nf.tell()
+        total_req += 1
+        #sec = int(re.match('(.*):(\d+):(\d+):(\d+)\s', line).group(4))
+        #code = re.match(r'(.*)"\s(\d*)\s', line).group(2)
+        #line = line.split('"', 2)
+        code = prog.match(line).group(2)
+        #code = 500
+        #print ("sec=[%d]", sec)
+        #print ("code=[%d]", code)
+        if code in res_code:
+            res_code[code] += 1
+        else:
+            res_code[code] = 1
+    
+        #rps[sec] += 1
 
-nf.close()
+        line = nf.readline()
 
-metric = (len(sys.argv) >= 2) and re.match(r'nginx\[(.*)\]', sys.argv[1], re.M | re.I).group(1) or False
+    nf.close()
+    t_for_end = time.time()
 
-data_to_send = []
+def main():
 
-# Adding the metrics to response
-#if not metric:
-#    for i in data:
-#        data_to_send.append(Metric(hostname, ('nginx[%s]' % i), data[i]))
-#else:
-#    print data[metric]
+    hostname  = 'nginx-srv'
+    app = 'example.com'
 
-# Adding the request per seconds to response
-#rps_sum = 0
-#for t in range(0,60):
-#    data_to_send.append(Metric(hostname, 'nginx[rps]', rps[t], minute+t))
-#    rps_sum += rps[t]
+    # Nginx log file path
+    #nginx_log_file_path = '/var/log/nginx/web-small.log'
+    nginx_log_file_path = "/var/log/nginx/" + app + ".log"
 
-rpm = total_req / 60
-data_to_send.append(Metric(hostname, 'nginx.rpm', rpm))
+    res_code = {}
+    read_log_codes(nginx_log_file_path, res_code)
+    data_to_send = []
 
-# Adding the response codes stats to respons
-for t in res_code:
-    data_to_send.append(Metric(hostname, ('nginx.code_%s' % t), res_code[t]))
+    # Adding the response codes stats to respons
+    for t in res_code:
+        key = hostname + '.http.' + t
+        #data_to_send.append(Metric(hostname, ('http.%s' % t), res_code[t]))
+        data_to_send.append(Metric(hostname, key, res_code[t]))
+  
 
+    t_for2_end = time.time()
 
-#print data_to_send
-print zblib.json_out(data_to_send);
-#print res_code;
+    print zblib.json_out(data_to_send);
 
-## Keys
-# code_2xx
-# code_3xx
-# code_3xx
-# code_4xx
-# code_5xx
-# rpm
+    t_end = time.time()
+
+    #print 'init: ', start
+    #print 't_for_init: ', t_for_init-start
+    #print 't_for_end: ', t_for_end-start
+    #print 't_for2_end: ', t_for2_end-start
+    #print 't_end: ', t_end-start
 
 
 
+if __name__ == "__main__":
+    main()
 
