@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import sys, re, urllib2, base64, argparse
+from time import gmtime, strftime
 import zabbix_lib as zblib 
 
 def get(url, login, passwd):
@@ -86,7 +87,7 @@ def main():
     if args.port :
         zabbix_port = args.port
     else :
-        zabbix_port = '10051'
+        zabbix_port = 10051
 
     stat_user = args.stuser
     stat_pass = args.stpass
@@ -117,10 +118,10 @@ def main():
         print zblib.json_out(data_to_send);
         exit(0);
 
-    zblib.send_trapper(data_to_send, zabbix_host, zabbix_port)
+    log_msg = strftime("%Y-%m-%d %H:%M:%S", gmtime()) + ' - ' + hostname + ' - '
+    #print log_msg
+    return zblib.send_trapper(data_to_send, zabbix_host, zabbix_port, log_msg)
 
 if __name__ == "__main__":
   main()
-
-
 

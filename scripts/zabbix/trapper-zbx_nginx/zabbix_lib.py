@@ -9,37 +9,43 @@ except:
 
 #################
 ## Zabbix Trapper Send to Zabbix
-def send_trapper(metrics, zabbix_host='127.0.0.1', zabbix_port=10051):
+def send_trapper(metrics, zabbix_host='127.0.0.1', zabbix_port=10051, log_msg='local - '):
 
     json_data = json_out(metrics);
     data_len = struct.pack('<Q', len(json_data))
-    packet = 'ZBXD\x01'+ data_len + json_data
-   
-    print json_data;
-    return;
+    #packet = 'ZBXD\x01'+ data_len + json_data
+    HEADER = '''ZBXD\1%s%s'''
+
+    #print json_data   
     #print packet
     #print ':'.join(x.encode('hex') for x in packet)
 
-    try:
-        zabbix = socket.socket()
-        zabbix.connect((zabbix_host, zabbix_port))
-        zabbix.sendall(packet)
-        resp_hdr = sock_recv_all(zabbix, 13)
-        if not resp_hdr.startswith('ZBXD\x01') or len(resp_hdr) != 13:
-            print 'Wrong zabbix response'
-            return False
-        resp_body_len = struct.unpack('<Q', resp_hdr[5:])[0]
-        resp_body = zabbix.recv(resp_body_len)
-        zabbix.close()
+    data_length = len(json_data)
+    data_header = struct.pack('i', data_length) + '\0\0\0\0'
+    data_to_send = HEADER % (data_header, json_data)
 
-        resp = json.loads(resp_body)
-        if resp.get('response') != 'success':
-            print 'Got error from Zabbix: %s' % resp
-            return False
-        return True
-    except:
-        print 'Error while sending data to Zabbix'
+    zabbix = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    zabbix.connect((zabbix_host, zabbix_port))
+    zabbix.send(data_to_send)
+
+    response_header = zabbix.recv(5)
+    if not response_header == 'ZBXD\1':
+        raise ValueError('Got invalid response')
+
+    response_data_header = zabbix.recv(8)
+    response_data_header = response_data_header[:4] # we are only interested in the first four bytes
+    response_len = struct.unpack('i', response_data_header)[0]
+    response_raw = zabbix.recv(response_len)
+    zabbix.close()
+
+    resp = json.loads(response_raw)
+    if resp.get('response') != 'success':
+        print ("%s Error - got from Zabbix: %s", log_msg, resp)
         return False
+    else:
+        print ("%s SUCCESS : %s ", log_msg, resp)
+
+    return True
 
 
 # Socket
