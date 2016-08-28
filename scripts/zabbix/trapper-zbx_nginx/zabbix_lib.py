@@ -1,4 +1,8 @@
 #!/usr/bin/python
+#
+# Functions to manipulate data from/to Zabbix Trapper.
+# https://github.com/mtulio/kb/blob/master/scripts/zabbix/trapper-zbx_nginx/zabbix_lib.py
+#
 
 import re, struct, time, socket, sys, datetime, os.path
 
@@ -7,18 +11,13 @@ try:
 except:
     import simplejson as json
 
-#################
+#################################
 ## Zabbix Trapper Send to Zabbix
 def send_trapper(metrics, zabbix_host='127.0.0.1', zabbix_port=10051, log_msg='local - '):
 
     json_data = json_out(metrics);
     data_len = struct.pack('<Q', len(json_data))
-    #packet = 'ZBXD\x01'+ data_len + json_data
     HEADER = '''ZBXD\1%s%s'''
-
-    #print json_data   
-    #print packet
-    #print ':'.join(x.encode('hex') for x in packet)
 
     data_length = len(json_data)
     data_header = struct.pack('i', data_length) + '\0\0\0\0'
@@ -46,7 +45,17 @@ def send_trapper(metrics, zabbix_host='127.0.0.1', zabbix_port=10051, log_msg='l
         print ("%s SUCCESS : %s ", log_msg, resp)
 
     return True
+###################################################
+def send(data_to_send, z_server='127.0.0.1', z_port=10051):
 
+    if not data_to_send :
+        return False
+
+    send_trapper(data_to_send)
+
+def ping():
+    #print 'pong'
+    return True
 
 # Socket
 def sock_recv_all(sock, count):
@@ -59,7 +68,6 @@ def sock_recv_all(sock, count):
     return buf
 
 #################
-## Zabbix OUT
 
 class Metric(object):
     def __init__(self, host, key, value, clock=None):
@@ -73,7 +81,8 @@ class Metric(object):
             return 'Metric(%r, %r, %r)' % (self.host, self.key, self.value)
         return 'Metric(%r, %r, %r, %r)' % (self.host, self.key, self.value, self.clock)
 
-
+#######################
+## Zabbix OUT
 def json_out(metrics):
     j = json.dumps
     metrics_data = []
@@ -85,5 +94,3 @@ def json_out(metrics):
 
     return json_data
 
-
-#zabbix_trapper_send(data_to_send, zabbix_host, zabbix_port)
