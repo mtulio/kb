@@ -1,4 +1,9 @@
 #!/usr/bin/python
+#
+# Parse NGINX stats page and send it to Zabbix.
+# https://github.com/mtulio/kb/blob/master/scripts/zabbix/trapper-zbx_nginx/nginx_stats.py
+# Dependes of: https://github.com/mtulio/kb/blob/master/scripts/zabbix/trapper-zbx_nginx/zabbix_lib.py
+#
 
 import sys, re, urllib2, base64, argparse
 from time import gmtime, strftime
