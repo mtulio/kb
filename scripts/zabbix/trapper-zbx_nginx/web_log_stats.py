@@ -20,6 +20,19 @@ try:
 except: 
     lib_err_zbx = True
 
+#############################################
+class WebStat(object):
+    def __init__(self, name, key, value1, value2, value3):
+        self.host = host
+        self.key = key
+        self.value = value
+        self.clock = clock
+
+    def __repr__(self):
+        if self.clock is None:
+            return 'Metric(%r, %r, %r)' % (self.host, self.key, self.value)
+        return 'Metric(%r, %r, %r, %r)' % (self.host, self.key, self.value, self.clock)
+
 
 #############################################
 # Config arguments
@@ -33,7 +46,7 @@ parser.add_argument('-F', '--format', dest='format', default='json',
 	help="output format: [json|text|html|none|file]. Default: json")
 parser.add_argument('-O', '--output', dest='output', default='stdout',
 	help="output file: [stdout|filename]. Default: stdout")
-parser.add_argument('-f', '--log-file', dest='log-file', default='/var/log/nginx/access.log',
+parser.add_argument('-f', '--log-file', dest='log_file', default='/var/log/nginx/access.log',
 	help="input web log file. Default: /var/log/nginx/access.log")
 parser.add_argument('-z', '--zabbix', dest='zabbix', default=False,
 	help="zabbix server hostname or IP to enable send through trapper. Default: 127.0.0.1")
@@ -74,8 +87,8 @@ def read_log_codes(nginx_log_file_path, res_code = {}):
     prog = re.compile(r'(.*)"\s(\d*)\s')
 
     t_for_init = time.time()
-
     total_req = 0
+
     nf = open(nginx_log_file_path, 'r')
     line = nf.readline()
     while line:
@@ -95,21 +108,6 @@ def read_log_codes(nginx_log_file_path, res_code = {}):
 
     nf.close()
     t_for_end = time.time()
-
-def get_http_codes():
-    hostname  = 'nginx-srv'
-    app = 'example.com'
-
-    # Nginx log file path
-    nginx_log_file_path = "/var/log/nginx/" + app + ".log"
-
-    res_code = {}
-    read_log_codes(nginx_log_file_path, res_code)
-
-    t_for2_end = time.time()
-
-    return res_code
-
     #t_end = time.time()
 
     #print 'init: ', start
@@ -119,6 +117,13 @@ def get_http_codes():
     #print 't_end: ', t_end-start
 
 
+def get_http_codes():
+
+    nginx_log_file_path = args.log_file
+    res_code = {}
+    read_log_codes(nginx_log_file_path, res_code)
+
+    return res_code
 
 def data_get():
     global args
@@ -215,6 +220,9 @@ def main():
         else:
             z_server = args.zabbix
 
+    if not os.path.isfile(args.log_file):
+        print 'File not found: ' + args.log_file
+        exit(1);
 
     return data_action(data_get())
 
