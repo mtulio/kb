@@ -38,7 +38,7 @@ class WebStat(object):
 # Config arguments
 parser = argparse.ArgumentParser(description='Web log parser, then can return in JSON and/or send to Zabbix.')
 
-parser.add_argument('-o', '--option', dest='option', default='all',
+parser.add_argument('-o', '--option', dest='option', default='code',
 	help="options to return. [code|method|pages|code_method|all]. Default: all")
 parser.add_argument('-t', '--time', dest='time', default='all',
 	help="time to return: last [hour|day|all]. Default: all")
@@ -171,7 +171,7 @@ def data_action(data = {}):
 
     # Do something: send2zabbix, save2file
     if args.zabbix:
-        return zblib.send(parse2zbx(data))
+        return zblib.send(parse2zbx(data), args.zabbix, args.z_port)
 
     # Show
     data_show(data)

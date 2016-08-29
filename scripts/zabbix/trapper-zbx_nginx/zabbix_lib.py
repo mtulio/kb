@@ -51,7 +51,7 @@ def send(data_to_send, z_server='127.0.0.1', z_port=10051):
     if not data_to_send :
         return False
 
-    send_trapper(data_to_send)
+    send_trapper(data_to_send, z_server, z_port)
 
 def ping():
     #print 'pong'
