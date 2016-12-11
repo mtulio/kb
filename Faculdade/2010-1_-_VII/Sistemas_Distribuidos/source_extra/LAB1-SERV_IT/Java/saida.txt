@@ -1,0 +1,5 @@
+Valor recebido do cliente: 3 
+Linha n�mero: 1
+Linha n�mero: 2
+Linha n�mero: 3
+Servidor finalizado
