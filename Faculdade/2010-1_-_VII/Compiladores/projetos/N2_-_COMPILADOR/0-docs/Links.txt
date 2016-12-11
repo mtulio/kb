@@ -1,0 +1,22 @@
+Wiki - Compilador 
+http://pt.wikipedia.org/wiki/Compilador
+
+Wiki - Analise Sintatica - Computação
+http://pt.wikipedia.org/wiki/An%C3%A1lise_sint%C3%A1tica_(computa%C3%A7%C3%A3o)
+
+Wiki - Analisador Sintatico LL(left-left) - p/ top-down
+http://pt.wikipedia.org/wiki/Analisador_sint%C3%A1tico_LL
+
+Wiki - Analisador Sintatico LR - p/ bottom-up
+http://pt.wikipedia.org/wiki/Analisador_sint%C3%A1tico_LR
+
+Wiki - Analise Semantica
+http://pt.wikipedia.org/wiki/An%C3%A1lise_sem%C3%A2ntica
+
+Wikiversidade - Analise Semantica
+http://pt.wikiversity.org/wiki/Introdu%C3%A7%C3%A3o_%C3%A0_Teoria_dos_Compiladores/An%C3%A1lise_Sem%C3%A2ntica
+
+Wiki - Analise Lexica
+http://pt.wikipedia.org/wiki/An%C3%A1lise_l%C3%A9xica
+
+

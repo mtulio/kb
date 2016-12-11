@@ -1,0 +1,53 @@
+#ifndef LISTA_H_
+#define LISTA_H_
+
+// EM CONSTRUCAO
+
+//classe NO
+#include"ItemPersistencia.h"
+
+template<class tipo>
+class Lista
+{
+	private:
+		unsigned int quantidadeObjetos;
+		NoLista *inicioLista;
+	public:
+		Lista():
+			quantidadeObjetos(0)
+			{
+				// sempre o primeiro elemento sera nulo
+				NoLista *primeiroNo = new NoLista(0);
+				inicioLista = primeiroNo;
+				inicioLista->proximo = 0;
+				quantidadeObjetos = 0;
+			}// fim construtor
+		
+		bool estaVazio()const;
+		
+		void adicionarNo(NoLista *no);
+		NoLista *removerNo();
+		NoLista *removerNo(ItemPersistencia *objeto);
+		
+		unsigned int obterQuantidadeDeObjetos()const { return quantidadeObjetos; }
+		
+		~Lista(); 
+			
+};// fim da classe Lista
+
+class NoLista
+{
+	private:
+		ItemPersistencia *objeto;
+
+	public:
+		NoLista *proximo;
+		
+		NoLista(ItemPersistencia *objeto): 
+			objeto(objeto),
+			proximo(0){}	
+	
+		// ItemPersistencia *obterElemento(){return objeto}
+};//fim da calsse MoLista
+
+#endif /*LISTA_H_*/

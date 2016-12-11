@@ -1,0 +1,50 @@
+#include"Cliente.h"
+
+#include<iostream>
+using namespace std;
+
+int main (void){
+	// testando a classe cliente
+	Cliente cli1(1);
+	
+	string nome1 = "nome1",
+			end1 = "end1";
+	long tel1 = 111,
+			cnh1 = 111,
+			cpf1 = 111;
+	
+	cli1.atribuirNome(nome1);
+	cli1.atribuirEndereco(end1);
+	cli1.atribuirTelefone(tel1);
+	cli1.atribuirCnh(cnh1);
+	cli1.atribuirCpf(cpf1);
+	
+	cout<<" ID: "<<cli1.obterIdentificador()<<endl;
+	cout<<"Nome: "<<cli1.obterNome()<<endl;
+	cout<<"ENDERECO: "<<cli1.obterEndereco()<<endl;
+	cout<<"TELEFONE: "<<cli1.obterTelefone()<<endl;
+	cout<<"CNH: "<<cli1.obterCnh()<<endl;
+	cout<<"CPF: "<<cli1.obterCpf()<<endl;
+	
+	cout<<"Desmat.1: "<<cli1.desmaterializar()<<endl;
+	
+	cout<<endl<<endl;
+	// testando o mate e desmate
+	Cliente cli2;
+	
+	cli2.materializar("2;nome2;end2;222;222;222;");
+	
+	cout<<" ID 2: "<<cli2.obterIdentificador()<<endl;
+	cout<<"Nome 2: "<<cli2.obterNome()<<endl;
+	cout<<"ENDERECO 2: "<<cli2.obterEndereco()<<endl;
+	cout<<"TELEFONE 2: "<<cli2.obterTelefone()<<endl;
+	cout<<"CNH 2: "<<cli2.obterCnh()<<endl;
+	cout<<"CPF 2: "<<cli2.obterCpf()<<endl;
+	
+	cout<<"Desmat.2: "<<cli2.desmaterializar()<<endl;
+	
+	cout<<endl<<endl;
+	
+	//**********************************************
+	// TESTE PERSISTENCIA
+}//fim main

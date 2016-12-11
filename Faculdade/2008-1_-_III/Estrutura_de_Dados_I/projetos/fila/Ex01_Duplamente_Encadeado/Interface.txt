@@ -1,0 +1,64 @@
+//arquivo criado para faciliatar o uso da biblioteca iostream e a namespce std
+
+#include<string>
+#include<iostream>
+#include<iomanip>
+
+#include"NoRequisicao.h"
+#include"Fila.h"
+
+class Interface
+{
+   public:
+      static void lerDadosRequisicao(NoRequisicao *&requisicao);
+      static void escreverRequisicao(NoRequisicao *&requisicao);
+      static void listarTodos(Fila *&copiaFila);
+};//fim classe interface
+
+void Interface::lerDadosRequisicao(NoRequisicao *&requisicao)
+{
+     std::cout<<"  ENTRADA DE DADOS DA REQUISICAO"<<std::endl;
+     std::string nome, end, model_pc, num_serie_pc;
+     unsigned long cpf, tel, cel;
+     std::cout<<" Nome:";
+     std::cin>>nome;
+     std::cout<<" CPF: ";
+     std::cin>>cpf;
+     std::cout<<" Endereco: ";
+     std::cin>>end;
+     std::cout<<" Telefone: ";
+     std::cin>>tel;
+     std::cout<<" Celular: ";
+     std::cin>>cel;
+     std::cout<<" Modelo PC: ";
+     std::cin>>model_pc;
+     std::cout<<" Nro Serie PC: ";
+     std::cin>>num_serie_pc;    
+     
+     requisicao->atribuir(nome,cpf, end, tel, cel, model_pc, num_serie_pc);
+}//fim ler
+
+void Interface::escreverRequisicao(NoRequisicao *&requisicao)
+{
+	//std::cout<<"  SAIDA DE DADOS DA REQUISICAO"<<std::endl;
+	std::string lateral="|", superior="______________________________________";
+	std::string nome, end, model_pc, num_serie_pc;
+	unsigned long cpf, tel, cel;	
+	//std::string nome=requisicao->obterNome();
+	
+	std::cout<<lateral<<" NOME: "<<std::setw(10)<<nome<<lateral<<std::endl;
+	
+}
+
+
+void Interface::listarTodos(Fila *&copiaFila)
+{
+   for(; !copiaFila->estaVazio(); ){
+         NoRequisicao *requisicao = new NoRequisicao();
+         copiaFila->retirar(requisicao);
+         escreverRequisicao(requisicao);
+   }     
+     
+     
+}//fim metodo listar
+

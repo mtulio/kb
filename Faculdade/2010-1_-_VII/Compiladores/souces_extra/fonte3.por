@@ -1,0 +1,2 @@
+programa
+var cont1$ ;

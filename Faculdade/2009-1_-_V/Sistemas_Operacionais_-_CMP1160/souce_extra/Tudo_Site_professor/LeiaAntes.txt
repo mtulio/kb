@@ -1,0 +1,5 @@
+Sequencia para estudo:
+1 - Iniciar a leitura do Texto Interprocess Communications
+2 - Estudar os exemplos: semainit.c, sema.c e semab.c
+3 - Estudar os exemplos: mutex.c e prodcons.c
+4 - Estudar o exemplo monitor.c

@@ -1,0 +1,66 @@
+#include"Lista.h"
+
+bool Lista::estaVazio()const
+{
+	if(quantidadeObjetos==0) return true;
+	else return false;
+}//fim esta vazio
+
+void Lista::adicionarNo(NoLista *no)
+{
+	try{
+		// se a lista estiver vazio
+		if(estaVazio()){
+			no->proximo = 0;
+			inicioLista->proximo = no;
+			quantidadeDisicplinas +=1;
+			return;			
+		}// fim esta vazio
+		// se a lista nao estiver vazia
+		// aux para percorrer a lista
+		NoLista *auxNo = new NoLista();
+		auxNo = inicioLista;
+		
+		//repetindo ate chegar ao fim da lista
+		while(auxNo->proximo!=0){
+			auxNo = auxNo->proximo;
+		}//fim while
+		
+		//quando chegar no fim da lista
+		// ira add no fim da lista
+		no->proximo = 0;
+		auxNo->proximo = no;
+		quantidadeDisiplinas +=1;
+		return;
+	}//fim try
+	catch(std::string msg){
+		throw ("ListAdd - "+msg);		
+	}//fim catch	
+}//fim no
+
+NoLista *Lista::removerNo()
+{
+	// este metodo remove o ultimo no da lista
+	try{
+		if(estaVazio()) throw std::string("Lista Vazia!";)
+		NoLista *auxNo = new NoLista();
+		NoLista *auxIdentificador = new NoLista();
+		
+		//indo para o segundo elemento
+		auxIdentificador = inicioLista->proximo;
+		
+		// REPETE ENQUANTO O "NO->PROXIMO->PROXIMO" FOR DIFERENTE DE 0, MANEIRA MAIS FACIL PRA DESCOBRIR O ULTIMO
+		// ESTANDO NO ANTEPENULTIMO SE PRECISA TER O ANTERIOR
+		while(auxIdentificador->proximo!=0)[
+			auxNo = auxNo->proximo;
+			auxIdentificador = auxIdentificador->proximo;
+		}//fim while
+		// agora o identificador esta no fim da lista
+		quantidadeDisiplinas -=1;
+		return auxIdentificador;
+		
+	}//fim try
+	catch(std::string msg){
+		throw ("ListRm1 - "+msg);		
+	}//fim catch	
+}//fim removerNo
