@@ -1,0 +1,1 @@
+networks = '[{"id" : "1", "name": "DMZ", "domain": "net-dmz.ict-eng.net", "network": "10.252.100.0" },{"id" : "2", "name" : "PROD", "domain" : "net-prod.ict-eng.net", "network" : "10.252.102.0" }]';

@@ -1,0 +1,25 @@
+{
+  "title": ""
+  "hostname": "ipam.ict-eng.net",
+  "ipaddr": "1.1.1.1",
+  "netscan": "enable",
+  "scan_interval": "1m",
+  "networks": [
+    {
+      "name": "DMZ",
+      "domain": "net-dmz.ict-eng.net",
+      "network": "10.252.100.0",
+      "prefix": "23",
+      "Description": "DMZ Network",
+      "ping": "yes",
+    },
+    {
+      "name": "PROD",
+      "domain": "net-prod.ict-eng.net",
+      "network": "10.252.102.0",
+      "prefix": "23",
+      "Description": "Production Network",
+      "ping": "yes",
+    }
+  ]
+}
