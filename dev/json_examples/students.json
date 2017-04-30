@@ -1,0 +1,25 @@
+/* This is an example students feed in JSON */
+{
+    "students": {
+        "0": {
+            "studentid": "101",
+            "firstname": "John",
+            "lastname": "Doe",
+            "classes": [
+                "Business Research",
+                "Economics",
+                "Finance"
+            ]
+        },
+        "1": {
+            "studentid": "102",
+            "firstname": "Jane",
+            "lastname": "Dane",
+            "class": [
+                "Marketing",
+                "Economics",
+                "Finance"
+            ]
+        }
+    }
+}
