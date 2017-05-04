@@ -1,0 +1,226 @@
+@font-face {
+  font-family: 'Mono Social Icons Font';
+  src: url("font/MonoSocialIconsFont-1.10.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+/* line 8, ../sass/_icon-font.scss */
+.symbol, a.symbol:before {
+  font-family: 'Mono Social Icons Font';
+  -webkit-text-rendering: optimizeLegibility;
+  -moz-text-rendering: optimizeLegibility;
+  -ms-text-rendering: optimizeLegibility;
+  -o-text-rendering: optimizeLegibility;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -ms-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
+/* line 21, ../sass/_icon-font.scss */
+a.symbol:before {
+  content: attr(title);
+  margin-right: 0.3em;
+  font-size: 130%;
+}
+
+/* line 26, ../sass/_icon-font.scss */
+.symbol, a.symbol:before {
+  font-family: 'Mono Social Icons Font';
+  -webkit-text-rendering: optimizeLegibility;
+  -moz-text-rendering: optimizeLegibility;
+  -ms-text-rendering: optimizeLegibility;
+  -o-text-rendering: optimizeLegibility;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -ms-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
+/* line 39, ../sass/_icon-font.scss */
+a.symbol:before {
+  content: attr(title);
+  margin-right: 0.3em;
+  font-size: 130%;
+}
+
+/* line 2, ../sass/_responsive-paragraph.scss */
+p.paragraph:first-letter {
+  color: green;
+}
+/* line 5, ../sass/_responsive-paragraph.scss */
+p.paragraph.small-screen {
+  font-size: 0.8rem;
+}
+/* line 7, ../sass/_responsive-paragraph.scss */
+p.paragraph.small-screen:first-letter {
+  font-size: 1.6rem;
+}
+/* line 11, ../sass/_responsive-paragraph.scss */
+p.paragraph.medium-screen {
+  font-size: 1.2rem;
+}
+/* line 13, ../sass/_responsive-paragraph.scss */
+p.paragraph.medium-screen:first-letter {
+  font-size: 3rem;
+}
+/* line 17, ../sass/_responsive-paragraph.scss */
+p.paragraph.large-screen {
+  font-size: 2rem;
+}
+/* line 19, ../sass/_responsive-paragraph.scss */
+p.paragraph.large-screen:first-letter {
+  font-size: 4rem;
+}
+
+/* line 1, ../sass/_responsive-header.scss */
+p.header {
+  background: #eee;
+  color: green;
+}
+/* line 4, ../sass/_responsive-header.scss */
+p.header.small-screen {
+  font-size: 0.8rem;
+}
+/* line 7, ../sass/_responsive-header.scss */
+p.header.medium-screen {
+  font-size: 1.2rem;
+}
+/* line 10, ../sass/_responsive-header.scss */
+p.header.large-screen {
+  font-size: 2rem;
+}
+
+/* line 2, ../sass/_responsive-list.scss */
+.item-list-container ol {
+  margin-bottom: 2px;
+}
+/* line 4, ../sass/_responsive-list.scss */
+.item-list-container ol.small-screen {
+  font-size: 0.6rem;
+}
+/* line 7, ../sass/_responsive-list.scss */
+.item-list-container ol.medium-screen {
+  font-size: 1rem;
+}
+/* line 10, ../sass/_responsive-list.scss */
+.item-list-container ol.large-screen {
+  font-size: 1.5rem;
+}
+/* line 15, ../sass/_responsive-list.scss */
+.item-list-container .show-more {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: blue;
+  margin-left: 10px;
+}
+
+/* line 2, ../sass/_responsive-text.scss */
+p.text.small-screen {
+  font-size: 0.8rem;
+}
+/* line 5, ../sass/_responsive-text.scss */
+p.text.medium-screen {
+  font-size: 1.2rem;
+}
+/* line 8, ../sass/_responsive-text.scss */
+p.text.large-screen {
+  font-size: 2rem;
+}
+
+/* line 6, ../sass/app.scss */
+body {
+  background: #eee;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+/* line 12, ../sass/app.scss */
+body .my-profile-container {
+  background: white;
+  width: 90%;
+  margin: auto;
+  box-shadow: 2px 2px 2px 2px lightgrey;
+}
+/* line 18, ../sass/app.scss */
+body .my-profile-container .row .pic {
+  text-align: center;
+  padding: 0 0 20px;
+  color: green;
+}
+/* line 21, ../sass/app.scss */
+body .my-profile-container .row .pic .profile-image {
+  border-radius: 100%;
+  -o-border-radius: 100%;
+}
+/* line 26, ../sass/app.scss */
+body .my-profile-container .row .about {
+  display: flex;
+}
+/* line 28, ../sass/app.scss */
+body .my-profile-container .row .about .btn {
+  border: 0 none;
+  color: green;
+  height: 60px;
+  width: 50%;
+  margin: 5px 0px;
+  font-weight: 100;
+  font-size: 16px;
+  cursor: pointer;
+}
+/* line 37, ../sass/app.scss */
+body .my-profile-container .row .about .btn:hover {
+  background: green;
+  color: #eee;
+}
+/* line 41, ../sass/app.scss */
+body .my-profile-container .row .about .btn.selected {
+  background: green;
+  color: #eee;
+  cursor: text;
+}
+/* line 49, ../sass/app.scss */
+body .my-profile-container .row .display {
+  height: 100%;
+  padding: 0px 10px;
+}
+/* line 52, ../sass/app.scss */
+body .my-profile-container .row .display .detailProfessional, body .my-profile-container .row .display .detailPersonal {
+  position: relative;
+  padding: 2px;
+}
+/* line 53, ../sass/app.scss */
+body .my-profile-container .row .display .detailProfessional .section, body .my-profile-container .row .display .detailPersonal .section {
+  display: flex;
+}
+/* line 55, ../sass/app.scss */
+body .my-profile-container .row .display .detailProfessional .section .divider, body .my-profile-container .row .display .detailPersonal .section .divider {
+  width: 50%;
+}
+/* line 57, ../sass/app.scss */
+body .my-profile-container .row .display .detailProfessional .section .divider:first-child, body .my-profile-container .row .display .detailPersonal .section .divider:first-child {
+  margin-right: 10px;
+}
+/* line 60, ../sass/app.scss */
+body .my-profile-container .row .display .detailProfessional .section .divider h4, body .my-profile-container .row .display .detailPersonal .section .divider h4 {
+  font-weight: 300;
+  color: green;
+  margin: 0px;
+}
+/* line 71, ../sass/app.scss */
+body .my-profile-container .row .footer {
+  background: #eee;
+  text-align: center;
+}
+/* line 74, ../sass/app.scss */
+body .my-profile-container .row .footer a {
+  color: green;
+  text-decoration: none;
+  font-weight: 300%;
+}

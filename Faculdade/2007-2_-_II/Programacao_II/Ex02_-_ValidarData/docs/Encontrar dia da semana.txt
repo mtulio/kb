@@ -1,0 +1,60 @@
+MT - PROGRAMAÇÂO>02
+
+d - 04 - dia  
+m - 08 - mes - [Março=1, Abril=2, etc..]
+a - 88 - os dois ultimos digitos do ano 
+c - 19 - os dois primeiros digitos do ano 
+INT - numero inteiro da operação
+S - o dia da semana pretendindo [Domingo=0, Segunda=1...etc]
+
+y = d + INT[(13m - 1)/5] + a + INT[a/4] + INT[c/4] - 2c
+
+y = 4 + INT[(13*8-1)/5] + 88 + INT[88/4] + INT[19/4] - 2*19
+y = 4 + INT[(103)/5]    + 88 + 22        + INT[4,75] - 36 
+y = 4 + INT[20,6]       + 88 + 22        + 4         - 36
+y = 4 + 20 + 88 + 22 + 4 - 36
+y = 102
+
+S = y - 7 * INT[y/7]
+S = 102 - 7 * INT[102/7]
+S = 102 - 7 * INT[14,5714]
+S = 102 - 7 * 14
+S = 102 - 98
+S = 4 (Quinta)
+
+0 = Domingo
+1 = Segunda
+2 = Terça
+3 = Quarta
+4 = Quinta
+6 = Sexta
+7 = Sabado
+
+
+2º tentativa
+
+dia da semana = resto( quociente((2,6*M-0,2),1) +D+A+ Quociente(A,4)+Quociente(S,4) - 2*S) ,7)
+
+M = MEs
+Quociente((2,6*m-0,2),1)
+=2,6*8 - 0,2 = 20,6
+Quociente(20,6 , 1)
+=20
+
+A=nro formado pelos 2 ult alg do ano
+Quociente(A,4)
+Quociente(88,4)
+=22
+
+S=nro formado pelos 2 prim alg do ano
+Quociente(S,4)
+Quociente(19,4)
+=4
+
+D=dia do mes
+
+**Substituindo na formula
+= resto( 20 + 4 + 88 + 22 + 4 - 2*19 , 7)
+= resto( 138 - 38, 7)
+= resto( 100, 7)
+= 02 (TERÇA).............OK!!!!!!!!!!!

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html  lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width,initial-scale=1,
+              maximum-scale=1, user-scalable=YES">
+        <title>
+            CIPAM
+        </title>
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700'
+              rel='stylesheet' type='text/css'>
+        <link href='stylesheets/cipam.css'
+              rel='stylesheet' type='text/css' >
+    </head>
+    <body breakpoint='{"400":"small-screen", "700":"medium-screen","1000":"large-screen"}'>
+
+<div class="my-profile-container">
+    <div class="row">
+        <div class="pic">
+            <h1> CIPAM - Cloud IP Address Management </>
+        </div>
+    </div>
+    <div class="row">
+        <div class="about">
+            <button class="btn" ng-model="professional"
+                    ng-click="getDetail($event)"
+                    ng-class="{'selected':selected}"
+                    ng-disabled="selected">
+                Configuration
+            </button>
+            <button class="btn" ng-model="personal"
+                    ng-click="getDetail($event)"
+                    ng-disabled="!selected"
+                    ng-class="{'selected':!selected}">
+                Networks
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="display">
+            <div class="detailProfessional" ng-show="selected">
+
+
+                <div class="section">
+                    <div class="divider">
+						ROW Prof.A
+                    </div>
+                    <div class="divider">
+						ROW Prof.B
+                    </div>
+                </div>
+            </div>
+            <div class="detailPersonal" ng-show="!selected">
+                <div class="section">
+                    <div class="divider">
+                        <responsive-header targetText="Full Name">
+                        </responsive-header>
+                        <responsive-text targetText="{{personal.name}}">
+                        </responsive-text>
+                    </div>
+                    <div class="divider">
+                        <responsive-header targetText="Weight">
+                        </responsive-header>
+                        <responsive-text targetText="{{personal.weight}}">
+                        </responsive-text>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="footer">
+            <a ng-href='{{professional.social.twitter}}' class='symbol' title='&#xe286;'></a>
+            <a ng-href='{{professional.social.facebook}}' class='symbol' title='&#xe227;'></a>
+            <a ng-href='{{professional.social.linkedin}}' class='symbol' title='&#xe252;'></a>
+            <a ng-href='{{professional.social.googleplus}}' class='symbol' title='&#xe239;'></a>
+        </div>
+    </div>
+</div>
+
+        <!--external scripts end -->
+    </body>
+</html>

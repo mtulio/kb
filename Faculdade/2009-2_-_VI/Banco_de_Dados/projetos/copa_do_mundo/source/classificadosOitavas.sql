@@ -1,0 +1,1 @@
+select distinct pais.nome AS "Países quasificados para as Oitavas de Finais" FROM pais,jogo WHERE (jogo.cod_selecao1=pais.codigo OR jogo.cod_selecao2=pais.codigo) AND jogo.dia>'19/07/2010' AND jogo.dia<'22/07/2010' ORDER BY pais.nome;

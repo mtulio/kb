@@ -1,0 +1,22 @@
+#ifndef ITERATOR_H_
+#define ITERATOR_H_
+
+// EM CONSTRUCAO
+
+class Iterator
+{
+	private:
+		Lista *lista;
+		unsigned int tamanho;	
+	public:
+		Iterator(Lista *lista):
+			lista(lista)
+			{
+				this->tamanho = lista->obterQuantidadeObjetos; 	
+			}
+	
+	
+	
+};// fim classe Iterator
+
+#endif /*ITERATOR_H_*/

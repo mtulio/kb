@@ -1,0 +1,59 @@
+#include<iostream>
+#include<iomanip>
+#include<string>
+
+#include"Cliente.h"
+#include"Veiculo.h"
+
+using namespace std;
+
+int main (void)
+{
+	std::string modelo, marca, placa;
+	unsigned int identificador;
+	float valorDeComra, valorDeVenda;
+	
+	Veiculo veiculo1(0,"MARCO", "RUA 260",84715934, 7323, 123456);//,
+			//cliente2(1,"TULIO",84715934),
+			//cliente3(2,"RODRIGUES",84715934),
+			//cliente4(3,"BRAGA",12345678);
+
+	veiculo1.obter(identificador, nome, endereco, telefone, cnh, cpf);
+	
+	cout<<setw(15)<<" ID: "<<identificador<<endl;
+	cout<<setw(15)<<" modelo: "<<modelo<<endl;
+	cout<<setw(15)<<" ENDERECO: "<<endereco<<endl;
+	cout<<setw(15)<<" TELEFONE: "<<telefone<<endl;
+	cout<<setw(15)<<" CART MOTORISTA: "<<cnh<<endl;
+	cout<<setw(15)<<" CPF: "<<cpf<<endl;
+
+cout<<endl<<" TESTANDO O MATERIALIZAR"<<endl<<endl;
+	Cliente cliente2;
+	cliente2.materializar("0;Marco Tulio;Rua 260;84715934;7323;012758;");
+	cliente2.obter(identificador, nome, endereco, telefone, cnh, cpf);
+	cout<<setw(15)<<" ID: "<<identificador<<endl;
+	cout<<setw(15)<<" NOME: "<<nome<<endl;
+	cout<<setw(15)<<" ENDERECO: "<<endereco<<endl;
+	cout<<setw(15)<<" TELEFONE: "<<telefone<<endl;
+	cout<<setw(15)<<" CART MOTORISTA: "<<cnh<<endl;
+	cout<<setw(15)<<" CPF: "<<cpf<<endl;
+	
+	cout<<endl<<" TESTANDO O DESMATERIALIZAR"<<endl<<endl;
+	std::string testeStrDesmat = cliente2.desmaterializar();
+	
+	cout<<" Str desmaterializada: "<<testeStrDesmat<<endl<<endl;
+	
+	cout<<endl<<" TESTANDO O MATERIALIZAR 02"<<endl<<endl;
+	cout<<" string: "<<testeStrDesmat<<endl<<endl;
+	Cliente cliente3;
+	cliente3.materializar(testeStrDesmat);
+	cliente3.obter(identificador, nome, endereco, telefone, cnh, cpf);
+		cout<<setw(15)<<" ID: "<<identificador<<endl;
+		cout<<setw(15)<<" NOME: "<<nome<<endl;
+		cout<<setw(15)<<" ENDERECO: "<<endereco<<endl;
+		cout<<setw(15)<<" TELEFONE: "<<telefone<<endl;
+		cout<<setw(15)<<" CART MOTORISTA: "<<cnh<<endl;
+		cout<<setw(15)<<" CPF: "<<cpf<<endl;
+	
+}//fim main
+

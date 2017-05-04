@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" class=" has-js">
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  	<meta charset="utf-8">
+
+	<title>Cloud IP Address Management</title>
+
+	<meta name="author" content="Cloud IP Address Management">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="./assets/css/styles.css" media="all">
+	<link rel="stylesheet" href="./assets/css/site.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            
+            <!-- LOGO -->
+            <a id="cipam-logo"> CIPAM </a>
+            <nav>
+                <ul class="list-divider-pipe">
+                    <li class="active"> <a href="#">Home</a> </li>
+                    <li> <a href="#./results">Results</a> </li>
+                    <li> <a href="#./about">About</a> </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div id="main">
+        <div class="container">
+
+            <div id="home-intro">
+
+                <h2 id="home-downloadhead" >Available commands: </h2>
+		<table>
+		<tr>
+		<td>
+                <div class="home-downloadblock">
+		    <input type='button' value='Configuration' onclick='loadConf();' class="home-button" d>  </input>
+                </div>
+		</td><td>
+                  <div class="home-downloadblock">
+		    <input type='button' value='Networks' onclick='loadNet();' class="home-button" d>  </input>
+                  </div>
+		</td><td>
+                  <div class="home-downloadblock">
+		    <input type='button' value='Backends' onclick='loadBack();' class="home-button" d>  </input>
+                  </div>
+		</td></tr></table>
+
+                <p class="home-version home-version-banner"> Results: </p>
+
+                <!--<p>Reading from JSON</p>-->
+		<pre><code class="language-javascript">
+			<div id="resp01"></div>
+		</code></pre>
+		<!--<script type="text/javascript" src = "assets/js/networks.json"> </script>-->
+		<script type="text/javascript" src = "assets/js/functions.js"> </script>
+
+            </div>
+        </div>
+    </div>
+
+    <a href="/#" id="scrollToTop" style="display: none;">↑ <span>Scroll to top</span></a>
+    
+    <footer class="no-margin-top" role="contentinfo">
+    
+        <div class="cipam-footer">
+            <div class="container">
+                <div class="issue-link-container">
+                    <ul class="list-divider-pipe issue-link">
+                        <li><a href="https://github.com/mtulio">GitHub</a></li>
+                        <li><a href="https://forge.puppetlabs.com/mtulio">Puppet</a></li>
+                    </ul>
+                    <a class="cipam-logo" href="http://www.mtulio.eng.br">Cloud IP Address Management</a>
+                </div>
+    
+                <p>  © 2016 MTulio Company. All Rights Reserved. Portions of this site originally © 2016 Node.js. </p>
+            </div>
+        </div>
+    
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+#include<iostream>
+#include<string>
+#include"classeInterface.h"
+#include"classePersistencia.h"
+#include"classeControle.h"
+#include"classeIterador.h"
+#include"classePessoa.h"
+using namespace std;
+int main()
+{
+		Persistencia agenda;
+		Controle controleAgenda(agenda);
+		Interface::menuPrincipal(controleAgenda);
+}
+
+/*
+APERFEIÇOAR O PROGRAMA
+1 - CLASSE PERSISTENCIA: METODO APAGAR - USAR O COMANDO RENAME, E DELETE NO CODIGO DO 
+METODO PARA MELHORAR E AGILIZAR O PROGRAMA. FAZ-SE ISSO NA HORA Q EH FEITA A COPIA
+DO ARQUIVO, DEPOIS E SO APAGAR O ANTIGO E RENOMEAR O TEMPORARIO
+2 - CLASSE PERSISTENCIA: METODO LLISTAGEM DE NOME POR LETRA - NA HORA Q EH FEITA A CONTAGEM
+DE LINHAS DA AGENDA, FILTRAR APENAS OS COM OS DETEERMINADAS LETRAS, E LOGO DEPOIS 
+E SO CRIAR UMA AGENDA EM VETOR DO TAMANHO  DE LINHAS ENCONTRADAS...
+PROCESSOS PARA AGILIZAR O PROJETO DE AGENDA EM VETOR DE PROGRAMAÇÃO II
+
+
+
+*/
+

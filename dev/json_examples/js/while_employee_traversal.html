@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <title>Parse JSON Feed using While</title>
+                <script type="text/javascript" src="data.json"></script> 
+                <script type="text/javascript">
+
+                        var i = 0;
+                        var employeeCount = data_json.length;
+
+                        while(i<employeeCount){
+                                if(data_json[i].titles instanceof Array){
+                                        //there are more than one titles for this employee
+                                        var j=0
+                                        var titleCount = data_json[i].titles.length;
+                                        var titles = "";
+
+                                        while(j<titleCount){
+                                                titles += data_json[i].titles[j].title+ " & ";
+                                                j++;
+                                        }
+
+                                        titles = titles.slice(0, titles.length-3);
+
+                                        console.log("Employee "+ data_json[i].emp_no +" has served as "+titles);
+
+
+                                }
+                                else{
+                                        //there is only one title for this employee
+                                        var title = data_json[i].titles.title;
+                                        console.log("Employee "+ data_json[i].emp_no +" has served as "+title);
+                                }
+
+                                i++;
+                        }
+
+                </script>
+        </head>
+        <body>
+                <h2>Parse JSON Feed using While</h2>
+                <p>This is a test program to learn how external JSON 
+                feed stored in files can be parsed using the While Loop.</p>
+        </body>
+</html>

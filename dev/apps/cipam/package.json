@@ -1,0 +1,24 @@
+{
+  "name": "cipam",
+  "version": "0.0.1",
+  "description": "Node.JS APP for [Cloud] IP Address Management.",
+  "contributors": [
+    {
+      "name": "Marco Tulio R Braga",
+      "email": "devops@mtulio.eng.br"
+    }
+  ],
+  "license": "Apache-2",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/app_start"
+  },
+  "dependencies": {
+    "express": "~4.13.1",
+    "body-parser": "~1.14.2",
+    "debug": "~1.4.1",
+    "serve-favicon": "~2.3.0",
+    "morgan": "~1.6.1",
+    "cookie-parser": "~1.4.1"
+  }
+}

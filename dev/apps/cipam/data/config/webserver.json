@@ -1,0 +1,9 @@
+{
+  "title": ""
+  "hostname": "ipam.ict-eng.net",
+  "ipaddr": "1.1.1.1",
+  "netscan": "enable",
+  "scan_interval": "1m",
+  "config_network": "networks.json",
+  "config_backend": "backends.json",
+}

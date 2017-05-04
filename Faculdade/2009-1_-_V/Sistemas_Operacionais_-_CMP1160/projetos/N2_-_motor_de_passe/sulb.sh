@@ -1,0 +1,15 @@
+#!/bin/sh
+$(rmmod -f chardev)
+$(rm /dev/chardev)
+$(make)
+$(insmod chardev.ko)
+$(mknod /dev/chardev c 246 0)
+$(echo -n -e "1" > /dev/chardev)
+$(echo -n -e "2" > /dev/chardev)
+$(echo -n -e "4" > /dev/chardev)
+$(echo -n -e "8" > /dev/chardev)
+$(echo -n -e "1" > /dev/chardev)
+$(echo -n -e "2" > /dev/chardev)
+$(echo -n -e "4" > /dev/chardev)
+$(echo -n -e "8" > /dev/chardev)
+
