@@ -1,5 +1,6 @@
-# GIT tips
+# GIT
 
+Some useful commands.
 
 ## TAGs
 
