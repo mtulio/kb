@@ -12,3 +12,9 @@ Yeap, curl deserves an entire file to show it's options
 
 `curl -o /dev/null -I -sw "%{http_code}" http://localhost/ `
 
+## POST
+
+## PUT
+
+## DELETE
+
