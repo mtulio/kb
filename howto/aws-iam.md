@@ -90,3 +90,5 @@ eval $(./iam-assume-role.sh)
 ```
 AWS_DEFAULT_REGION="us-east-1" aws dynamodb scan --table-name my-table
 ```
+1. http://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html
+1. https://github.com/fugue/credstash/wiki/Setting-up-cross-account-access
