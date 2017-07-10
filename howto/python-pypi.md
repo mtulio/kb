@@ -55,7 +55,21 @@ python setup.py register -r pypitest
 python setup.py sdist upload -r pypitest
 ```
 
-> *References*:
+## Using TWINE
+
+* Package module
+
+`python setup.py sdist`
+
+* Install TWINE
+
+`pip install twine`
+
+* Upload to PyPi
+
+`twine upload dist/*`
+
+## *References*:
 
 * [PyPi](https://pypi.org)
 * [PyPi test](https://testpypi.python.org/pypi)
