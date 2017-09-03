@@ -38,3 +38,11 @@ select name,status,count,avg_count,max_count,subsystem from INNODB_METRICS;
 ```
 select name,status,count,avg_count,max_count,subsystem from INNODB_METRICS where subsystem="os" or subsystem='file_system';
 ```
+
+* Open files
+
+
+```
+select * from global_status where VARIABLE_NAME='OPENED_FILES';
+
+```
