@@ -2,6 +2,19 @@
 
 MySQL tips.
 
+## CRUD
+
+### Create
+
+### Retrieve
+
+### Update
+
+`UPDATE glpi_users SET password=MD5('new_pass') WHERE name='admin';`
+
+### Delete
+
+
 
 ## Permissions
 
