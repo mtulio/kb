@@ -18,3 +18,23 @@ Yeap, curl deserves an entire file to show it's options
 
 ## DELETE
 
+## Custom stdout
+
+1) create the `curl-format.txt` file with these content:
+
+```
+  time_namelookup:  %{time_namelookup}\n
+      time_connect:  %{time_connect}\n
+   time_appconnect:  %{time_appconnect}\n
+  time_pretransfer:  %{time_pretransfer}\n
+     time_redirect:  %{time_redirect}\n
+time_starttransfer:  %{time_starttransfer}\n
+                   ----------\n
+        time_total:  %{time_total}\n
+```
+
+2) Run the command:
+
+```shell
+curl -w "@curl-format.txt" -o /dev/null -s https://www.google.com/teste.txt
+```
