@@ -37,6 +37,33 @@ Change/Where:
   * https://www.elastic.co/guide/en/elasticsearch/reference/current/disk-allocator.html
   * https://www.datadoghq.com/blog/elasticsearch-unassigned-shards/
  
+### Remove nodes from an Cluster "gracefully"
+
+```bash
+curl -XPUT ONE_ES_NODE:9200/_cluster/settings -d '{
+  "transient" :{
+    "cluster.routing.allocation.exclude._ip" : "ES_NODE_IP_TO_REMOVE"
+  }
+}';echo
+```
+
+* Refs and credits:
+  * https://logz.io/blog/elasticsearch-cheat-sheet/
+
+### settings.index.routing.allocation.disable_allocation - Get all
+
+```bash
+ES_FQDN=myServer.com
+for I in $(curl -s "http://$ES_FQDN:9200/_all/_settings" |jq 'keys[]'); 
+do 
+  I=$(echo $I |tr -d '"')
+  echo $I/disable_allocation=$(curl  -s "http://$ES_FQDN:9200/$I/_settings/index.routing.allocation.disable_allocation" |jq .$I.settings.index.routing.allocation.disable_allocation)
+done
+```
+### settings.index.routing.allocation.disable_allocation - Change all to false
+
+> TODO
+
 
 ## PLUGINS
 
