@@ -8,7 +8,7 @@ DRAFT Operations in access log file with combined values
 
 ### Get Codes
 
-awk -F'"' '{print $3}' /var/log/apache2/*-access.log  |awk '{print$1}' |sort |uniq -c
+`awk -F'"' '{print $3}' /var/log/apache2/*-access.log  |awk '{print$1}' |sort |uniq -c`
 
 
 ### Get top10 slow requests
