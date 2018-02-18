@@ -154,15 +154,24 @@ x) See all nodes
  * Declarative - YAML files
  
  
- ## Imperative CLI
+## Imperative CLI
  
- ### Pods
+### EXEC / RUN
  
- * kubectl get pods
+ * `kubectl exec mynginx -i -y -- /bin/bash`
  
- ### Deployments
+### Pods
  
- * kubectl create -f nginx-deployment-yaml
+ * `kubectl get pods`
+ * `kubectl run mysample --image=latest123/apache`
+ * `kubectl run myreplicas --image=latest123/apache --replicas=2 --labels=app=myapache,version`
+ * `kubectl describe deployment myreplicas`
+ * Describe by labels
+ `kubectl get pods -l versions`
+ 
+### Deployments
+ 
+ * kubectl create -f deployment-nginx.yaml
 ```yaml
 apiversion: v1
 kind: Deployment
@@ -187,9 +196,36 @@ spec:
  * kubectl get pods
  * kubectl get replicationControllers
  
- # Exercises
+### LOGS
  
- ## Run a Job
+ kubectl get pods
+ kubectl logs myapache
+ kubectl logs --tail=1 myapache
+ kubectl logs --since=24h myapache
+ kubectl logs -f myapache
+ kubectl logs -f -c CID myapache
+ 
+### Autoscaling and Scaling the Pods
+ 
+kubectl run myas --image=latest123/apache --port=80 --labels=app=myautoscale
+kubectl get deployments
+kubectl autoscale deployment myas --min=2 --max=6
+kubectl autoscale deployment myas --min=2 --max=6 --cpu-percent=10
+kubectl get deployments
+kubectl scale --current-replicas=2 --replicas=4 deployment/myas
+kubectl get deployments
+kubectl get pods
+kubectl scale --current-replicas=4 --replicas=2 deployment/myas
+kubectl get deployments
+kubectl get pods
+ 
+### Fail and Recovery
+
+
+
+# Exercises
+ 
+## Run a Job
  
 Applications that run to completion inside a pod are called "jobs."  This is useful for doing batch processing.
 
@@ -316,6 +352,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nginx-service
+  labels:
+    app: nginx-service
 spec:
   ports:
     - port: 8000
