@@ -1,8 +1,11 @@
 # Frequently Asqued Questions
 
+> This is an personal study annotations for LA ([Linux Academy](https://linuxacademy.com)) courses. All credits goes to LA Inc. =]
+
 This is FAQ from Quizes and courses
 
 * [Core Concepts](#core-concepts)
+* [Installation, Configuration and Validation](#installation-configuration-and-validation)
 
 
 ## Core Concepts
@@ -312,3 +315,297 @@ Docker volumes are not used in conjunction with Kubernetes at this time.
 
 *Further Reading*
 https://linuxacademy.com/cp/courses/lesson/course/1412/lesson/1/module/155
+
+## Installtion, Configuration and Validation
+
+
+**1) What is the default encryption used in Kubernetes? (Choose the answer that is most correct.)**
+
+*Choose the correct answer:*
+
+* HTTPS
+* SSL
+* TLS
+* AES
+
+
+**2) What is the node called that runs the apiserver?*
+
+*Choose the correct answer:*
+
+* The Server
+* The Top
+* The Client
+* The Master
+
+**3) Which of these is an inexpensive and easy way to try out Kubernetes?**
+
+*Choose the correct answer:*
+
+* Minikube
+* Turnkey
+* Manual Install
+* Linux Foundation's CNI
+
+**4) Which of these is not a CNI provider?**
+
+*Choose the correct answer:*
+
+* Canal
+* Flannel
+* Ceph
+* Weave Net
+
+
+**5) Which platform(s) will Minikube run on? (Select all that apply)**
+
+*Choose the 3 correct answers:*
+
+- [ ] Windows
+- [ ] Linux
+- [ ] Novell Netware v4
+- [ ] Mac OS X
+
+
+**6) Which types of API requests should be authenticated?**
+
+*Choose the correct answer:*
+
+* Node requests
+* Requests from users
+* All of them
+* Incoming requests from proxies
+
+
+**7) To deploy Kubernetes using kubeadm, you'll have to choose:**
+
+*Choose the correct answer:*
+
+* A passphrase for the certificates
+* Between container space and swap space
+* An appropriate CNI (Container Network Interface)
+* The amount of RAM allocated to the Kubelets
+
+
+**8) For network policies to work in Kubernetes, which of these must be true?**
+
+*Choose the correct answer:*
+
+* The CNI must support VxLANs.
+* The CNI must enforce the network policies.
+* The CNI must have a "policy" sidebar.
+* Network policies are always enforced.
+
+**9) What do many Kubernetes deployment tools handle automatically for you?**
+
+*Choose the correct answer:*
+
+* CNI deployment
+* Certificate creation
+* Kubectl installation on the master and nodes
+* Custom namespaces
+
+
+
+**10) In Kubernetes, one of the primitives is a Node (which was formerly referred to as a "Minion"). What does it represent?**
+
+*Choose the correct answer:*
+
+* A physical or virtual machine running the Kubelet and doing the compute work via a container service like Docker or Rocket.
+* A virtual machine running the Kubelet and doing the compute work via Docker.
+* A physical machine running the Kubelet and doing the compute work via a container service like Docker or Rocket.
+* A virtual machine running the Kubelet and doing the compute work via a container service like Docker or Rocket.
+
+
+**11) What underlying technology does Flannel use to allow pods to communicate?**
+
+*Choose the correct answer:*
+
+* GRE Tunnels
+* IPSec Tunnels
+* VxLANs
+* VLANs
+
+
+**12) How is authorization handled in Kubernetes?**
+
+*Choose the correct answer:*
+
+* LDAP/AD
+* Through a variety of third-party authorization plugins.
+* Through user.permission files mounted via secrets
+* A built-in Role Based Access Control system.
+
+
+---
+
+
+**1) What is the default encryption used in Kubernetes? (Choose the answer that is most correct.)**
+
+*Correct answer*
+
+TLS
+
+*Explanation*
+
+TLS is the default encryption used in Kubernetes.
+
+*Further Reading*
+
+https://linuxacademy.com/cp/courses/lesson/course/1415/lesson/1/module/155
+
+**2) What is the node called that runs the apiserver?**
+
+*Correct answer*
+
+The Master
+
+*Explanation*
+
+The Master node runs the apiserver and is where Kubernetes accepts requests via a RESTful API.
+
+*Further Reading*
+
+https://linuxacademy.com/cp/courses/lesson/course/1420/lesson/1/module/155
+
+**3) Which of these is an inexpensive and easy way to try out Kubernetes?**
+
+*Correct answer*
+
+Minikube
+
+*Explanation*
+
+Minikube is a great and inexpensive way to try out Kubernetes.
+
+*Further Reading*
+
+https://linuxacademy.com/cp/courses/lesson/course/1415/lesson/1/module/155
+
+**4) Which of these is not a CNI provider?**
+
+*Correct answer*
+
+Ceph
+
+*Explanation*
+
+Ceph is an object store, the other three are CNI providers.
+
+*Further Reading*
+
+https://linuxacademy.com/cp/courses/lesson/course/1415/lesson/1/module/155
+
+**5) Which platform(s) will Minikube run on? (Select all that apply)**
+
+*Correct answer*
+
+Linux, Windows, Mac OS X
+
+*Explanation*
+
+And probably, just for spite, someone will port it to Novell Netware so we'll have to change this question, but Minikube should run just about anywhere.
+
+*Further Reading*
+
+https://linuxacademy.com/cp/courses/lesson/course/1415/lesson/1/module/155
+
+**6) Which types of API requests should be authenticated?**
+
+*Correct answer*
+
+All of them
+
+*Explanation*
+
+Everything, every time. Don't allow security holes in your cluster!
+
+*Further Reading*
+
+https://linuxacademy.com/cp/courses/lesson/course/1420/lesson/1/module/155
+
+**7) To deploy Kubernetes using kubeadm, you'll have to choose:**
+
+*Correct answer*
+
+An appropriate CNI (Container Network Interface)
+
+*Explanation*
+
+kubeadm doesn't make any provisions for inter-node networking. There are a lot of CNIs to choose from!
+
+*Further Reading*
+
+https://linuxacademy.com/cp/courses/lesson/course/1415/lesson/1/module/155
+
+**8) For network policies to work in Kubernetes, which of these must be true?**
+
+*Correct answer*
+
+The CNI must enforce the network policies.
+
+*Explanation*
+
+If the CNI doesn't support network policies, then applying a YAML formula with a network policy in it will return a success, but the policies will not be enforced.
+
+*Further Reading*
+
+https://linuxacademy.com/cp/courses/lesson/course/1418/lesson/1/module/155
+
+**9) What do many Kubernetes deployment tools handle automatically for you?**
+
+*Correct answer*
+
+Certificate creation
+
+*Explanation*
+
+Most deployment tools handle the certificate creation but will not do the other things.
+
+*Further Reading*
+
+https://linuxacademy.com/cp/courses/lesson/course/1420/lesson/1/module/155
+
+**10) In Kubernetes, one of the primitives is a Node (which was formerly referred to as a "Minion"). What does it represent?**
+
+*Correct answer*
+
+A physical or virtual machine running the Kubelet and doing the compute work via a container service like Docker or Rocket.
+
+*Explanation*
+
+While nodes are generally considered to be physical machines, as that's the norm in production deployments, they can be virtual machines as well.
+
+*Further Reading*
+
+https://linuxacademy.com/cp/courses/lesson/course/1420/lesson/1/module/155
+
+**11) What underlying technology does Flannel use to allow pods to communicate?**
+
+*Correct answer*
+
+VxLANs
+
+*Explanation*
+
+Flannel uses VxLANs for the overlay network among the pods.
+
+*Further Reading*
+
+https://linuxacademy.com/cp/courses/lesson/course/1420/lesson/1/module/155
+
+**12) How is authorization handled in Kubernetes?**
+
+*Correct answer*
+
+A built-in Role Based Access Control system.
+
+*Explanation*
+
+K8s has its own RBAC components built it.
+
+*Further Reading*
+
+https://linuxacademy.com/cp/courses/lesson/course/1418/lesson/1/module/155
+
+
