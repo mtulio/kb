@@ -154,6 +154,38 @@ x) See all nodes
  * Declarative - YAML files
  
  
+ ## Imperative CLI
+ 
+ ### Pods
+ 
+ * kubectl get pods
+ 
+ ### Deployments
+ 
+ * kubectl create -f nginx-deployment-yaml
+```yaml
+apiversion: v1
+kind: Deployment
+metadata: 
+  name: nginx-deployment-dev
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginx-deployment-dev
+    spec:
+      containers:
+        - name: nginx-deployment-dev
+          image: nginx:1.7.9
+          ports:
+            - containerPort: 80
+```
+ * kubectl get deployments
+ * kubectl describe deployments -l app=nginx-deployment-dev
+ * kubectl apply -f nginx-deployment-yaml
+ * kubectl get pods
+ * kubectl get replicationControllers
  
  # Exercises
  
@@ -275,3 +307,40 @@ kubectl delete pod nginx-prod
 kubectl delete pod/nginx-prod
 ```
 
+## Create the service
+
+* Setup
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  ports:
+    - port: 8000
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: nginx
+
+```
+
+
+```bash
+kubectl create -f service-nginx.yaml
+```
+
+* Check
+
+```bash
+kubectl get services
+kubectl describe service nginx-service
+```
+
+* Test
+
+```bash
+kubectl run busybox --generator=run-pod/v1 --image=busybox --restart=Never --tty -i
+wget -qO- http://10.111.20.191:8000
+```
