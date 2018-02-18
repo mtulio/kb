@@ -196,18 +196,46 @@ spec:
  * kubectl apply -f nginx-deployment-yaml
  * kubectl get pods
  * kubectl get replicationControllers
- 
+
+### Rolling updates / and rollback
+
+* Rolling out changing image version - Update the image nginx-deployment
+```bash
+kubectl set image deployment/nginx-deployment nginx=nginx:1.8
+kubectl rollout status deployment/nginx-deployment
+kubectl describe deployment nginx-deployment
+
+```
+* Rolling out changing the deployment YAML file - and rolling back
+```bash
+<CHANGE IMAGE VERSION in YAML file>
+kubectl apply -f nginx-deployment.yaml
+kubectl rollout status deployment/nginx-deployment
+kubectl get deployments
+<ROLLBACK>
+kubectl rollout history deployment/nginx-deployment --revision=2
+kubectl rollouy undo deployment/nginx-deployment --to-revision=2
+<vim nginx-deployment.yaml>
+kubectl apply -f nginx-deployment.yaml
+kubectl rollout status deployment nginx-deployment
+kubectl describe deployment nginx-deployment
+```
+
 ### LOGS
- 
+
+```bash
  kubectl get pods
  kubectl logs myapache
  kubectl logs --tail=1 myapache
  kubectl logs --since=24h myapache
  kubectl logs -f myapache
  kubectl logs -f -c CID myapache
- 
+```
+
 ### Autoscaling and Scaling the Pods
- 
+
+* Steps to deploy nginx service
+```bash
 kubectl run myas --image=nginx --port=80 --labels=app=myautoscale
 kubectl get deployments
 kubectl autoscale deployment myas --min=2 --max=6
@@ -219,7 +247,13 @@ kubectl get pods
 kubectl scale --current-replicas=4 --replicas=2 deployment/myas
 kubectl get deployments
 kubectl get pods
+```
 
+### Backup
+
+```bash
+kubectl get deployments nginx-deployment -o yaml
+```
 
 # Exercises
 
