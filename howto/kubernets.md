@@ -1,5 +1,6 @@
 # kubernets
 
+Core annotations and handson based mainly on Kubernet courses.
 
 ## Installing
 
@@ -379,3 +380,9 @@ kubectl describe service nginx-service
 kubectl run busybox --generator=run-pod/v1 --image=busybox --restart=Never --tty -i
 wget -qO- http://10.111.20.191:8000
 ```
+
+
+# Quiz
+
+* [Core Concepts](kubernets/KubeFAQ.md)
+
