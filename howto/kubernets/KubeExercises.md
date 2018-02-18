@@ -2,6 +2,12 @@
 
 Exercises from courses
 
+* Run a Job
+* Deploy a Pod
+* Create the service
+* Explore the Sandbox
+* Deployments - Rollout
+
 ## Run a Job
  
 Applications that run to completion inside a pod are called "jobs."  This is useful for doing batch processing.
@@ -181,3 +187,54 @@ wget -qO- http://10.111.20.191:8000
 4. kubectl get pods -n kube-system will provide the desired results.
 
 
+## Deployments - Rollout
+
+* **Description**
+
+Here is some yaml for an nginx deployment:
+
+```yaml
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 2 
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.7.9
+        ports:
+        - containerPort: 80
+```
+
+1. Create the deployment.
+2. Which nodes are the pods running on. How can you tell?
+3. Update the deployment to use the 1.8 version of the nginx container and roll it out.
+4. Update the deployment to use the 1.9.1 version of the nginx container and roll it out.
+5. Roll back the deployment to the 1.8 version of the container.
+6. Remove the deployment
+
+* **Answer**
+
+1. Create the yaml file and name it something. I chose `nginx-deployment.yaml`. Create the deployment object by calling `kubectl create -f nginx-deployment.yaml`.
+2. You can find this answer by doing a `kubectl describe deployment nginx-deployment`.
+3. There are many ways to get this:
+* `kubectl get pods -l app=nginx -o wide` gives you the results in one step and uses a label selector.
+Or, you could:
+* `kubectl describe deployment nginx-deployment` to get the pod information about the deployment and, using that,
+`kubectl get pods name-of-pods -o wide`
+
+4. There are many ways. Here are two:
+* `kubectl set image deployment nginx-deployment nginx=nginx:1.8`. This will work just fine but is not the preferred method because now the yaml is inconsistent with what you've got running in the cluster. Anyone coming across your yaml will assume it's what is up and running and it isn't.
+* Update the line in the yaml to the 1.8 version of the image, and apply the changes with `kubectl apply -f nginx-deployment.yaml`
+5. Same as above. Don't forget you can watch the status of the rollout with the command `kubectl rollout status deployment nginx-deployment`.
+
+6. `kubectl rollout undo deployment nginx-deployment` will undo the previous rollout, or if you want to go to a specific point in history, you can view the history with `kubectl rollout history deployment nginx-deployment` and roll back to a specific state with `kubectl rollout history deployment nginx-deployment --revision=x`.
