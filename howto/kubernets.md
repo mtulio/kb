@@ -215,3 +215,63 @@ kubectl describe jobs
 kubectl delete jobs sleep
 ```
 
+## Deploy a Pod
+
+Pods usually represent running applications in a Kubernetes cluster.  Here is an example of some yaml which defines a pod:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: alpine
+  namespace: default
+spec:
+  containers:
+  - name: alpine
+    image: alpine
+    command:
+      - sleep
+      - "3600"
+    imagePullPolicy: IfNotPresent
+  restartPolicy: Always
+
+```
+1. Looking at the yaml, describe what the pod will do.
+2. Run the pod.
+3. Delete the pod.
+
+```bash
+kubectl create -f pod-alpine.yaml
+kubectl get pods
+kubectl desccribe pods
+```
+
+4. Write yaml for a pod that runs the nginx image.
+5. Run your yaml to ensure it functions as expected.
+
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+  restartPolicy: Always
+```
+
+```bash
+kubectl create -f nginx-pod.yaml
+kubectl get pods
+```
+
+Delete any user pods you created during this exercise.
+
+```bash
+kubectl delete -f pod-alpine.yaml
+kubectl delete pod nginx-prod
+kubectl delete pod/nginx-prod
+```
+
