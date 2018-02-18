@@ -207,7 +207,7 @@ spec:
  
 ### Autoscaling and Scaling the Pods
  
-kubectl run myas --image=latest123/apache --port=80 --labels=app=myautoscale
+kubectl run myas --image=nginx --port=80 --labels=app=myautoscale
 kubectl get deployments
 kubectl autoscale deployment myas --min=2 --max=6
 kubectl autoscale deployment myas --min=2 --max=6 --cpu-percent=10
@@ -218,9 +218,6 @@ kubectl get pods
 kubectl scale --current-replicas=4 --replicas=2 deployment/myas
 kubectl get deployments
 kubectl get pods
- 
-### Fail and Recovery
-
 
 
 # Exercises
