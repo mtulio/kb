@@ -125,6 +125,20 @@ x) See all nodes
   kubectl get nodes
 ```
 
+### Standalone cluster (Minikube)
+
+1. Install Minikube: 
+`curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.25.0/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/`
+1. Follow this guide: https://kubernetes.io/docs/getting-started-guides/minikube/
+1. Setup with docker
+`minikube start --vm-driver=none`
+1. Run the app
+`kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.4 --port=8080`
+1. Create deployment
+`kubectl expose deployment hello-minikube --type=NodePort`
+1. Show URL
+`minikube service hello-minikube --url`
+
 ## Concepts
 
 ### Common Objects
