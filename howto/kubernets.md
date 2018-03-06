@@ -138,6 +138,8 @@ x) See all nodes
 `kubectl expose deployment hello-minikube --type=NodePort`
 1. Show URL
 `minikube service hello-minikube --url`
+1. Enable the dashboard
+`minikube dashboard`
 
 ## Concepts
 
