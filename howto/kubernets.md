@@ -277,6 +277,16 @@ kubectl get pods
 kubectl get deployments nginx-deployment -o yaml
 ```
 
+# Kops
+
+* Deploy cluster
+
+```bash
+bash-3.2$ export NAME=example.nivenly.com
+bash-3.2$ export KOPS_STATE_STORE=s3://nivenly-state-store
+bash-3.2$ kops create cluster --zones us-west-2a $NAME 
+```
+
 # Exercises
 
 * [All K8s exeercises](kubernets/KubeExercises.md)
