@@ -137,11 +137,15 @@ x) See all nodes
 1. Create deployment
 `kubectl expose deployment hello-minikube --type=NodePort`
 1. Show URL for service
-`ubectl get services hello-minikube`
+`kubectl get services hello-minikube`
 1. Show URL for pod
 `minikube service hello-minikube --url`
 1. Enable the dashboard
 `minikube dashboard`
+1. delete service
+` kubectl delete service hello-minikube`
+1. delete deployments
+`kubectl delete deployments hello-minikube`
 
 ## Concepts
 
