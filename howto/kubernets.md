@@ -136,7 +136,9 @@ x) See all nodes
 `kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.4 --port=8080`
 1. Create deployment
 `kubectl expose deployment hello-minikube --type=NodePort`
-1. Show URL
+1. Show URL for service
+`ubectl get services hello-minikube`
+1. Show URL for pod
 `minikube service hello-minikube --url`
 1. Enable the dashboard
 `minikube dashboard`
