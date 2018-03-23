@@ -13,6 +13,7 @@ Exercises from courses
 * Scaling Practice
 * Label ALL THE THINGS!
 * Raise a DaemonSet
+* Label a Node & Schedule a Pod
 
 
 ## Run a Job
@@ -453,4 +454,39 @@ spec:
       containers:
       - name: cthulu-jr
         image: nginx
+```
+
+## Label a Node & Schedule a Pod
+
+* **Description**
+
+1. Pretend that node 3 is your favorite node.  Maybe it's got all SSDs.  Maybe it's got a fast network or a GPU.  Or maybe it sent you a nice tweet.  Label this node in some way so that you can schedule a pod to it.
+2. Create a yaml for a busybox sleeper/restarter that will get scheduled to your favorite node from #1.
+
+
+* **Answers**
+
+There are many possible answers to this exercise, here is what I came up with:
+
+1. To mark my favorite node, I used `kubectl label node node3-name myDarling=bestOne`.
+2. For my pod to be launched on my favorite node, I used this yaml:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox
+  namespace: default
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    command:
+      - sleep
+      - "300"
+    imagePullPolicy: IfNotPresent
+  restartPolicy: Always
+  nodeSelector: 
+    myDarling: bestOne
+
 ```
