@@ -440,6 +440,34 @@ kubectl describe node myserver3.mtulio.net
 
 ```
 
+## Logging & Monitoring
+
+### Lecture: Monitoring Cluster and Application Components
+
+In this lesson, we'll discuss monitoring options for both Kubernetes cluster components and applications running inside the cluster.
+
+* Heapster
+  * Storage colllected data in InfluxDB
+  * Prom vs Heapster vs Kube API : https://brancz.com/2018/01/05/prometheus-vs-heapster-vs-kubernetes-metrics-apis/
+* cAdvisor
+  * discovery and expose metrics to be collected by heapster, prometheus, etc
+
+### Lecture: Managing Logs
+
+One of the most difficult parts of managing a large infrastructure is figuring out where to go to get more information when things are going wrong.  In this hands-on lesson, we'll talk about where you can find logs for pods and Kubernetes components, as well as what to do about applications that have other logging needs.
+
+* HeandsOn
+
+```bash
+kubectl get pods
+kubectl logs counter
+
+kubectl get pods --all-namespaces
+cd /var/logs/containers
+
+```
+
+
 
 # Kops
 
