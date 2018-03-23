@@ -277,6 +277,36 @@ kubectl get pods
 kubectl get deployments nginx-deployment -o yaml
 ```
 
+### Applications (Hands On)
+
+* how kubernets configures applications
+`kubectl create configmap my-map --from-literam=school=LinuxAcademy`
+
+* Check the config map
+
+`kubectl get configmaps`
+
+* describe content
+
+`kubectl configmaps my-map`
+
+* describe content (getting YAML)
+
+`kubectlt get configmap my-map -o yaml`
+
+* Getting config
+`cat pod-config.yaml`
+
+* Create from yaml
+
+```bash
+kubectl create -f pod-config.yaml
+kubectl get pods
+kubectl logs config-test-pod
+```
+
+
+
 # Kops
 
 * Deploy cluster
@@ -286,6 +316,8 @@ bash-3.2$ export NAME=example.nivenly.com
 bash-3.2$ export KOPS_STATE_STORE=s3://nivenly-state-store
 bash-3.2$ kops create cluster --zones us-west-2a $NAME 
 ```
+
+
 
 # Exercises
 
