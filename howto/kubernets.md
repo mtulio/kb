@@ -467,6 +467,49 @@ cd /var/logs/containers
 
 ```
 
+## Cluster Maintenance
+
+### Lecture: Upgrading Kubernetes Components
+
+In this hands-on lesson, we'll show how you can upgrade Kubernetes itself -- **all without taking the cluster down**.
+
+* HandsOn commands
+
+```bash
+kubectl get nodes
+sudo apt upgrade kubeadm
+kubeadm version
+sudo kubeadm upgrade plan
+sudo kubeadm upgrade apply 1.9.1
+kubectl get deployments
+kubectl get pods -o wide
+kubectl drain myserserver01.mtulio.net --ignore-daemonsets
+
+# Update kubelet in master
+sudo apt update
+sudo apt upgrade kubelet
+systemctl status kubectl
+kubectl get nodes
+kubectl uncordon myserver01.mtulio.net
+kubectl get nodes
+
+# update node 02
+kubectl drain myerver02.mtulio.net --ignore-daemonsets  # disable pods in this node
+kubectl get podes -o wide
+ssh myerver02.mtulio.net
+sudo apt get update
+sudo apt upgrade kubelet
+exit # to master
+kubectl uncordon myserver02.mtulio.net
+kubectl get nodes
+
+# and repeast to another nodes
+
+
+
+```
+
+
 
 
 # Kops
