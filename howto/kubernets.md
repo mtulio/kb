@@ -424,7 +424,19 @@ kubectl get pods
 kubectl get deployments
 
 kubectl get nodes
+```
 
+### Manually Scheduling Pods
+
+Sometimes you want your pod to run on a specific node.  In this hands-on lesson, we'll discuss how this is done.
+
+* HandsOn Commands
+
+```bash
+kubectl get nodes
+kubectl label node mysqserver3.mtulio.net net=gigabit
+
+kubectl describe node myserver3.mtulio.net
 
 ```
 
