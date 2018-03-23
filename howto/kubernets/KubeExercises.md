@@ -17,6 +17,7 @@ Exercises from courses
 * Label a Node & Schedule a Pod
 * Multiple Schedulers
 * View The Logs
+* Maintenance on Node 3!
 
 
 ## Run a Job
@@ -677,3 +678,53 @@ This is a small container which wakes up every three seconds and logs the date a
 4. This question really wants to know if you can find the logs for the scheduler. They're in the master in the `/var/log/containers` directory. There, a symlink has been create to the appropriate container's log file, and the symlink will have a name that begins with "kube-scheduler-" These logs belong to root, so you will have to sudo to view them.
 5. The etcd logs are in the same directory as the logs for the previous question, only the name of the symlink begins with "etcd-", and also belongs to root.
 6. The API server also lives in the same directory and begins with "kube-apiserver-", and also belongs to root.
+
+## Maintenance on Node 3!
+
+* **Description**
+
+Node 3 (Hey, isn't that your favorite node?) needs to have some maintenance done on it. The ionic defibulizer needs a new multiverse battery and the guys in the data center are impatient to get started.
+
+1. Prepare node 3 for maintenance by preventing the scheduler from putting new pods on to it and evicting any existing pods. Ignore the DaemonSets -- those pods are only providing services to other local pods and will come back up when the node comes back up.
+
+2. When you think you've done everything correctly, go to the Cloud Servers page and shut node 3 down. Don't delete it! Just stop it. While it's down, we'll pretend that it's getting that new multiverse battery. While you wait for the cluster to stabilize, practice your yaml writing skills by creating yaml for a new deployment that will run six replicas of an image called k8s.gcr.io/pause:2.0. Name this deployment "lots-of-nothing".
+
+3. Bring the "lots-of-nothing" deployment up on your currently 75% active cluster. Notice where the pods land.
+
+4. Imagine you just got a text message from the server maintenance crew saying that the installation is complete. Go back to the Cloud Server tab and start Node 3 up again. Fiddle with your phone and send someone a text message if it helps with the realism.  Once Node 3 is back up and running and showing a "Ready" status, allow the scheduler to use it again.
+
+5. Did any of your pods move to take advantage of the additional power?  You get 143 bonus points for this exercise if you know what an ionic defibulizer is.  Tweet the answer to me @OpenChad.  Use the hashtag #NoYouDontReallyGetPoints.
+
+
+* **Answers**
+
+1. `kubectl drain node3-name --ignore-daemonsets`
+
+2. Again, there are lots of possible answers, but here's one that I wrote:
+
+```yaml
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: lots-of-nothing
+spec:
+  selector:
+    matchLabels:
+      timeToGet: schwifty
+  replicas: 6
+  template:
+    metadata:
+      labels:
+        timeToGet: schwifty
+    spec:
+      containers:
+      - name: pickle-rick
+        image: k8s.gcr.io/pause:2.0
+```
+
+3. `kubectl create -f lots-of-nothing.yaml` will bring it up if you named the yaml the same way I did. If you set up your labels like I did, then the command to show you where all the pods wound up is `kubectl get pods -o wide -l timeToGet=schwifty`. My point here is beyond just being a little silly -- your labels can be whatever you want them to, so it makes a lot of sense to think through some conventions and standards with your colleagues and other users of your cluster, otherwise you will end up with nonsensical labels like mine.
+
+4.`kubectl uncordon node3-name` will allow the scheduler to once again allow pods to be scheduled on the node.
+
+5. No, the uncordon only affects pods being scheduled and won't move any back unless other nodes are experiencing MemoryPressure or DiskPressure.
+
