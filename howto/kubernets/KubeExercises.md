@@ -10,6 +10,7 @@ Exercises from courses
 * Explore the Sandbox
 * Deployments - Rollout
 * Setting Container Environment Variables
+* Scaling Practice
 
 ## Run a Job
  
@@ -295,3 +296,69 @@ spec:
 ```
 3. kubectl create -f env-dump.yaml and wait for the pod to return the status of "Completed."
 4. kubectl logs env-dump will show all the environment variables.
+
+## Scaling Practice
+
+* **Description**
+
+Consider this YAML for an nginx deployment:
+
+```yaml
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 2 
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+```
+
+Complete and answer the following:
+
+1. Scale the deployment up to 4 pods without editing the YAML.
+1. Edit the YAML so that 3 pods are available and can apply the changes to the existing deployment.
+1. Which of these methods do you think is preferred and why?
+
+* **Answers**
+
+To scale the deployment up to 4 pods, use: `kubectl scale deployment nginx-deployment --replicas=4`
+
+To make it so 3 pods can be available and apply the changes to the existing deployment, complete the following:
+
+1. Edit the YAML as follows:
+```yaml
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+```
+2. Execute the command: `kubectl -f apply nginx-deployment `
+
+Performing the edit in the YAML is the preferred one, as it keeps the YAML on disk in sync with the state of the cluster.
