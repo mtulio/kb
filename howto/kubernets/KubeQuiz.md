@@ -609,3 +609,220 @@ K8s has its own RBAC components built it.
 https://linuxacademy.com/cp/courses/lesson/course/1418/lesson/1/module/155
 
 
+# Quiz: Application Lifecycle Management
+
+Is it possible to configure an application in a container from Kubernetes? If so, how is this accomplished?
+
+Choose the correct answer:
+No, this is not possible at this time but is planned for a future release.
+Yes, through the use of environment variables. These can be set in the YAML file for the appropriate pod.
+Yes, through the use of annotations. Annotations are key/value pairs used by the applications in the service.
+Yes, through the use of Network Policies. While originally intended to be the traffic cops of the network, developers often use them "off label" to configure applications.
+
+--
+
+I have a deployment called "healer" running on my cluster. I look at the pods on a node and notice that there are two pods running there -- "healer-xxxxxxxx-yyyy" and "healer-xxxxxxxx-yyyz". What will happen if I issue the command "kubectl delete pod healer-xxxxxxxx-yyyz"?
+
+Choose the correct answer:
+Kubectl will issue an error message, as this pod is in use. Adding the --force flag will allow you to complete this action.
+The pod will be deleted. If there is an Ingress or Service Load balancer pointing to that pod, those requests will time out.
+Nothing. The pod is protected by the deployment it runs in.
+The pod will be deleted, but the deployment will immediately spin up another pod to replace it, possibly on another node.
+
+
+Which of these is the correct hierarchy of related Kubernetes API objects?
+
+Choose the correct answer:
+Pods make up deployments. Services point to deployments.
+Pods, services, and deployments refer to the same level of hierarchy in K8s.
+Services point to pods. Pods are made up of deployments.
+Pods run services, which in turn are managed by deployments.
+
+There are many ways to assign a pod to a particular node, but they all involve the use of what?
+
+Choose the correct answer:
+labels
+kubectl
+affinity or anti-affinity
+annotations
+
+Which parameter is used to increase or decrease the number of pods that make up a deployment?
+
+Choose the correct answer:
+Replicants
+Nodes
+Replicas
+Syncs
+
+What are labels used for?
+
+Choose the correct answer:
+Human-readable descriptions of objects. They have no other use.
+Selecting objects for a variety of purposes.
+Setting the image version number on a container in a pod. They have no other use.
+Setting environment variables in the container on a pod.
+
+You are writing YAML for a pod, and want to limit its CPU utilization to one quarter of the CPU. Which of the following lines will most likely be in your final YAML file? (Ignore whitespace)
+
+Choose the correct answer:
+cpu: "1:4"
+cpu: "0.250m"
+cpu: "250m"
+cpu: "25"
+
+Which of these is the best use case for a DaemonSet?
+
+Choose the correct answer:
+A monitoring back-end that only needs intermittent network access.
+A MariaDB/Galera cluster that must autoscale depending on CPU utilization.
+A CNI container that needs to run on every node in order to function properly.
+A stateless web-head that will be load-balanced among many nodes.
+
+Which of these commands would scale up a deployment called "soup" from 3 pods to 5?
+
+Choose the correct answer:
+kubectl scale --replicas=5 deployment/soup
+kubectl scale --current-replicas 3 --replicas 5 ds soup
+kubectl scale --current-replicas=3 --replicas=5 ds/soup
+kubectl scale --replicas=3 soup
+
+Which of these is a difference between annotations and labels in Kubernetes?
+
+Choose the correct answer:
+Labels are used to select and identify objects. Annotations are not.
+Annotations use a key/value pair config map.
+Labels allow a wider variety of characters to be used in their names than annotations.
+They are the same thing.
+
+
+###> Answers
+
+1) Is it possible to configure an application in a container from Kubernetes? If so, how is this accomplished?
+
+Correct
+
+Correct answer
+Yes, through the use of environment variables. These can be set in the YAML file for the appropriate pod.
+
+Explanation
+Environment variables all the way. These get set up in the YAML file and passed through to the container so that applications running inside have access to the relevant information.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1424/lesson/1/module/155
+
+2) I have a deployment called "healer" running on my cluster. I look at the pods on a node and notice that there are two pods running there -- "healer-xxxxxxxx-yyyy" and "healer-xxxxxxxx-yyyz". What will happen if I issue the command "kubectl delete pod healer-xxxxxxxx-yyyz"?
+
+Correct
+
+Correct answer
+The pod will be deleted, but the deployment will immediately spin up another pod to replace it, possibly on another node.
+
+Explanation
+The power of Kubernetes is that it self-heals, even if the administrator is unknowingly (or knowingly) taking down pods in a deployment.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1424/lesson/1/module/155
+
+3) Which of these is the correct hierarchy of related Kubernetes API objects?
+
+Incorrect
+
+Correct answer
+Pods make up deployments. Services point to deployments.
+
+Explanation
+Pods are the simplest Kubernetes API object. Deployments manage pods. Services point to deployments.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1424/lesson/1/module/155
+
+4) There are many ways to assign a pod to a particular node, but they all involve the use of what?
+
+Incorrect
+
+Correct answer
+labels
+
+Explanation
+They all use labels. Kubectl was a red herring. Remember, you *could* do this using Kubernetes API calls and not use kubectl at all. :)
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1427/lesson/1/module/155
+
+5) Which parameter is used to increase or decrease the number of pods that make up a deployment?
+
+Correct
+
+Correct answer
+Replicas
+
+Explanation
+The number of replicas tells K8s how many pods to keep running at all times. It's easy to scale applications up and down using replicas.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1424/lesson/1/module/155
+
+6) What are labels used for?
+
+Correct
+
+Correct answer
+Selecting objects for a variety of purposes.
+
+Explanation
+Labels are incredibly useful tools! They can be used to select pods for networking policies, select all the pods serving a particular app, or any other way you might need to group your pods together. Careful and thoughtful application of labels makes managing large deployments easy.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1426/lesson/1/module/155
+
+7) You are writing YAML for a pod, and want to limit its CPU utilization to one quarter of the CPU. Which of the following lines will most likely be in your final YAML file? (Ignore whitespace)
+
+Incorrect
+
+Correct answer
+cpu: "250m"
+
+Explanation
+250m stands for 250 millicpus, which works out to 1/4 of a running CPU.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1427/lesson/1/module/155
+
+8) Which of these is the best use case for a DaemonSet?
+
+Correct
+
+Correct answer
+A CNI container that needs to run on every node in order to function properly.
+
+Explanation
+DaemonSets are most useful for deploying pods on every node (or selecting specific nodes to run the pods on).
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1427/lesson/1/module/155
+
+9) Which of these commands would scale up a deployment called "soup" from 3 pods to 5?
+
+Correct
+
+Correct answer
+kubectl scale --replicas=5 deployment/soup
+
+Explanation
+"ds" is the short form for DaemonSets, not deployments! You don't *have* to use the current-replicas flag, and if you do, remember that it will *only* scale up the deployment *if* the current number of replicas matches that number.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1424/lesson/1/module/155
+
+10) Which of these is a difference between annotations and labels in Kubernetes?
+
+Correct
+
+Correct answer
+Labels are used to select and identify objects. Annotations are not.
+
+Explanation
+Both use key/value pair config maps, and annotations allow for a wider variety of characters that labels do not allow.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1426/lesson/1/module/155
