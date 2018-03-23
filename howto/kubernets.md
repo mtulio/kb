@@ -320,6 +320,44 @@ kubectl scale deployment/nginx-deployment --replicas=2
 
 ```
 
+## Scheduling
+
+### Labels & Selectors
+
+How can you identify a pod or other resource?  Labels!  In this hands-on lesson, we'll look at labeling everything and then how to find it again using selectors.
+
+#### Sample labels
+
+* "release": "stable", "release": "canary"
+* "environment": "dev", "environment": "qa", "environment": "production"
+* "tier": "frontend", "tier": "backend", "tier": "cache"
+* "track": "daily", "track": "weekly"
+
+* HandsOn commands
+
+```bash
+# get pods by labels
+kubectl get pods
+kubectl get pods -l app=nginx
+kubectl get pods -l app=mysql
+
+# label one pode
+kubectl label pod mysql-53333-grtk test=sure --overwrite
+kubectl describe pod -l test=sure
+
+# label group of pods
+kubectl label pods -l app=nginx tier=frontend
+
+# remove resource by labels
+kubectl delete pods -l test=sure
+kubectl get pods
+
+# show again resources, without deleted
+kubectl describe pod -l test=sure
+```
+
+
+
 
 # Kops
 
