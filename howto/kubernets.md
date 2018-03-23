@@ -369,7 +369,25 @@ kubectl get daemonsets -n kube-system #namespace kube-system
 kubectl describe daemonset kube-flannel-ds -n kube-system
 
 ```
+### Resource Limits & Pod Scheduling
 
+In this hands-on lesson, we'll discuss how to set limits and how pods get scheduled based on their needs.
+
+* HandsOn Commands
+
+```bash
+
+kubectl get nodes
+
+kubectl describe node myserver.mtulio.net
+
+# Allow  to schedulle pods without tolerations
+kubectl taint myserver.mtulio.net node-role.kubernets.io/master-
+
+# Disallow to schedulle pods - back kto taint tollerations
+kubectl taint node myserver.mtulio.net node-role.kubernets.io=master:NoSchedule
+
+```
 
 
 # Kops
