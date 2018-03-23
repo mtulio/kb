@@ -305,6 +305,20 @@ kubectl get pods
 kubectl logs config-test-pod
 ```
 
+### Scaling Applications
+
+* HandsOn command
+```
+kubectl get deployments
+kubectl deribe deployment nginx-deployment
+kubectl scale deployment/nginx-deployment --replicas=3
+kubectl get deployments
+kubectl get pods
+kubectl scale deployment/nginx-deployment --replicas=1
+kubectl get pods
+kubectl scale deployment/nginx-deployment --replicas=2
+
+```
 
 
 # Kops
