@@ -6,6 +6,8 @@ This is FAQ from Quizes and courses
 
 * [Core Concepts](#core-concepts)
 * [Installation, Configuration and Validation](#installation-configuration-and-validation)
+* Application Lifecycle Management
+* Scheduling
 
 
 ## Core Concepts
@@ -826,3 +828,245 @@ Both use key/value pair config maps, and annotations allow for a wider variety o
 
 Further Reading
 https://linuxacademy.com/cp/courses/lesson/course/1426/lesson/1/module/155
+
+
+# Quiz: Scheduling
+
+
+When an API request is made to create a pod, which piece determines which node will be used to instantiate the new pod?
+
+Choose the correct answer:
+The scheduler
+The Kubelet on the target node
+The API Server itself
+kube-proxy finds a free node
+
+
+If a pod requests more resources than is available on any given node, what happens?
+
+Choose the correct answer:
+The pod will not be scheduled until a node with the resources becomes available.
+The scheduler will return an error.
+The pod will get scheduled on the master node.
+The pod will move into a "NotReady" status.
+
+What are taints and what are they applied to?
+
+Choose the correct answer:
+Taints are used to mark a pod as unavailable during an outage and are applied to pods.
+Taints are used to repel workloads from one another (anti-affinity) and are applied to pods.
+Taints are used to repel certain pods from nodes and are applied to nodes.
+Taints are used to repel workloads with certain labels and are applied to nodes and pods.
+
+Question 4 of 10
+
+Why are annotations particularly important when using multiple or custom schedulers?
+
+Choose the correct answer:
+Because they can remind operators which scheduler was used to place (or fail to place) a pod.
+Because they are the only audit trail available for the scheduler.
+Because multiple schedulers are not allowed without annotations because of the security risk.
+Because they are how the scheduler is specified.
+
+Question 5 of 10
+
+How can a user specify which scheduler a pod should use?
+
+Choose the correct answer:
+Through the scheduler-name tag in the spec.
+By adding a schedulerName=*scheduler* annotation to the metadata.
+Through the schedulerName tag in the spec.
+By adding a schedule=custom label to the metadata.
+
+
+Question 6 of 10
+
+
+What is the scheduler?
+
+Choose the correct answer:
+A pod on the master node.
+A distributed DaemonSet on the cluster.
+An isolated, non-containerized process on the master node.
+A subprocess of the CNI.
+
+
+Question 7 of 10
+
+Why might a user desire two pods to have anti-affinity?
+
+Choose the correct answer:
+She wants them to run on the same node to speed up networking traffic between them.
+She wants them to share memory space on a node.
+She wants them to run on different nodes to avoid sharing failure domains.
+She wants them to be on network adjacent nodes for faster shared disk access.
+
+Question 8 of 10
+
+
+
+What is podAffinity used for?
+
+Choose the correct answer:
+Allowing nodes with containers in the same pod access to a higher-speed network.
+Preventing two pods from being placed on the same node.
+Placing two or more pods on the same node.
+Ensuring replicated pods in the same deployment are placed on different nodes.
+
+Question 9 of 10
+
+If a toleration and a taint match during scheduling, what happens?
+
+Choose the correct answer:
+An error — taints and tolerations cannot be used together in the same namespace.
+The toleration is ignored and the node might be scheduled for uncordon.
+The taint is ignored and the pod might be scheduled to the node.
+The toleration and taint reinforce one another, further guaranteeing that the pod is not scheduled on the node.
+
+Question 10 of 10
+
+How can a pod be assigned to a specific node?
+
+Choose the correct answer:
+Set node constraints in the node's YAML.
+Using a nodeSelector with properly labelled nodes.
+Use the host property in the pod's YAML.
+The scheduler does not allow for pods to be placed manually.
+
+
+#### QUIZ RESULTS: SCHEDULING
+
+FAIL
+
+
+IMPORTANT: TO INCREASE YOUR CHANCES OF SUCCESS, DO NOT ONLY REVIEW THE CORRECT ANSWERS, BUT GO BACK TO THE COURSE MATERIALS TO ENSURE A COMPLETE UNDERSTANDING OF THE TOPIC.
+
+1) When an API request is made to create a pod, which piece determines which node will be used to instantiate the new pod?
+
+Correct
+
+Correct answer
+The scheduler
+
+Explanation
+The scheduler is what determines which pods go with which nodes.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1428/lesson/1/module/155
+
+2) If a pod requests more resources than is available on any given node, what happens?
+
+Incorrect
+
+Correct answer
+The pod will not be scheduled until a node with the resources becomes available.
+
+Explanation
+The pod will remain in a "Pending" status until a node becomes available -- which might be never.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1428/lesson/1/module/155
+
+3) What are taints and what are they applied to?
+
+Correct
+
+Correct answer
+Taints are used to repel certain pods from nodes and are applied to nodes.
+
+Explanation
+Taints allow a node to repel a set of pods.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1428/lesson/1/module/155
+
+4) Why are annotations particularly important when using multiple or custom schedulers?
+
+Correct
+
+Correct answer
+Because they can remind operators which scheduler was used to place (or fail to place) a pod.
+
+Explanation
+Annotations are designed to provide additional non-identifying information about a pod, and things like application version or scheduler that placed the pod are ideal uses for these.
+
+Further Reading
+https://linuxacademy.com/cp/exercises/view/id/669/module/155
+
+5) How can a user specify which scheduler a pod should use?
+
+Incorrect
+
+Correct answer
+Through the schedulerName tag in the spec.
+
+Explanation
+The tag for specifying a particular scheduler is schedulerName and defaults to default-scheduler.
+
+Further Reading
+https://linuxacademy.com/cp/exercises/view/id/669/module/155
+
+6) What is the scheduler?
+
+Incorrect
+
+Correct answer
+A pod on the master node.
+
+Explanation
+The scheduler is a process that runs in a pod, usually on the master node. While it's unusual, it's possible to have multiple schedulers running on the same cluster.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1428/lesson/1/module/155
+
+7) Why might a user desire two pods to have anti-affinity?
+
+Correct
+
+Correct answer
+She wants them to run on different nodes to avoid sharing failure domains.
+
+Explanation
+Anti-affinity means that two pods will not run on the same node, and is usually implemented to prevent two pods from being in the same failure domain in case something goes wrong.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1428/lesson/1/module/155
+
+8) What is podAffinity used for?
+
+Incorrect
+
+Correct answer
+Placing two or more pods on the same node.
+
+Explanation
+Placing two or more pods on the same node is done with the podAffinity attribute and uses labels.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1428/lesson/1/module/155
+
+9) If a toleration and a taint match during scheduling, what happens?
+
+Incorrect
+
+Correct answer
+The taint is ignored and the pod might be scheduled to the node.
+
+Explanation
+Taints and tolerations work together to ensure that pods are not scheduled onto inappropriate nodes. One or more taints are applied to a node; this marks that the node should not accept any pods that do not tolerate the taints. Tolerations are applied to pods, and allow (but do not require) the pods to schedule onto nodes with matching taints.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1428/lesson/1/module/155
+
+10) How can a pod be assigned to a specific node?
+
+Correct
+
+Correct answer
+Using a nodeSelector with properly labelled nodes.
+
+Explanation
+Using the nodeSelector is the easiest way to manually assign pods to nodes.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1430/lesson/1/module/155
