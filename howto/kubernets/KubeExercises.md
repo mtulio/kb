@@ -13,6 +13,7 @@ Exercises from courses
 * Scaling Practice
 * Label ALL THE THINGS!
 * Raise a DaemonSet
+* Replication Controllers, Replica Sets, and Deployments
 * Label a Node & Schedule a Pod
 * Multiple Schedulers
 
@@ -535,4 +536,106 @@ spec:
   - name: pod-container
     image: k8s.gcr.io/pause:2.0
     
+```
+
+## Replication Controllers, Replica Sets, and Deployments
+
+* **Description**
+
+Deployments replaced the older ReplicationController functionality, but it never hurts to know where you came from.  Deployments are easier to work with, and here's a brief exercise to show you how.
+
+A Replication Controller ensures that a specified number of pod replicas are running at any one time. In other words, a Replication Controller makes sure that a pod or a homogeneous set of pods is always up and available.
+
+1. **Write a YAML file that will create a Replication Controller that will maintain three copies of an nginx container.  Execute your YAML and make sure it works.**
+
+> A Replica Set is a more advanced version of a Replication Controller that is used when more low-level control is needed.  While these are commonly managed with deployments in modern K8s, it's good to have experience with them.
+
+2. **Write the YAML that will maintain three copies of an nginx container using a Replica Set.  Test it to be sure it works, then delete it.**
+
+> A deployment is used to manage Replica Sets.  
+
+3. **Write the YAML for a deployment that will maintain three copies of an nginx container.  Test it to be sure it works, then delete it.**
+
+* **Answers**
+
+To create the replication controller, write the following YAML file:
+
+Replication Controller:
+
+```yaml
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: nginx
+spec:
+  replicas: 3
+  selector:
+    app: nginx
+  template:
+    metadata:
+      name: nginx
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+```
+
+To maintain three copies of an nginx container in a replica set, write the following YAML file: 
+
+Replication Set:
+
+```yaml
+apiVersion: apps/v1beta2
+kind: ReplicaSet
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+```
+
+To perform a deployment for the Replica Set, write the following YAML file:
+
+Deployment:
+
+```yaml
+apiVersion: apps/v1beta2 # for versions before 1.8.0 use apps/v1beta1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
 ```
