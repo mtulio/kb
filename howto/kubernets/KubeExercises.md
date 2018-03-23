@@ -12,6 +12,8 @@ Exercises from courses
 * Setting Container Environment Variables
 * Scaling Practice
 * Label ALL THE THINGS!
+* Raise a DaemonSet
+
 
 ## Run a Job
  
@@ -413,3 +415,42 @@ spec:
 4. `kubectl get pods -l running=beforeLabels -n default`
 5. `kubectl label pods --all -n default tier=linuxAcademyCloud`
 6. `kubectl get pods -l running=afterLabels -l tier=linuxAcademyCloud`
+
+
+## Raise a DaemonSet
+
+
+* **Description**
+
+No black magic is required, just a bit of yaml.
+
+Write the yaml to deploy a DaemonSet (just use an nginx image) and then test it to be sure it gets deployed on each node.  Delete the pods when you've completed this exorcism.  Er... Exercise.
+
+
+* **Answers**
+
+There are lots of possible solutions to this exercise, but here is what I came up with:
+
+```yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: cthulu
+  labels:
+    daemon: "yup"
+spec:
+  selector:
+    matchLabels:
+      daemon: "pod"
+  template:
+    metadata:
+      labels:
+        daemon: pod
+    spec:
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      containers:
+      - name: cthulu-jr
+        image: nginx
+```
