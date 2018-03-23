@@ -1070,3 +1070,247 @@ Using the nodeSelector is the easiest way to manually assign pods to nodes.
 
 Further Reading
 https://linuxacademy.com/cp/courses/lesson/course/1430/lesson/1/module/155
+
+
+## Quiz: Logging/Monitoring
+
+Question 1 of 10
+
+
+Is it possible to get a shell prompt to a Ubuntu 16.04 based container called "sidecar1" in the pod "star-aaaaaaaaaa-bbbbb"? There are several containers in the pod. If so, how?
+
+Choose the correct answer:
+Yes! kubectl exec -it star-aaaaaaaaaa-bbbbb/sidecar1 -- /bin/bash
+Yes! kubectl run star-aaaaaaaaaa-bbbbb sidecar1 -- /bin/bash
+No. This is only possible when there is a single container in the pod.
+Yes! kubectl exec -it star-aaaaaaaaaa-bbbbb --container sidecar1 -- /bin/bash
+
+Question 2 of 10
+
+Where does the Kubernetes key/value store (etcd) log file reside?
+
+Choose the correct answer:
+On the host in /etc/kubernetes/etcd.log
+On the host in /var/syslog
+On the host in /var/log/kubernetes/etcd
+On the host in /var/log/pods
+
+
+Question 3 of 10
+
+I'm troubleshooting an application issue and would love to see the application's logs, which are in a file in the container "appctn" in the pod "apppod-abcdef123-45678" at /var/log/applog. Which of these commands would list that for me?
+
+Choose the correct answer:
+kubectl logs apppod-abcdef123-45678
+kubectl logs apppod-abcdef123-45678 -c appctn
+kubectl logs -c appctn
+kubectl exec apppod-abcdef123-45678 -- cat /var/log/applog
+
+Question 4 of 10
+
+I have a node called "node8" and I'd like to know what kind of load it's under including the CPU and Memory requests. Which of these commands would give me that information?
+
+Choose the correct answer:
+kubectl describe node node8
+kubectl describe deployments --all-namespaces --with-nodes
+kubectl get nodes --status{cpu.requests}&&{memory.requests}
+kubeadm status node8
+
+Question 5 of 10
+
+Is it possible to get the logs back from a dead or evicted pod? If so, how?
+
+Choose the correct answer:
+Yes, restart the dead pod in safe mode and extract the file through scp or sftp.
+No, once a pod is gone, all of its ephemeral storage is gone.
+Yes, if the node is immediately cordoned, you can use the --inspect flag.
+Yes, add the --previous flag to the kubectl logs command.
+
+Question 6 of 10
+
+What's an easy command to check the health and status of your cluster?
+
+Choose the correct answer:
+kubectl get nodes
+kubectl cluster-status
+kubectl create -f status
+kubeadm k8s-status
+
+Question 7 of 10
+
+What's the recommended method for dealing with applications that insist on writing out logs to a file rather than being able to redirect them to stdout?
+
+**Choose the correct answer:** 
+
+* Do without logging.
+* Find a logging agent that can operate inside the pod and send the logs to a central file store or log aggregator.
+* Don't use Kubernetes.
+* Redirect the log file to ephemeral storage on the host.
+
+Question 8 of 10
+
+Which log command will show you just the final 8 lines of stdout for a pod?
+
+Choose the correct answer:
+kubectl logs --tail=8
+kubectl logs tail 8
+kubectl logs -8
+kubectl get logs --tail=8
+
+Question 9 of 10
+
+Starting with Kubernetes 1.8, there is a new metrics API. This can be accessed directly from the command line with which command?
+
+Choose the correct answer:
+heapster get info
+kubectl metrics [nodes | pods]
+cadvisor list
+kubectl top [nodes | pods]
+
+Question 10 of 10
+
+Which command will give you stdout of a pod called "to-the-screen"?
+
+**Choose the correct answer:**
+* kubectl get logs po to-the-screen
+* kubectl logs to-the-screen
+* kubectl logs -f to-the-screen.yaml
+* kubectl exec -it to-the-screen -- kube-get-stdout
+
+###> Answers
+
+
+FAIL
+
+
+IMPORTANT: TO INCREASE YOUR CHANCES OF SUCCESS, DO NOT ONLY REVIEW THE CORRECT ANSWERS, BUT GO BACK TO THE COURSE MATERIALS TO ENSURE A COMPLETE UNDERSTANDING OF THE TOPIC.
+
+1) Is it possible to get a shell prompt to a Ubuntu 16.04 based container called "sidecar1" in the pod "star-aaaaaaaaaa-bbbbb"? There are several containers in the pod. If so, how?
+
+Incorrect
+
+Correct answer
+Yes! kubectl exec -it star-aaaaaaaaaa-bbbbb --container sidecar1 -- /bin/bash
+
+Explanation
+While it's discouraged in Kubernetes, it's still possible to get to a container's shell. It's generally considered a bad idea to do things like alter configuration files or apt-get files while logged in. Its use should be limited to debugging when possible.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1432/lesson/1/module/155
+
+2) Where does the Kubernetes key/value store (etcd) log file reside?
+
+Incorrect
+
+Correct answer
+On the host in /var/log/pods
+
+Explanation
+The Kubernetes services that run in pods on the host store their logs in /var/log/pods
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1434/lesson/1/module/155
+
+3) I'm troubleshooting an application issue and would love to see the application's logs, which are in a file in the container "appctn" in the pod "apppod-abcdef123-45678" at /var/log/applog. Which of these commands would list that for me?
+
+Incorrect
+
+Correct answer
+kubectl exec apppod-abcdef123-45678 -- cat /var/log/applog
+
+Explanation
+kubectl logs only work for STDOUT, so if your logs are elsewhere, you'll need to pull them with something like the command here.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1432/lesson/1/module/155
+
+4) I have a node called "node8" and I'd like to know what kind of load it's under including the CPU and Memory requests. Which of these commands would give me that information?
+
+Incorrect
+
+Correct answer
+kubectl describe node node8
+
+Explanation
+kubectl describe node will give you all kinds of very useful up to date information about a given node.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1432/lesson/1/module/155
+
+5) Is it possible to get the logs back from a dead or evicted pod? If so, how?
+
+Incorrect
+
+Correct answer
+Yes, add the --previous flag to the kubectl logs command.
+
+Explanation
+To grab the last logs, just add --previous!
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1432/lesson/1/module/155
+
+6) What's an easy command to check the health and status of your cluster?
+
+Correct
+
+Correct answer
+kubectl get nodes
+
+Explanation
+Kubectl get nods will show you at a glance which of your nodes are ready and which might be having troubles. It's a great first stop if you suspect trouble.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1434/lesson/1/module/155
+
+7) What's the recommended method for dealing with applications that insist on writing out logs to a file rather than being able to redirect them to stdout?
+
+Correct
+
+Correct answer
+Find a logging agent that can operate inside the pod and send the logs to a central file store or log aggregator.
+
+Explanation
+It's usually a fairly easy task to incorporate a logging handler and central location for log files within the cluster.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1434/lesson/1/module/155
+
+8) Which log command will show you just the final 8 lines of stdout for a pod?
+
+Correct
+
+Correct answer
+kubectl logs --tail=8
+
+Explanation
+Two hyphens and an equal, unless you want exactly ten lines, then it's just kubectl logs --tail
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1434/lesson/1/module/155
+
+9) Starting with Kubernetes 1.8, there is a new metrics API. This can be accessed directly from the command line with which command?
+
+Incorrect
+
+Correct answer
+kubectl top [nodes | pods]
+
+Explanation
+kubectl top, along with the object you'd like to watch, gives some in-depth information right on the command line. Who needs a GUI?
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1432/lesson/1/module/155
+
+10) Which command will give you stdout of a pod called "to-the-screen"?
+
+Correct
+
+Correct answer
+kubectl logs to-the-screen
+
+Explanation
+kube logs is the fastest way to get stdout and the recommended, standard way to configure your applications in containers to handle their logs.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1434/lesson/1/module/155
