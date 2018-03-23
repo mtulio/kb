@@ -389,6 +389,45 @@ kubectl taint node myserver.mtulio.net node-role.kubernets.io=master:NoSchedule
 
 ```
 
+### Self-Healing Applications
+
+In this hands-on lesson we'll show you how applications in Kubernetes are self-healing because of the way Kubernetes constantly monitors the cluster and compares it with the specifications.
+
+
+* HandsOn Commands
+
+```bash
+kubectl get deployments
+kubectl get pods
+# delete the pods to check self healing - creating new one pod by k8s
+kubectl delete pod nginx-deplooyment-53495345354-gzda31
+
+# 
+kubectl describe pod nginx-deployment
+
+#> shutdown one node
+# show nodes down
+kubectl get nodes
+
+kubectl get deployments
+kubectl get pods
+
+kubectl describe deployment nginx-deployment
+
+kubect get pods
+
+kubectl describe pod nginx-deploy-ments
+#> Check tolerations
+
+kubectl get pods
+
+kubectl get deployments
+
+kubectl get nodes
+
+
+```
+
 
 # Kops
 
