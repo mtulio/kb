@@ -11,6 +11,7 @@ Exercises from courses
 * Deployments - Rollout
 * Setting Container Environment Variables
 * Scaling Practice
+* Label ALL THE THINGS!
 
 ## Run a Job
  
@@ -362,3 +363,53 @@ spec:
 2. Execute the command: `kubectl -f apply nginx-deployment `
 
 Performing the edit in the YAML is the preferred one, as it keeps the YAML on disk in sync with the state of the cluster.
+
+
+## Label ALL THE THINGS!
+
+
+* **Description**
+
+Putting labels on objects in Kubernetes allow you to identify and select objects in as wide or granular style as you like.
+
+1. Label each of your nodes with a "color" tag. The master should be black; node 2 should be red; node 3 should be green and node 4 should be blue.
+2. If you have pods already running in your cluster in the default namespace, label them with the key/value pair running=beforeLabels.
+3. Create a new alpine deployment that sleeps for one minute and is then restarted from a yaml file that you write that labels these container with the key/value pair running=afterLabels.
+4. List all running pods in the default namespace that have the key/value pair running=beforeLabels.
+5. Label all pods in the default namespace with the key/value pair tier=linuxAcademyCloud.
+6. List all pods in the default namespace with the key/value pair running=afterLabels and tier=linuxAcademyCloud.
+
+* **Answers**
+
+1.
+
+* `kubectl label node node1-name color=black` for the master.
+* `kubectl label node node2-name color=red` for node 2.
+* `kubectl label node node3-name color=green` for node 3.
+* `kubectl label node node4-name color=blue` for node 4.
+
+2. `kubectl label pods -n default running=beforeLabels --all`
+
+3. create `alpine-label.yaml`:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: alpine
+  namespace: default
+  labels:
+    running: afterLabels
+spec:
+  containers:
+  - name: alpine
+    image: alpine
+    command:
+      - sleep
+      - "60"
+  restartPolicy: Always
+```
+
+4. `kubectl get pods -l running=beforeLabels -n default`
+5. `kubectl label pods --all -n default tier=linuxAcademyCloud`
+6. `kubectl get pods -l running=afterLabels -l tier=linuxAcademyCloud`
