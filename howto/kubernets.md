@@ -356,6 +356,19 @@ kubectl get pods
 kubectl describe pod -l test=sure
 ```
 
+### DaemonSets
+
+In this hands-on lesson, we'll take a closer look at a DaemonSet already running on your cluster and discuss their use cases.
+
+* HandsOn Commands
+
+```bash
+kubectl get daemonsets -n kube-system #namespace kube-system
+
+# get info about flannel CNI
+kubectl describe daemonset kube-flannel-ds -n kube-system
+
+```
 
 
 
