@@ -9,6 +9,7 @@ Exercises from courses
 * Create the service
 * Explore the Sandbox
 * Deployments - Rollout
+* Setting Container Environment Variables
 
 ## Run a Job
  
@@ -240,3 +241,57 @@ Or, you could:
 5. Same as above. Don't forget you can watch the status of the rollout with the command `kubectl rollout status deployment nginx-deployment`.
 
 6. `kubectl rollout undo deployment nginx-deployment` will undo the previous rollout, or if you want to go to a specific point in history, you can view the history with `kubectl rollout history deployment nginx-deployment` and roll back to a specific state with `kubectl rollout history deployment nginx-deployment --revision=x`.
+
+## Setting Container Environment Variables
+
+* **Description**
+
+1. Write yaml for a job that will run the busybox image and will print out its environment variables and shut down.
+2. Add the following environment variables to the pod definition:
+```
+STUDENT_NAME="Your Name"
+SCHOOL="Linux Academy"
+KUBERNETES="is awesome"
+```
+3. Run the job.
+4. Verify that the environment variables were added.
+
+* **Answer**
+
+1. There are lots of possibilities, but here is what I came up with:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: env-dump
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    command:
+      - env
+```
+2. Change the yaml to something like this:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: env-dump
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    command:
+      - env
+    env:
+    - name: STUDENT_NAME
+      value: "Your Name"
+    - name: SCHOOL
+      value: "Linux Academy"
+    - name: KUBERNETES
+      value: "is awesome"
+```
+3. kubectl create -f env-dump.yaml and wait for the pod to return the status of "Completed."
+4. kubectl logs env-dump will show all the environment variables.
