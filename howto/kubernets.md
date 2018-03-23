@@ -1,4 +1,4 @@
-# kubernets
+# kubernetes
 
 Core annotations and handson based mainly on Kubernet courses.
 
@@ -505,11 +505,31 @@ kubectl get nodes
 
 # and repeast to another nodes
 
-
-
 ```
 
+### Lecture: Upgrading the Underlying Operating System(s)
 
+
+In this hands-on lesson, we'll discuss how to take any node completely out of commission for hardware or software maintenance, and also how to add nodes to an existing cluster... Even when you might not still have that "join" command handy...
+
+
+* HandsOn Commands
+
+```bash
+kubectl drain myserver02.mtulio.net --ignore-damonsets
+kubectl get nodes
+
+kubectl delete node myserver02.mtulio.net
+
+#  regenerate the token to nodes join to the cluster
+sudo kubeadm token list
+sudo kubeadm token generate
+sudo kubeadmin token create <TOKEN> --ttl 3h
+
+sudo <command returned to the last one>
+kubectl get nodes
+
+```
 
 
 # Kops
