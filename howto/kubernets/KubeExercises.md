@@ -16,6 +16,7 @@ Exercises from courses
 * Replication Controllers, Replica Sets, and Deployments
 * Label a Node & Schedule a Pod
 * Multiple Schedulers
+* View The Logs
 
 
 ## Run a Job
@@ -639,3 +640,40 @@ spec:
         ports:
         - containerPort: 80
 ```
+
+## View The Logs
+
+* **Description**
+
+Create this object in your cluster:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: counter
+  labels:
+    demo: logger
+spec:
+  containers:
+  - name: count
+    image: busybox
+    args: [/bin/sh, -c, 'i=0; while true; do echo "$i: $(date)"; i=$((i+1)); sleep 3; done']
+```
+This is a small container which wakes up every three seconds and logs the date and a count to stdout.
+
+1. View the current logs of the counter.
+2. Allow the container to run for a few minutes while viewing the log interactively.
+3. Have the command only print the last 10 lines of the log.
+4. Look at the logs for the scheduler. Have there been any problems lately that you can see?
+5. Kubernetes uses etcd for its key-value store. Take a look at its logs and see if it has had any problems lately.
+6. Kubernetes API server also runs as a pod in the cluster. Find and examine its logs.
+
+* **Answers**
+
+1. `kubectl logs counter`
+2. `kubectl logs counter -f`
+3. `kubectl logs counter --tail=10` or, since `--tail` defaults to 10, just `kubectl logs counter --tail`
+4. This question really wants to know if you can find the logs for the scheduler. They're in the master in the `/var/log/containers` directory. There, a symlink has been create to the appropriate container's log file, and the symlink will have a name that begins with "kube-scheduler-" These logs belong to root, so you will have to sudo to view them.
+5. The etcd logs are in the same directory as the logs for the previous question, only the name of the symlink begins with "etcd-", and also belongs to root.
+6. The API server also lives in the same directory and begins with "kube-apiserver-", and also belongs to root.
