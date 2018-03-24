@@ -18,6 +18,8 @@ Exercises from courses
 * Multiple Schedulers
 * View The Logs
 * Maintenance on Node 3!
+* Cluster DNS & Service Discovery
+
 
 
 ## Run a Job
@@ -727,4 +729,67 @@ spec:
 4.`kubectl uncordon node3-name` will allow the scheduler to once again allow pods to be scheduled on the node.
 
 5. No, the uncordon only affects pods being scheduled and won't move any back unless other nodes are experiencing MemoryPressure or DiskPressure.
+
+
+## Cluster DNS & Service Discovery
+
+* **Description**
+
+In a Kubernetes cluster, services discover one another through the Cluster DNS.  Names of services resolve to their ClusterIP, allowing application developers to only know the name of the service deployed in the cluster and not have to figure out how to get all the right IP addresses into the right containers at deploy time.
+
+Here is yaml for a deployment:
+```yaml
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: bit-of-nothing
+spec:
+  selector:
+    matchLabels:
+      app: pause
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: pause
+    spec:
+      containers:
+      - name: bitty
+        image: k8s.gcr.io/pause:2.0
+```
+
+Create this file and name it `bit-of-nothing.yaml`.
+
+1. Run the deployment and verify that the pods have started.
+
+2. Start a busybox pod you can use to check DNS resolution (you can use my yaml, below, if you like, but it's good practice to write your own!)
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox
+  namespace: default
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    command:
+      - sleep
+      - "3600"
+    imagePullPolicy: IfNotPresent
+  restartPolicy: Always
+```
+
+3. Check to see whether or not bit-of-nothing is currently being resolved in the cluster via your busybox container.
+4. Expose the bit-of-nothing deployment as a ClusterIP service.
+5. Verify that "bit-of-nothing" is now being resolved to an IP address in your cluster.
+
+* **Answers**
+
+1. `kubectl create -f bit-of-nothing.yaml` At this point, this command should be second nature to you, unless you're doing a lot of skipping around.
+2. `kubectl create -f busybox.yaml`
+3. `kubectl exec -it busybox -- nslookup bit-of-nothing` should error out with not found.
+4. `kubectl expose deployment bit-of-nothing --type=ClusterIP --port 80`
+5. `kubectl exec -it busybox -- nslookup bit-of-nothing` should return an IP address after a few moments.
 
