@@ -8,6 +8,7 @@ This is FAQ from Quizes and courses
 * [Installation, Configuration and Validation](#installation-configuration-and-validation)
 * Application Lifecycle Management
 * Scheduling
+* Networking
 
 
 ## Core Concepts
@@ -1314,3 +1315,247 @@ kube logs is the fastest way to get stdout and the recommended, standard way to 
 
 Further Reading
 https://linuxacademy.com/cp/courses/lesson/course/1434/lesson/1/module/155
+
+# Quiz: Networking
+
+Question 1 of 10
+
+Ingress is fairly new to the Kubernetes stack. What version number was the first one to include it?
+
+Choose the correct answer:
+1.8
+1.1
+1.5
+1.0
+
+Question 2 of 10
+
+What is required to specify a service type of "LoadBalancer"?
+
+Choose the correct answer:
+A cloud provider that supports Kubernetes-provisioned load balancers.
+Three or more pods in a deployment.
+A pod to check the health of the other pods.
+Nothing -- it's built in.
+
+Question 3 of 10
+
+Think about the YAML for a network policy. If you had to create one, what is the pattern?
+
+Choose the correct answer:
+Preamble, podSelector, hosts, ingress rules, egress rules
+Preamble, host, podSelector, ingress, and/or egress rules
+Preamble, podSelector, ingress, and/or egress rules
+Preamble, ingress rules, host(s), egress rules, host(s)
+
+
+Question 4 of 10
+
+When a service type of "ClusterIP" is used, what is the result?
+
+Choose the correct answer:
+An IP address in a specialized bridge network that links the external network to the internal cluster network.
+A port on the node where the pod resides, usually above 30000.
+A single IP address within the cluster that redirects traffic to a pod (possibly on a different node) serving the application (the pod).
+An single IP address external to the cluster that is drawn from a pool of available public addresses.
+
+Question 5 of 10
+
+What handles inter-pod communication?
+
+Choose the correct answer:
+Host networking
+VLANs
+GRE tunnels
+The CNI
+
+Question 6 of 10
+
+What is an Ingress as it relates to Kubernetes?
+
+Choose the correct answer:
+A method of routing control-plane instructions to the master node.
+An API object that manages external access to the services in a cluster, usually HTTP.
+An API object that creates a services load balancer to access services in the cluster from alternate nodes.
+A port on the master where containers are mapped to pods.
+
+Question 7 of 10
+
+For a user to be able to request an Ingress resource, what must the cluster have?
+
+Choose the correct answer:
+A DaemonSet of redis for storing configuration information.
+A CNI that supports Ingress.
+An iSCSI volume to store configuration information.
+An Ingress controller compatible with available and appropriate service providers like load balancers.
+
+Question 8 of 10
+
+
+What determines how a set of pods are allowed communicate with one another and other network endpoints?
+
+Choose the correct answer:
+Network Policies
+PVCs
+Ingress
+RBACs
+
+Question 9 of 10
+
+
+If a service called "web-head" is exposed in the default namespace, then other pods can resolve it using all of these hostnames except which?
+
+Choose the correct answer:
+web-head.default
+web-head
+All of these will resolve properly.
+web-head.local
+
+Question 10 of 10
+
+If an Ingress request is made with no associated rules, what happens?
+
+Choose the correct answer:
+All traffic is forbidden in the namespace except to the named host.
+All traffic is forbidden in the namespace.
+All traffic is sent to a single host.
+The request fails and no Ingress is created. Rules are required.
+
+### Result
+
+
+FAIL
+
+
+IMPORTANT: TO INCREASE YOUR CHANCES OF SUCCESS, DO NOT ONLY REVIEW THE CORRECT ANSWERS, BUT GO BACK TO THE COURSE MATERIALS TO ENSURE A COMPLETE UNDERSTANDING OF THE TOPIC.
+
+1) Ingress is fairly new to the Kubernetes stack. What version number was the first one to include it?
+
+Correct
+
+Correct answer
+1.1
+
+Explanation
+v1.1 of Kubernetes included the Ingress API object and it's been constantly improved and increasingly used ever since.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1443/lesson/1/module/155
+
+2) What is required to specify a service type of "LoadBalancer"?
+
+Incorrect
+
+Correct answer
+A cloud provider that supports Kubernetes-provisioned load balancers.
+
+Explanation
+The "LoadBalancer" service type only works on cloud providers that support it. Minikube will also allow it but does not create a full, production-quality load balancer.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1441/lesson/1/module/155
+
+3) Think about the YAML for a network policy. If you had to create one, what is the pattern?
+
+Incorrect
+
+Correct answer
+Preamble, podSelector, ingress, and/or egress rules
+
+Explanation
+Preamble contains apiVersion, Kind, and Metadata; then comes the podSelector to determine which pods this policy oversees; and, finally, the rules.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1441/lesson/1/module/155
+
+4) When a service type of "ClusterIP" is used, what is the result?
+
+Incorrect
+
+Correct answer
+A single IP address within the cluster that redirects traffic to a pod (possibly on a different node) serving the application (the pod).
+
+Explanation
+ClusterIP is most commonly used with third-party load balancers.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1439/lesson/1/module/155
+
+5) What handles inter-pod communication?
+
+Correct
+
+Correct answer
+The CNI
+
+Explanation
+The CNI (Container Network Interface) allows pods to communicate with one another within a cluster regardless of which node they are on.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1439/lesson/1/module/155
+
+6) What is an Ingress as it relates to Kubernetes?
+
+Correct
+
+Correct answer
+An API object that manages external access to the services in a cluster, usually HTTP.
+
+Explanation
+A fairly new concept in Kubernetes, an Ingress allows us to abstract away the implementation details of routes into the cluster, such as Load Balancers.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1443/lesson/1/module/155
+
+7) For a user to be able to request an Ingress resource, what must the cluster have?
+
+Correct
+
+Correct answer
+An Ingress controller compatible with available and appropriate service providers like load balancers.
+
+Explanation
+With Kubernetes, the general rule of thumb is that YAML requests will return successfully, but if there is no service to fulfill it then the request will have no effect.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1443/lesson/1/module/155
+
+8) What determines how a set of pods are allowed communicate with one another and other network endpoints?
+
+Correct
+
+Correct answer
+Network Policies
+
+Explanation
+Network policies determine what traffic gets into and out of a pod. The CNI must support them, though, but most of them do.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1443/lesson/1/module/155
+
+9) If a service called "web-head" is exposed in the default namespace, then other pods can resolve it using all of these hostnames except which?
+
+Incorrect
+
+Correct answer
+web-head.local
+
+Explanation
+The .local won't work!
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1444/lesson/1/module/155
+
+10) If an Ingress request is made with no associated rules, what happens?
+
+Incorrect
+
+Correct answer
+All traffic is sent to a single host.
+
+Explanation
+This is a useful way of setting up common error pages, such as the location of a unified 404 page.
+
+Further Reading
+https://linuxacademy.com/cp/courses/lesson/course/1443/lesson/1/module/155
+
