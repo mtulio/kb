@@ -531,6 +531,103 @@ kubectl get nodes
 
 ```
 
+## Networking
+
+### Lecture: Node Networking Configuration
+
+In this brief lesson, we'll review the port requirements for nodes in Kubernetes.
+
+
+### Lecture: Service Networking
+
+Sure, all this is interesting, but how do we actually use the applications on the pods being controlled by deployments?  Services!  In this hands-on lesson, we'll look at exposing the services contained in our cluster to the outside world.
+
+* HandsOn Commands
+
+```bash
+kubectl get pods -o wide
+
+kubectl get deployments
+
+# Exposing deployments outside the cluster
+kubectl expose deployments webhead --type="NodePort" --port 80
+kubectl get services
+curl localhost:32516
+kubectl get pods -o wide
+
+# Kube proxy redirect requests to the node
+
+```
+
+### Lecture: Ingress
+
+In this lesson, we'll discuss a newer Kubernetes concept:  Ingress.
+
+* HandsOn commands
+
+```bash
+kubectl create -f filename
+kunectl get ing
+```
+
+### Lecture: Deploying a Load Balancer
+
+In this brief hands-on lesson, we'll take a look at the yaml for creating a service load balancer on supporting cloud providers.
+
+* HandsOn
+
+`service-lb.yaml`
+```yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: la-lb-service
+spec:
+  selector:
+    app: la-lb
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+  clusterIP: 10.0.171.223
+  loadBalancerIP: 78.12.23.17
+  type: LoadBalancer
+```
+
+### Lecture: Configure & Use Cluster DNS
+
+In this hands-on lesson, we'll examine Cluster DNS closely.
+
+* HandsOn
+
+```bash
+kubectl get pods -n kube-system
+kubectl get pods
+kubectl get services
+kubectl exec -it busybox -- nslookup kubernetes.default
+kubectl exec -it busybox -- nslookup webhead
+kubectl get deployments
+kubectl expose deployments dns-target
+kubectl exec -it busybox -- nslookup dns-target
+
+# tshoot
+kubectl exec -it busyvox -- cat /etc/resolv.conf
+kubectl get pods -n kube-system
+
+kubectl logs -n kube-system $(kubectl get pods -n kube-system -l k8s-app=kube-dns -o name) -c kubedns
+kubectl logs -n kube-system $(kubectl get pods -n kube-system -l k8s-app=kube-dns -o name) -c dnsmasq
+kubectl logs -n kube-system $(kubectl get pods -n kube-system -l k8s-app=kube-dns -o name) -c sidecar
+kubectl get svc -n kube-system
+kubectl get endpoints kube-dns -n kube-system
+```
+
+
+
+
+# Automation
+
+* Ansible K8s modules: https://github.com/ansible/ansible-kubernetes-modules
+
 
 # Kops
 
