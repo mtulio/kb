@@ -621,6 +621,24 @@ kubectl get svc -n kube-system
 kubectl get endpoints kube-dns -n kube-system
 ```
 
+### Lecture: Container Network Interface (CNI)
+
+In this lesson, we'll discuss the CNI:  what it is, what it's for, and some of the choices are.
+
+Check out CNI network plugins options:
+* Flannel: L3 focused
+* Calico: policy enforcement
+* Cilium
+* Contiv
+* Contail: used by Mesos, OpenShiftt
+* Multus: 
+* NSX-T
+* Nuage Networks VCS
+* OpenVSwitch: overlay to provide simple network policies; 
+* OVN: OpenSource Virtualization Networking; stateful, LB, OVSw Fan :P
+* Romana: 
+* Weave Net:
+* CNI-Genie: 
 
 
 
