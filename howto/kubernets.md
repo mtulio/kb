@@ -670,6 +670,14 @@ We continue our discussion of volume types and also discuss mount propagation.
   * projected
   * secret: mounted in tmpfs, **never written**
 
+### Lecture: Volumes & Their Access Modes
+
+In this lesson, we'll discuss the relationship between PersistentVolumes and PersistentVolumeClaims as well as access modes for storage in Kubernetes.
+
+* Annotations:
+  * PersistentVolume (PV)
+  * Persistent Volume Claim (PVC)
+
 
 # Automation
 
