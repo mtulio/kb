@@ -641,6 +641,35 @@ Check out CNI network plugins options:
 * CNI-Genie: 
 
 
+## Storage
+
+### Lecture: Persistent Volumes, Part 1
+
+Persistent Volume types come in a lot of different flavors.  We'll talk through them in this lesson.
+
+* Annotations
+  * awsElasticBlock
+  * cephFS
+  * csi
+  * dowardAPI: mounts a dir and writes data in plan text
+  * emptyDir
+  * fc
+  * gitRepo
+  * glusterfs: multiple read/write are allowed
+  * hostPath: mounts file or dir forom host node's FS to a pod
+  * 
+
+### Lecture: Persistent Volumes, Part 2
+
+We continue our discussion of volume types and also discuss mount propagation.
+
+* Annotations:
+  * local
+  * nfs
+  * persistentVolumeClaim
+  * projected
+  * secret: mounted in tmpfs, **never written**
+
 
 # Automation
 
