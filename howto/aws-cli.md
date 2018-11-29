@@ -15,6 +15,7 @@ aws ec2 describe-instances --filters "Name=tag:Name,Values=cache-master*" --quer
 * Modify termination protection for too instances
 
 > This is not recommended, but for massive maintanence sometimes we need to do this. For your own risk =)
+
 > Please have a look in `aws cli` documentation: https://docs.aws.amazon.com/cli/latest/reference/ec2/modify-instance-attribute.html
 
 ```
