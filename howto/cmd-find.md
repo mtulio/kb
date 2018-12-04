@@ -4,8 +4,12 @@
 
 * Find files older than 2 days:
 
-`find /path/to/files* -mtime +5`
+`find /path/to/files* -mtime +2`
 
-* Find and remove files older than 2 days:
+* Find and remove all files (including dirs) older than 2 days:
 
-`find /path/to/files* -mtime +5 -exec rm -rf {}\;`
+`find /path/to/files* -mtime +2 -exec rm -rf {}\;`
+
+* Find and remove all files (only) older than 2 days:
+
+`find /path/to/files* -mtime +2 -type f -exec rm -rf {}\;`
