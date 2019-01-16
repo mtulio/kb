@@ -83,4 +83,5 @@ You can check de state of an timer target, for example:
 
 * ["What is systemd?" by Linode](https://www.linode.com/docs/quick-answers/linux-essentials/what-is-systemd/)
 * ["Understanding and using systemd" by www.linux.com"](https://www.linux.com/learn/understanding-and-using-systemd)
+* [systemd wiki](https://www.freedesktop.org/wiki/Software/systemd/)
 
