@@ -19,6 +19,30 @@ Below is a simplified overview of the entire Linux boot and startup process:
 1. Once the kernel is set up, it begins the systemd initialization system.
 1. systemd takes over and continues to mount the host’s file systems and start services.
 
+# hostnamed
+
+> Most of info comes from [hostnamed wiki](https://www.freedesktop.org/wiki/Software/systemd/hostnamed/)
+
+This is a tiny daemon that can be used to control the host name and related machine meta data from user programs. It currently offers access to five variables:
+
+1. The current host name (Example: dhcp-192-168-47-11)
+1. The static (configured) host name (Example: lennarts-computer)
+1. The static (configured) host name (Example: lennarts-computer)
+The pretty host name (Example: Lennart's Computer)
+1. The static (configured) host name (Example: lennarts-computer)
+1. The static (configured) host name (Example: lennarts-computer)
+A suitable icon name for the local host (Example: computer-laptop)
+1. The static (configured) host name (Example: lennarts-computer)
+A chassis type (Example: "tablet")
+
+The daemon is accessible via D-Bus:
+
+> ***D-Bus (for "Desktop Bus"), a software bus, is an inter-process communication (IPC) and remote procedure call (RPC) mechanism that allows communication between multiple computer programs (that is, processes) concurrently running on the same machine.*** [D-Bus wiki](https://en.wikipedia.org/wiki/D-Bus)
+
+* Sample:
+
+`dbus introspect --system --dest org.freedesktop.hostname1 --object-path /org/freedesktop/hostname1`
+
 
 
 # Commands
