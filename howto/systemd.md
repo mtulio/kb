@@ -50,7 +50,6 @@ Below is a simplified overview of the entire Linux boot and startup process:
 $ systemctl status [name.service]
 # systemctl is-active [name.service]
 $ systemctl list-units --type service --all
-# systemd-analyze blame
 ```
 
 #### unit files
@@ -59,9 +58,26 @@ $ systemctl list-units --type service --all
 
 `systemctl list-unit-files --type=service`
 
-#### systemd-analyze blame
+## systemd-analyze blame
+
+> [Main docummentation page](https://www.freedesktop.org/software/systemd/man/systemd-analyze.html)
+### cheatset
+
+```bash
+$ systemd-analyze blame
+$ systemd-analyze verify [FILES...]
+```
+
+* `systemd-analyze blame`
 
 With `systemd-analyze blame` you cal to tshoot the targets bottlenecks on boot.
+
+* `systemd-analyze verify [FILES...]`
+
+You can check de state of an timer target, for example: 
+
+`$ systemd-analyze verify /etc/systemd/system/my-db-backup.timer`
+
 
 # External reference
 
