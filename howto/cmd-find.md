@@ -13,3 +13,7 @@
 * Find and remove all files (only) older than 2 days:
 
 `find /path/to/files* -mtime +2 -type f -exec rm -rf {}\;`
+
+* Find files bigger than 50M
+
+`find /tmp -type f -size +50M`
