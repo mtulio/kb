@@ -49,3 +49,34 @@ aws s3api put-object --bucket ${BUCKET_NAME} --key ${OBJECT_NAME} --body ${LOCAL
 * Authorize DNS resolution between VPC in different accounts
 
 > TODO
+
+## Beanstalk
+
+* List env var for an application
+
+1. export the env config using aws cli
+
+```bash
+aws --region sa-east-1 elasticbeanstalk describe-configuration-settings \
+  --application-name "MyApp" \
+  --environment myapp-env-prod \
+  |jq '.ConfigurationSettings[].OptionSettings' > app-env-vars.json
+```
+
+2. Use an simple python script to parse it. =D
+
+```python
+import json
+filename = 'app-env-vars.json'
+
+if filename:
+	with open(filename, 'r') as f:
+		datastore = json.load(f)
+
+for d in datastore:
+	if d["Namespace"] == "aws:elasticbeanstalk:application:environment":
+		print("{}={}".format(d["OptionName"], d["Value"]))
+
+```
+
+
