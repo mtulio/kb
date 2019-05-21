@@ -61,6 +61,21 @@ db.shutdownServer()
 rs.stepDown(300)
 ```
 
+### Cheat Sheet
+
+#### `currentOp`
+
+https://hackernoon.com/mongodb-currentop-18fe2f9dbd68
+
+#### `shutdown'
+
+> https://docs.mongodb.com/manual/tutorial/manage-mongodb-processes/#use-shutdownserver
+
+```bash
+use admin
+db.shutdownServer()
+```
+
 ### Shards
 
 * References
