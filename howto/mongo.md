@@ -45,6 +45,12 @@ rs.status()
 
 https://docs.mongodb.com/v3.2/tutorial/change-oplog-size/
 
+* Check collections config
+
+`mongos> db.getSiblingDB("config").collections.find();`
+
+`mongo --quiet --eval 'var c = db.getSiblingDB("config").collections.find(); c.forEach(printjsononeline)'`
+
 
 #### Shutdown
 
