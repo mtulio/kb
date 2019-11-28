@@ -13,7 +13,24 @@ for X in $(seq 0 16383); do \
 done
 ```
 
-* 
+## Keyspace
+
+* CRC16 calc
+
+```python
+In [1]: import crcmod
+In [4]: crc16_func = crcmod.mkCrcFun(0x18005)
+
+In [5]: crc16_func('123456789')
+Out[5]: 19255
+
+
+```
+
+
+http://crcmod.sourceforge.net/crcmod.html
+https://redis.io/topics/cluster-spec
+http://crcmod.sourceforge.net/crcmod.predefined.html
 
 ## Benchmark
 
