@@ -12,7 +12,7 @@
 aws ec2 describe-instances --filters "Name=tag:Name,Values=cache-master*" --query 'Reservations[*].Instances[*].[InstanceId,ImageId,Tags[?Key==`Name`].Value]'
 ```
 
-* Modify termination protection for too instances
+* Batch **Modify termination protection** (disable it)
 
 > This is not recommended, but for massive maintanence sometimes we need to do this. For your own risk =)
 
@@ -20,12 +20,21 @@ aws ec2 describe-instances --filters "Name=tag:Name,Values=cache-master*" --quer
 
 ```
 for i in $(aws ec2 describe-instances --filters "Name=tag:Name,Values=cache-bf2018*" --query 'Reservations[*].Instances[*].[InstanceId]'  |jq .[].[] |grep ^'"i-' |tr -d '"'); do \
-  aws ec2 modify-instance-attribute --instance-id $i --disable-api-termination; \
+  aws ec2 modify-instance-attribute --instance-id $i --no-disable-api-termination; \
 done
 ```
 
+* Batch **terminate** instances based on TAG
 
+> This is not recommended, but for massive maintanence sometimes we need to do this. For your own risk =)
 
+> Please have a look in `aws cli` documentation: https://docs.aws.amazon.com/cli/latest/reference/ec2/terminate-instances.html
+
+```
+for i in $(aws ec2 describe-instances --filters "Name=tag:Name,Values=cache-bf2018*" --query 'Reservations[*].Instances[*].[InstanceId]'  |jq .[].[] |grep ^'"i-' |tr -d '"'); do \
+  aws ec2 terminate-instances --instance-id $i; \
+done
+```
 
 ## S3
 
