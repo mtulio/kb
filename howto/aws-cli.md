@@ -20,7 +20,7 @@ aws ec2 describe-instances --filters "Name=tag:Name,Values=cache-master*" --quer
 
 ```
 for i in $(aws ec2 describe-instances --filters "Name=tag:Name,Values=cache-bf2018*" --query 'Reservations[*].Instances[*].[InstanceId]'  |jq .[].[] |grep ^'"i-' |tr -d '"'); do \
-  aws ec2 modify-instance-attribute --instance-id $i --no-disable-api-termination; \
+  echo "Running in Instance: $i"; aws ec2 modify-instance-attribute --instance-id $i --no-disable-api-termination; \
 done
 ```
 
@@ -32,7 +32,7 @@ done
 
 ```
 for i in $(aws ec2 describe-instances --filters "Name=tag:Name,Values=cache-bf2018*" --query 'Reservations[*].Instances[*].[InstanceId]'  |jq .[].[] |grep ^'"i-' |tr -d '"'); do \
-  aws ec2 terminate-instances --instance-id $i; \
+  echo "Running in Instance: $i"; aws ec2 terminate-instances --instance-id $i; \
 done
 ```
 
