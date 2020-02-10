@@ -92,6 +92,13 @@ SELECT * FROM INFORMATION_SCHEMA.PROCESSLIST WHERE COMMAND != 'Sleep';
 kill <ID>;
 ```
 
+* kill all queries
+
+```
+TODO
+```
+
+
 ## GUI
 
 ### phpMySQLADmin
