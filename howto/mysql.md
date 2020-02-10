@@ -69,3 +69,35 @@ select * from global_status where VARIABLE_NAME='OPENED_FILES';
 ```
 SELECT  table_schema as `Database`, table_name AS `Table`, round(((data_length + index_length) / 1024 / 1024), 2) `Size in MB` FROM information_schema.TABLES ORDER BY (data_length + index_length) DESC;
 ```
+
+* proccess running (queries)
+
+```
+show processlist;
+```
+
+```
+show full processlist;
+```
+
+* w/o sleeping queries
+
+```
+SELECT * FROM INFORMATION_SCHEMA.PROCESSLIST WHERE COMMAND != 'Sleep';
+```
+
+* Kill queries running:
+
+```
+kill <ID>;
+```
+
+## GUI
+
+### phpMySQLADmin
+
+- Docker: https://hub.docker.com/r/phpmyadmin/phpmyadmin/
+
+## References:
+
+- https://dev.mysql.com/doc/mysql-getting-started/en/
