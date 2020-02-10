@@ -2,6 +2,10 @@
 
 MySQL tips.
 
+## Connect
+
+`mysql -u root --host myserver.com -p`
+
 ## CRUD
 
 ### Create
