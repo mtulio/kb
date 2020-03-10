@@ -2,6 +2,8 @@
 
 MySQL tips.
 
+> More information you can found [here](https://www.tutorialspoint.com/mysql/mysql-drop-tables.htm)
+
 ## Connect
 
 `mysql -u root --host myserver.com -p`
@@ -20,7 +22,17 @@ UPDATE glpi_users SET password=MD5('new_pass') WHERE name='admin';
 
 ### Delete
 
+* Delete row
 
+```mysql
+DELETE FROM table_name [WHERE Clause]
+```
+
+* Drop table
+
+```mysql
+DROP TABLE table_name ;
+```
 
 ## Permissions
 
