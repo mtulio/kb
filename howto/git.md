@@ -32,5 +32,11 @@ Some useful commands.
 
 `git push origin master --tags`
 
+### Backking up
+
+#### Moving directory to new repo
+
+Refs:
+- https://help.github.com/en/github/using-git/splitting-a-subfolder-out-into-a-new-repository
 
 
