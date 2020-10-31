@@ -1,6 +1,4 @@
-# ansible
-
-* [Main ansible 'how-to'](https://github.com/mtulio/ansible-infra/blob/master/HOWTO.md)
+# Ansible
 
 ## Install
 
@@ -31,7 +29,7 @@ sudo pip3 install virtualenv
 python3 -m venv my-project/.venv
 ```
 
-- Enter in the project`s directory and enable the virtual environment
+- Enter in the project's directory and enable the virtual environment
 
 ```bash
 cd my-project && \
@@ -59,7 +57,7 @@ which pip
 pip3 install ansible
 ```
 
-2. requirements.txt file
+2. `requirements.txt` file
 
 requirements.txt content:
 ```bash
@@ -72,17 +70,17 @@ install
 pip3 install -r requirements
 ```
 
-### Docker
+### Container
 
-To use ansible in a docker, just use the same strategy of python virtual environment but in jail of container.
+To use ansible in a container, just use the same strategy of python virtual environment isolated.
 
 There is two ways:
-- install dependencies directly on Dockerfile, OR
-- create a requirements.txt file with it's dependencies (likely recommended)
+- install dependencies directly on `Dockerfile`, OR
+- create a `requirements.txt` file with it's dependencies (highly recommended)
 
-1. Create Dockerfile
+1. Create `Dockerfile`
 
-Create Dockerfile with requirements.txt file:
+a) Create `Dockerfile` with `requirements.txt` file:
 ```Dockerfile
 FROM centos:latest
 WORKDIR /ansible
@@ -92,13 +90,13 @@ RUN yum -y install python3-pip && \
 EXPOSE 80
 ```
 
-Leave all dependences inside Dockerfile:
+b) OR, leave all dependences inside `Dockerfile`:
 ```Dockerfile
 FROM centos:latest
 WORKDIR /ansible
 COPY requirements.txt .
 RUN yum -y install python3-pip && \
-    pip3 install -r requirements.txt
+    pip3 install ansible
 EXPOSE 80
 ```
 
@@ -114,3 +112,8 @@ sudo podman build -t ansible .
 ```bash
 sudo podman run -v $PWD:/ansible -it ansible ansible localhost -m ping
 ```
+
+## References
+
+* [Main ansible 'how-to'](https://github.com/mtulio/ansible-infra/blob/master/HOWTO.md)
+
