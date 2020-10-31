@@ -87,7 +87,6 @@ WORKDIR /ansible
 COPY requirements.txt .
 RUN yum -y install python3-pip && \
     pip3 install -r requirements.txt
-EXPOSE 80
 ```
 
 b) OR, leave all dependences inside `Dockerfile`:
@@ -97,7 +96,6 @@ WORKDIR /ansible
 COPY requirements.txt .
 RUN yum -y install python3-pip && \
     pip3 install ansible
-EXPOSE 80
 ```
 
 2. Build the image
