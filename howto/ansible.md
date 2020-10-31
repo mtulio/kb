@@ -105,7 +105,7 @@ sudo podman build -t ansible .
 ```
 
 
-3. Run the container
+3. Run the container w/ ad-hoc command `ping`
 
 ```bash
 sudo podman run -v $PWD:/ansible -it ansible ansible localhost -m ping
